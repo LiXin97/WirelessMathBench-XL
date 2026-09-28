@@ -133,9 +133,11 @@ GRPO-trained WirelessMathLM reference checkpoints (240 steps on the train split)
 | [WirelessMathLM-3B](https://huggingface.co/XINLI1997/WirelessMathLM-3B) | Qwen2.5-3B | 25.50 | 25.16 |
 | [WirelessMathLM-0.5B](https://huggingface.co/XINLI1997/WirelessMathLM-0.5B) | Qwen2.5-0.5B | 2.12 | 2.26 |
 | [WirelessMathLM-Qwen3-4B](https://huggingface.co/XINLI1997/WirelessMathLM-Qwen3-4B) | Qwen3-4B | – | – |
+| [Math12k-GRPO-Control-7B](https://huggingface.co/XINLI1997/Math12k-GRPO-Control-7B) (general-math control) | Qwen2.5-7B | 22.75 20.00 310 |  |
 
 Accuracy (%) under the paper's locked 2k-token protocol; the Qwen3-4B run is
-reported only as a training-time check (paper Tab. 7). These are release-split
+reported only as a training-time check (paper Tab. 7). The Math12k control is
+size- and step-matched GRPO on general math (paper §3.5). These are release-split
 learnability checks, not evidence of general reasoning.
 
 ## Citation
