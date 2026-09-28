@@ -4,7 +4,7 @@
 
 Xin Li, Mengbing Liu, Yiyang Zhu, Wenhe Zhang, Li Wei, Jiancheng An, Chau Yuen · Nanyang Technological University
 
-[Project page](https://lixin.ai/WirelessMathBench-XL/) · [OpenReview](https://openreview.net/forum?id=KbbNUVldqT) · [Dataset (Hugging Face)](https://huggingface.co/datasets/XINLI1997/WirelessMATHBench-XL) · [Models](https://huggingface.co/collections/XINLI1997/wirelessmathbench-xl-6aba22d1122ef418c33dd34c)
+[Project page](https://lixin.ai/WirelessMathBench-XL/) · [arXiv](https://arxiv.org/abs/2509.23219) · [OpenReview](https://openreview.net/forum?id=KbbNUVldqT) · [Dataset (Hugging Face)](https://huggingface.co/datasets/XINLI1997/WirelessMATHBench-XL) · [Models](https://huggingface.co/collections/XINLI1997/wirelessmathbench-xl-6aba22d1122ef418c33dd34c)
 
 WirelessMathBench-XL contains 4,027 wireless-math problems in three formats
 (multiple choice, progressive fill-in at 25/50/75% masking, and full equation
