@@ -1,0 +1,843 @@
+{
+ "source": "Verbatim records from problems_cc_by.jsonl (WirelessMathBench-XL v1.1 release; released under CC BY 4.0). Credit: the arXiv paper given by paper_id. 'id' = released problem_id. Keys starting with '_' are page-internal helpers, not released fields (_answer_parts = the \\boxed{} contents of correct_answer, used only to typeset the answer into the equation).",
+ "problems": [
+  {
+   "id": "16130",
+   "paper_id": "2411.02757v1",
+   "type": "MCQ",
+   "split": "test",
+   "background": "In the UAV-GBS communication link, the real-time data rate depends on the elevation angle and distance. Here, $R_{g_m}(t)$ is the communication rate from the UAV to the $m$-th GBS at time $t$ (in bps), $\\theta_{g_m}(t)$ is the elevation angle (in degrees), $d_{g_m}(t)$ is the distance (in meters), $P(t)$ is the UAV's transmission power (in watts), $H$ is the bandwidth (in Hz). The model uses environment-dependent parameters $\\chi_1, \\chi_2, \\chi_3, \\chi_4$ (dimensionless, with $\\chi_1<0, \\chi_2>0, \\chi_4>0, \\chi_3+\\chi_4=1$), a normalized SNR parameter $\\hat{\\gamma}$ (dimensionless), and the path-loss exponent $\\alpha$ (dimensionless).",
+   "question_text": "Which expression completes the capacity component of the communication rate equation?",
+   "equation": "$$R_{g_m}(t) = \\left( \\chi_3 + \\frac{\\chi_4}{1 + e^{-(\\chi_1 + \\chi_2 \\theta_{g_m}(t))}} \\right) [MASK]$$",
+   "options": {
+    "A": "$H \\log_2 \\left(1 + \\frac{ P(t) }{ \\hat{\\gamma} (d_{g_m}(t))^{\\alpha} } \\right)$",
+    "B": "$H \\log_2 \\left(1 + \\frac{ \\hat{\\gamma} P(t) }{ (d_{g_m}(t))^{\\alpha} } \\right)$",
+    "C": "$\\log_2 \\left(1 + \\frac{ \\hat{\\gamma} H P(t) }{ (d_{g_m}(t))^{\\alpha} } \\right)$",
+    "D": "$H \\log_2 \\left(1 + \\hat{\\gamma} P(t) (d_{g_m}(t))^{\\alpha} \\right)$"
+   },
+   "correct_answer": "B",
+   "contamination": {
+    "hits_total": 0,
+    "docs_total": 0,
+    "in_S0": true,
+    "in_S1": true,
+    "matched_ngrams_capped": []
+   },
+   "source_license_class": "cc-by",
+   "record_license": "CC-BY-4.0",
+   "_answer_parts": null
+  },
+  {
+   "id": "10950",
+   "paper_id": "2207.11021v1",
+   "type": "MCQ",
+   "split": "train",
+   "background": "In a Terahertz (THz) communication system, the signal propagation is characterized by a unique combination of spreading loss and molecular absorption. The total path loss is a function of both the carrier frequency and the transmission distance. Here, $L_{\\text{total}}(f_c, d)$ represents the total path loss (in linear scale), $L_{\\text{spread}}(f_c, d)$ is the free-space spreading loss (in linear scale), $L_{\\text{abs}}(f_c, d)$ is the molecular absorption loss (in linear scale), $f_c > 300$ GHz is the carrier frequency (in Hz), $d > 0$ is the transmission distance (in meters), $c = 3 \\times 10^8$ m/s is the speed of light in vacuum, and $k(f_c, d) > 0$ is the molecular absorption coefficient (in m$^{-1}$), which is a complex function of frequency, distance, temperature, and pressure.",
+   "question_text": "Which expression correctly represents the total path loss for a THz link that should replace [MASK]?",
+   "equation": "$$L_{\\text{total}}(f_c, d) = [MASK]$$",
+   "options": {
+    "A": "$\\left(\\frac{4\\pi f_c d}{c}\\right)^2 \\cdot e^{k(f_c, d) \\cdot d}$",
+    "B": "$\\left(\\frac{4\\pi f_c d}{c}\\right)^2 + k(f_c, d) \\cdot d$",
+    "C": "$\\left(\\frac{4\\pi f_c d}{c}\\right)^2 + e^{k(f_c, d) \\cdot d}$",
+    "D": "$e^{\\left(\\frac{4\\pi f_c d}{c}\\right)^2 + k(f_c, d) \\cdot d}$"
+   },
+   "correct_answer": "C",
+   "contamination": {
+    "hits_total": 0,
+    "docs_total": 0,
+    "in_S0": true,
+    "in_S1": true,
+    "matched_ngrams_capped": []
+   },
+   "source_license_class": "cc-by",
+   "record_license": "CC-BY-4.0",
+   "_answer_parts": null
+  },
+  {
+   "id": "17375",
+   "paper_id": "2304.07813v1",
+   "type": "MCQ",
+   "split": "train",
+   "background": "In a Hybrid Automatic Repeat reQuest with Chase Combining (HARQ-CC) system, the receiver combines multiple transmissions of the same packet to improve reliability. The effective combined SINR $\\gamma_{i j}(t_j)$ is a dimensionless quantity that represents the total signal-to-interference-plus-noise ratio after maximal ratio combining (MRC) of $t_j$ transmission rounds for user $j$'s packet at user $i$'s receiver. Here, $\\gamma_{i j}^{(k)}$ is the SINR for the $k$-th transmission round, and $t_j$ is the current number of transmission rounds attempted for the packet intended for user $j$.",
+   "question_text": "How is the combined SINR calculated after $t_j$ transmission rounds using Chase Combining?",
+   "equation": "$$\\gamma_{i j}(t_j) = [MASK]$$",
+   "options": {
+    "A": "$\\sum_{k=1}^{t_j} \\gamma_{i j}^{(k)}$",
+    "B": "$\\prod_{k=1}^{t_j} (1 + \\gamma_{i j}^{(k)}) - 1$",
+    "C": "$\\max_{k=1,...,t_j} \\gamma_{i j}^{(k)}$",
+    "D": "$\\frac{1}{t_j} \\sum_{k=1}^{t_j} \\gamma_{i j}^{(k)}$"
+   },
+   "correct_answer": "A",
+   "contamination": {
+    "hits_total": 0,
+    "docs_total": 0,
+    "in_S0": true,
+    "in_S1": true,
+    "matched_ngrams_capped": []
+   },
+   "source_license_class": "cc0",
+   "record_license": "CC-BY-4.0",
+   "_answer_parts": null
+  },
+  {
+   "id": "15790",
+   "paper_id": "2210.05055v3",
+   "type": "MCQ",
+   "split": "train",
+   "background": "In a scalable Cell-Free massive MIMO system with hybrid analog-digital Access Points (APs), the effective channel is the composite channel after analog beamforming. Here, $\\boldsymbol{g}_{m,k} \\in \\mathbb{C}^{L \\times 1}$ is the effective channel vector from user $k$ to the RF chains of AP $m$, where $L$ is the number of RF chains per AP. $\\boldsymbol{W}_m \\in \\mathbb{C}^{N \\times L}$ is the analog beamforming matrix at AP $m$ with constant modulus entries $|(\\boldsymbol{W}_m)_{n,l}| = 1/\\sqrt{N}$, $N$ is the number of antennas per AP, and $\\boldsymbol{h}_{m,k} \\in \\mathbb{C}^{N \\times 1}$ is the physical Rayleigh fading channel vector between the $N$ antennas of AP $m$ and user $k$.",
+   "question_text": "Which expression correctly defines the effective channel vector $\\boldsymbol{g}_{m,k}$ that should replace [MASK]?",
+   "equation": "$$\\boldsymbol{g}_{m,k} = [MASK]$$",
+   "options": {
+    "A": "$\\boldsymbol{W}_m \\boldsymbol{h}_{m,k}$",
+    "B": "$\\boldsymbol{W}_m^* \\boldsymbol{h}_{m,k}$",
+    "C": "$\\boldsymbol{h}_{m,k}^* \\boldsymbol{W}_m$",
+    "D": "$\\boldsymbol{h}_{m,k} \\boldsymbol{W}_m^*$"
+   },
+   "correct_answer": "B",
+   "contamination": {
+    "hits_total": 0,
+    "docs_total": 0,
+    "in_S0": true,
+    "in_S1": true,
+    "matched_ngrams_capped": []
+   },
+   "source_license_class": "cc-by",
+   "record_license": "CC-BY-4.0",
+   "_answer_parts": null
+  },
+  {
+   "id": "6410",
+   "paper_id": "2503.01741v1",
+   "type": "MCQ",
+   "split": "test",
+   "background": "The analog beamformer is implemented by a reconfigurable intelligent surface (RIS) with amplitude-only control. Here, $\\mathbf{W} \\in \\mathbb{C}^{M \\times R}$ is the holographic beamforming matrix, $\\mathbf{w} = [w_1, w_2, \\dots, w_M]^T$ is the vector of amplitude weights for the $M$ RIS elements where $0 \\leq w_m \\leq 1$ (unit: dimensionless), $\\mathrm{diag}(\\mathbf{w})$ forms a diagonal matrix from $\\mathbf{w}$, and $\\boldsymbol{\\Phi} \\in \\mathbb{C}^{M \\times R}$ is a fixed phase matrix determined by the reference wave propagation.",
+   "question_text": "Which expression correctly defines the structure of the holographic beamforming matrix?",
+   "equation": "$$\\mathbf{W} = [MASK]$$",
+   "options": {
+    "A": "$\\boldsymbol{\\Phi} \\mathrm{diag}(\\mathbf{w})$",
+    "B": "$\\mathrm{diag}(\\mathbf{w}) \\boldsymbol{\\Phi}$",
+    "C": "$\\mathbf{w} \\boldsymbol{\\Phi}$",
+    "D": "$\\boldsymbol{\\Phi} \\mathbf{w}^T$"
+   },
+   "correct_answer": "B",
+   "contamination": {
+    "hits_total": 0,
+    "docs_total": 0,
+    "in_S0": true,
+    "in_S1": true,
+    "matched_ngrams_capped": []
+   },
+   "source_license_class": "cc-by",
+   "record_license": "CC-BY-4.0",
+   "_answer_parts": null
+  },
+  {
+   "id": "3545",
+   "paper_id": "2103.09694v1",
+   "type": "MCQ",
+   "split": "test",
+   "background": "In a user-centric mmWave network with analog beamforming access points (APs), the channel from an AP to a single-antenna user is characterized by a clustered multipath model. The channel vector $\\boldsymbol{h} \\in \\mathbb{C}^{1 \\times M}$ represents the narrowband channel from an AP with $M$ antenna elements to the user, $K$ is the number of scattering clusters, $Q$ is the number of paths per cluster, $p_{k,q} \\in \\mathbb{C}$ is the complex path loss for the $q$-th path in the $k$-th cluster (dimensionless), $r_{k,q} \\in \\mathbb{C}$ is the small-scale fading gain for the $q$-th path in the $k$-th cluster (dimensionless), $\\boldsymbol{a}(\\theta_{k,q}, \\phi_{k,q}) \\in \\mathbb{C}^{1 \\times M}$ is the array response vector where $\\theta_{k,q}$ and $\\phi_{k,q}$ are the azimuth and elevation angles of arrival (in radians) for the $q$-th path in the $k$-th cluster.",
+   "question_text": "Which expression correctly represents the clustered mmWave channel model that should replace [MASK]?",
+   "equation": "$$\\boldsymbol{h} = [MASK]$$",
+   "options": {
+    "A": "$\\frac{1}{\\sqrt{K}} \\sum_{k=1}^{K} \\sum_{q=1}^{Q} p_{k,q} r_{k,q} \\boldsymbol{a}(\\theta_{k,q}, \\phi_{k,q})$",
+    "B": "$\\frac{1}{\\sqrt{Q}} \\sum_{k=1}^{K} \\sum_{q=1}^{Q} p_{k,q} r_{k,q} \\boldsymbol{a}(\\theta_{k,q}, \\phi_{k,q})$",
+    "C": "$\\frac{1}{\\sqrt{K}} \\sum_{k=1}^{K} \\sum_{q=1}^{Q} p_{k,q} \\boldsymbol{a}(\\theta_{k,q}, \\phi_{k,q})$",
+    "D": "$\\frac{1}{\\sqrt{Q}} \\sum_{q=1}^{Q} \\sum_{k=1}^{K} p_{k,q} r_{k,q} \\boldsymbol{a}(\\theta_{k,q}, \\phi_{k,q})$"
+   },
+   "correct_answer": "B",
+   "contamination": {
+    "hits_total": 3,
+    "docs_total": 1,
+    "in_S0": false,
+    "in_S1": true,
+    "matched_ngrams_capped": [
+     "a ( _ k,q , _ k,q ) c ^ 1 m is",
+     "( _ k,q , _ k,q ) c ^ 1 m is the",
+     "_ k,q and _ k,q are the azimuth and elevation angles of arrival"
+    ]
+   },
+   "source_license_class": "cc-by",
+   "record_license": "CC-BY-4.0",
+   "_answer_parts": null
+  },
+  {
+   "id": "12690",
+   "paper_id": "2403.07903v1",
+   "type": "MCQ",
+   "split": "train",
+   "background": "In an Over-the-Air (OTA) computing system, $K$ devices transmit their data simultaneously to a Fusion Center (FC) to compute a function, such as the arithmetic mean. The system performance is measured by the Mean Squared Error (MSE) between the estimated function at the FC and the desired function. Here, $\\mathrm{MSE}$ is the mean squared error (dimensionless), $\\mathbb{E}[\\cdot]$ denotes the expectation operator, $y$ is the received signal at the FC, $r = \\sum_{k=1}^{K} x_k$ is the desired arithmetic mean function, $a$ is a post-processing gain factor at the receiver (dimensionless), $b_k$ is a pre-processing (transmit) factor for device $k$ (dimensionless, $|b_k| \\le \\sqrt{P}$), $h_k$ is the channel gain for device $k$ (dimensionless), $\\sigma^{2}$ is the noise variance, and $x_k$ is the data from device $k$.",
+   "question_text": "Which term completes the MSE expression, representing the contribution of the noise at the receiver?",
+   "equation": "$$\\mathrm{MSE} = \\mathbb{E}[| y - r |^{2}] = \\sum_{k=1}^{K} | a b_k h_k - 1 |^{2} + [MASK]$$",
+   "options": {
+    "A": "$\\sigma^{2}$",
+    "B": "$a \\sigma^{2}$",
+    "C": "$\\sigma^{2} a$",
+    "D": "$\\sigma^{2} a^{2}$"
+   },
+   "correct_answer": "D",
+   "contamination": {
+    "hits_total": 0,
+    "docs_total": 0,
+    "in_S0": true,
+    "in_S1": true,
+    "matched_ngrams_capped": []
+   },
+   "source_license_class": "cc-by",
+   "record_license": "CC-BY-4.0",
+   "_answer_parts": null
+  },
+  {
+   "id": "9720",
+   "paper_id": "2308.13268v1",
+   "type": "MCQ",
+   "split": "train",
+   "background": "In a narrowband MISO channel model for a mmWave/THz system with a Uniform Planar Array (UPA), the channel matrix is represented as a sum of contributions from $L$ propagation paths. The channel matrix $\\boldsymbol{H} \\in \\mathbb{C}^{N \\times N}$ represents the wireless channel between the transmitter's $N$ antennas and a single-antenna receiver, where $N$ is the total number of antenna elements in the UPA. $\\beta_\\ell \\in \\mathbb{C}$ is the complex gain of the $\\ell$-th path (dimensionless), $\\omega_{a,\\ell} \\in [-\\pi, \\pi)$ and $\\omega_{e,\\ell} \\in [-\\pi, \\pi)$ are the beamspace angles (in radians) for the azimuth and elevation dimensions of the $\\ell$-th path, respectively. $\\mathbf{a}_N(\\omega) \\in \\mathbb{C}^{N \\times 1}$ is the array response Vandermonde vector for a given spatial frequency $\\omega$.",
+   "question_text": "Which expression correctly represents the physical channel model as a sum of $L$ paths?",
+   "equation": "$$\\mathbf{H} = [MASK]$$",
+   "options": {
+    "A": "$\\sum_{\\ell=1}^{L} \\beta_\\ell \\mathbf{a}_N(\\omega_{e,\\ell}) \\mathbf{a}_N^\\mathrm{T}(\\omega_{a,\\ell})$",
+    "B": "$\\sum_{\\ell=1}^{L} \\beta_\\ell \\mathbf{a}_N(\\omega_{a,\\ell}) \\mathbf{a}_N^\\mathrm{T}(\\omega_{e,\\ell})$",
+    "C": "$\\mathbf{a}_N(\\omega_{e,\\ell}) \\mathbf{a}_N^\\mathrm{T}(\\omega_{a,\\ell}) \\sum_{\\ell=1}^{L} \\beta_\\ell$",
+    "D": "$\\sum_{\\ell=1}^{L} \\beta_\\ell \\mathbf{a}_N^\\mathrm{T}(\\omega_{e,\\ell}) \\mathbf{a}_N(\\omega_{a,\\ell})$"
+   },
+   "correct_answer": "A",
+   "contamination": {
+    "hits_total": 0,
+    "docs_total": 0,
+    "in_S0": true,
+    "in_S1": true,
+    "matched_ngrams_capped": []
+   },
+   "source_license_class": "cc-by",
+   "record_license": "CC-BY-4.0",
+   "_answer_parts": null
+  },
+  {
+   "id": "10121",
+   "paper_id": "2309.08995v1",
+   "type": "fill_blank_25",
+   "split": "test",
+   "background": "In a VLC system where shot noise dominates thermal noise, the signal-to-noise ratio (SNR) is calculated from the electrical signal power and noise power, where $\\mathrm{SNR}$ represents the signal-to-noise ratio (in dB), $P_{Received}$ is the received optical power (in W), $R_p$ is the photodiode responsivity (0.6 A/W), $\\sigma_{Shot}^{2}$ is the shot noise variance (in A²), and the logarithm base 10 and factor of 10 convert the ratio to decibels.",
+   "question_text": "What noise variance term appears in the denominator?",
+   "equation": "$$\\mathrm{SNR} = 10 \\log_{10} \\frac{ (P_{Received} R_p)^{2} }{ [MASK] }$$",
+   "options": null,
+   "correct_answer": "\\boxed{\\sigma_{Shot}^{2}}",
+   "contamination": {
+    "hits_total": 0,
+    "docs_total": 0,
+    "in_S0": true,
+    "in_S1": true,
+    "matched_ngrams_capped": []
+   },
+   "source_license_class": "cc-by",
+   "record_license": "CC-BY-4.0",
+   "_answer_parts": [
+    "\\sigma_{Shot}^{2}"
+   ]
+  },
+  {
+   "id": "13036",
+   "paper_id": "2409.16811v1",
+   "type": "fill_blank_25",
+   "split": "train",
+   "background": "For Ultra-Reliable Low-Latency Communications (URLLC) in 6G, data is transmitted in short packets (finite blocklength). This affects the achievable rate and the decoding error probability. Here, $\\epsilon_{k,i}$ is the decoding error probability for user $k$ in network $i$ (dimensionless), $\\mathbb{E}_{\\gamma_{k,i}}[\\cdot]$ denotes expectation over the SINR distribution, $\\mathcal{Q}(\\cdot)$ is the Gaussian Q-function, $C_{k,i} = \\log_2(1 + \\gamma_{k,i})$ is the Shannon capacity (in bpcu), $R_{k,i}^*$ is the coding rate (in bpcu), $n$ is the blocklength (number of channel uses, dimensionless), and $V_{k,i} = 1 - (1 + \\gamma_{k,i})^{-2}$ is the channel dispersion (in bpcu²).",
+   "question_text": "What term, representing the channel dispersion, is under the square root in the denominator?",
+   "equation": "$$\\epsilon_{k,i} \\approx \\mathbb{E}_{\\gamma_{k,i}} \\left[ \\mathcal{Q} \\left( \\dfrac{ C_{k,i} - R_{k,i}^* }{ \\sqrt{[MASK]/n } } \\right) \\right]$$",
+   "options": null,
+   "correct_answer": "\\boxed{V_{k,i}}",
+   "contamination": {
+    "hits_total": 0,
+    "docs_total": 0,
+    "in_S0": true,
+    "in_S1": true,
+    "matched_ngrams_capped": []
+   },
+   "source_license_class": "cc-by",
+   "record_license": "CC-BY-4.0",
+   "_answer_parts": [
+    "V_{k,i}"
+   ]
+  },
+  {
+   "id": "4401",
+   "paper_id": "2312.04688v1",
+   "type": "fill_blank_25",
+   "split": "train",
+   "background": "In a wireless federated learning system employing over-the-air computation (AirComp), multiple clients simultaneously transmit their model updates over the same communication channel to improve efficiency. The received signal at the server is a superposition of these analog transmissions. Here, $y \\in \\mathbb{C}$ is the received complex baseband signal at the server, $h_k \\in \\mathbb{C}$ is the complex channel coefficient between client $k$ and the server (dimensionless), $\\boldsymbol{x}_k \\in \\mathbb{C}^d$ is the pre-processed model update signal transmitted by client $k$ (dimensionless), $z \\sim \\mathcal{CN}(0, \\sigma^2)$ is the additive white Gaussian noise at the receiver, and $\\hat{\\boldsymbol{g}} \\in \\mathbb{C}^d$ is the server's estimate of the desired aggregate signal (dimensionless).",
+   "question_text": "What client-specific parameter, representing the wireless channel, is missing from the summation in the denominator?",
+   "equation": "$$\\hat{\\boldsymbol{g}} = \\frac{y}{\\sum_{k=1}^K [MASK]}$$",
+   "options": null,
+   "correct_answer": "\\boxed{h_k}",
+   "contamination": {
+    "hits_total": 0,
+    "docs_total": 0,
+    "in_S0": true,
+    "in_S1": true,
+    "matched_ngrams_capped": []
+   },
+   "source_license_class": "cc-by",
+   "record_license": "CC-BY-4.0",
+   "_answer_parts": [
+    "h_k"
+   ]
+  },
+  {
+   "id": "9151",
+   "paper_id": "2408.13329v1",
+   "type": "fill_blank_25",
+   "split": "train",
+   "background": "The steering vector for a uniform planar array (UPA) models the phase shifts across antenna elements. For an $N$-element UPA, the steering vector $\\boldsymbol{a}_N(\\phi, \\psi) \\in \\mathbb{C}^{1 \\times N}$ is a function of the azimuth angle $\\phi$ and elevation angle $\\psi$ (both in radians). The array is decomposed into $N_1 \\times N_2$ elements ($N = N_1 N_2$). The normalized spatial frequencies are defined as $\\bar{\\phi} = \\sin(\\phi)\\cos(\\psi)$ and $\\bar{\\psi} = \\sin(\\psi)$ (both dimensionless). The position vectors are $\\boldsymbol{n}_1 = \\frac{d}{\\lambda}[0, 1, \\dots, N_1-1]$ and $\\boldsymbol{n}_2 = \\frac{d}{\\lambda}[0, 1, \\dots, N_2-1]$, where $d$ is the antenna spacing, often set to $\\lambda/2$.",
+   "question_text": "What is the mathematical operation that combines the phase vectors from the two UPA dimensions?",
+   "equation": "$$\\boldsymbol{a}_N(\\phi, \\psi) = \\frac{1}{\\sqrt{N}} e^{-j2\\pi\\bar{\\phi}\\boldsymbol{n}_1} [MASK] e^{-j2\\pi\\bar{\\psi}\\boldsymbol{n}_2}$$",
+   "options": null,
+   "correct_answer": "\\boxed{\\otimes}",
+   "contamination": {
+    "hits_total": 0,
+    "docs_total": 0,
+    "in_S0": true,
+    "in_S1": true,
+    "matched_ngrams_capped": []
+   },
+   "source_license_class": "cc-by",
+   "record_license": "CC-BY-4.0",
+   "_answer_parts": [
+    "\\otimes"
+   ]
+  },
+  {
+   "id": "5436",
+   "paper_id": "2501.15091v1",
+   "type": "fill_blank_25",
+   "split": "train",
+   "background": "In an IRS-assisted ISAC system, the channel between the base station (BS) and the intelligent reflecting surface (IRS) is modeled with Rician fading. The channel matrix $\\mathbf{G} \\in \\mathbb{C}^{N \\times M}$ characterizes this link, where $N$ is the number of IRS elements and $M$ is the number of BS antennas. The element in the $n$-th row and $m$-th column of this matrix, $g_{mn}$, represents the complex channel gain from the $m$-th BS antenna to the $n$-th IRS element. It is composed of a deterministic Line-of-Sight (LoS) component and a stochastic Non-LoS (NLoS) component. The NLoS component, $\\tilde{g}_{mn}^{\\mathrm{BI}}$, is a complex Gaussian random variable with zero mean and unit variance. The LoS component, $\\bar{g}_{mn}^{\\mathrm{BI}}$, depends on the distance $\\varepsilon_{A_{\\mathrm{B}}^{(m)} A_{\\mathrm{I}}^{(n)}}$ (in meters) between the antennas. The overall channel gain is also scaled by the wavelength $\\lambda$ (in meters) and the inverse of the distance.",
+   "question_text": "What is the symbol for the deterministic Line-of-Sight component of the channel?",
+   "equation": "$$g_{mn} = \\frac{\\lambda}{4\\pi \\varepsilon_{A_{\\mathrm{B}}^{(m)} A_{\\mathrm{I}}^{(n)}}} \\left( [MASK] + \\tilde{g}_{mn}^{\\mathrm{BI}} \\right)$$",
+   "options": null,
+   "correct_answer": "\\boxed{\\bar{g}_{mn}^{\\mathrm{BI}}}",
+   "contamination": {
+    "hits_total": 1,
+    "docs_total": 1,
+    "in_S0": false,
+    "in_S1": true,
+    "matched_ngrams_capped": [
+     "is a complex gaussian random variable with zero mean and unit variance. the"
+    ]
+   },
+   "source_license_class": "cc-by",
+   "record_license": "CC-BY-4.0",
+   "_answer_parts": [
+    "\\bar{g}_{mn}^{\\mathrm{BI}}"
+   ]
+  },
+  {
+   "id": "15962",
+   "paper_id": "2407.02342v1",
+   "type": "fill_blank_50",
+   "split": "test",
+   "background": "In wireless channel modeling for vehicular communications, the overall channel gain combines large-scale and small-scale fading effects. The channel gain $\\boldsymbol{g_{c_i}(t)}$ represents the combined channel effect from vehicle $i$ to the RSU at time $t$ (dimensionless), $\\boldsymbol{\\alpha_{c_i}(t)}$ is the large-scale fading component encompassing path loss and shadowing (in linear scale, dimensionless), and $\\boldsymbol{h_{c_i}(t)}$ is the small-scale fading component modeled as a complex Gaussian process (dimensionless).",
+   "question_text": "Fill in the two fading components that constitute the channel gain.",
+   "equation": "$$g_{c_i}(t) = [MASK] \\cdot [MASK]$$",
+   "options": null,
+   "correct_answer": "\\boxed{\\sqrt{\\alpha_{c_i}(t)}} and \\boxed{h_{c_i}(t)}",
+   "contamination": {
+    "hits_total": 0,
+    "docs_total": 0,
+    "in_S0": true,
+    "in_S1": true,
+    "matched_ngrams_capped": []
+   },
+   "source_license_class": "cc-by",
+   "record_license": "CC-BY-4.0",
+   "_answer_parts": [
+    "\\sqrt{\\alpha_{c_i}(t)}",
+    "h_{c_i}(t)"
+   ]
+  },
+  {
+   "id": "12472",
+   "paper_id": "2310.03969v1",
+   "type": "fill_blank_50",
+   "split": "train",
+   "background": "In the LEO satellite network modeled by a Poisson Point Process (PPP), the off-service period represents the time when no satellite is within the coverage dome of the terrestrial source node. The rate of these periods is derived from the satellite spatial density and geometry, where $\\lambda_{\\mathrm{os}}$ (in s$^{-1}$) is the rate parameter for the exponentially distributed off-service periods, $\\lambda$ (in km$^{-2}$) is the spatial density of satellites on a sphere of radius $R_\\oplus + h$, $\\omega$ (in rad/s) is the angular velocity of the source node's motion, $\\varphi_{\\mathrm{e}}$ (in rad) is the Earth-centered zenith angle defining the coverage dome, $R_\\oplus$ (in km) is the Earth's radius, and $h$ (in km) is the satellite altitude.",
+   "question_text": "Fill in the angular velocity variable and the geometric term involving Earth's radius and satellite altitude.",
+   "equation": "$$\\lambda_{\\mathrm{os}} = 2 [MASK] \\lambda \\sin(\\varphi_{\\mathrm{e}}) [MASK]$$",
+   "options": null,
+   "correct_answer": "\\boxed{\\omega} and \\boxed{(R_\\oplus + h)^2}",
+   "contamination": {
+    "hits_total": 0,
+    "docs_total": 0,
+    "in_S0": true,
+    "in_S1": true,
+    "matched_ngrams_capped": []
+   },
+   "source_license_class": "cc-by",
+   "record_license": "CC-BY-4.0",
+   "_answer_parts": [
+    "\\omega",
+    "(R_\\oplus + h)^2"
+   ]
+  },
+  {
+   "id": "4697",
+   "paper_id": "2508.06975v1",
+   "type": "fill_blank_50",
+   "split": "train",
+   "background": "In a multi-hop terahertz (THz) communication system, the signal-to-noise ratio (SNR) for a single link is derived from the physical propagation characteristics of the THz band. The received signal quality is affected by molecular absorption, path loss, and fading. In this equation, $\\mathrm{SNR}_{\\mathrm{THz}}$ is the signal-to-noise ratio for a THz link (dimensionless), $S_{\\mathrm{THz}}$ is the transmit power (in watts), $G_{\\mathrm{THz}}$ is the antenna gain (dimensionless, in dBi), $\\eta_{\\mathrm{THz}}$ is the mean additional loss (dimensionless, in dB), $\\beta_{\\mathrm{THz}}$ is the molecular absorption coefficient (in m$^{-1}$), $r$ is the transmission distance (in meters), $\\mathcal{X}_{\\mathrm{THz}}$ is the small-scale fading coefficient following an $\\alpha$-$\\mu$ distribution (dimensionless), and $\\sigma_{\\mathrm{THz}}^2$ is the environmental noise power (in watts).",
+   "question_text": "Fill in the mean additional loss factor and the path loss term.",
+   "equation": "$$\\mathrm{SNR}_{\\mathrm{THz}} = \\frac{S_{\\mathrm{THz}} G_{\\mathrm{THz}} [MASK] \\exp\\left(-\\beta_{\\mathrm{THz}} r\\right) \\mathcal{X}_{\\mathrm{THz}}}{\\sigma_{\\mathrm{THz}}^2 [MASK]}$$",
+   "options": null,
+   "correct_answer": "\\boxed{\\eta_{\\mathrm{THz}}} and \\boxed{r^2}",
+   "contamination": {
+    "hits_total": 0,
+    "docs_total": 0,
+    "in_S0": true,
+    "in_S1": true,
+    "matched_ngrams_capped": []
+   },
+   "source_license_class": "cc-by",
+   "record_license": "CC-BY-4.0",
+   "_answer_parts": [
+    "\\eta_{\\mathrm{THz}}",
+    "r^2"
+   ]
+  },
+  {
+   "id": "15817",
+   "paper_id": "2102.09527v2",
+   "type": "fill_blank_50",
+   "split": "train",
+   "background": "In the downlink of a millimeter-wave system, a user receives a transmitted symbol. The received signal model incorporates the effects of the wireless channel and analog beamforming, where $y_{u,k} \\in \\mathbb{C}$ is the received signal for user $u$ on subcarrier $k$ (units: volts, V), $\\mathbf{h}_{u,k} \\in \\mathbb{C}^{M \\times 1}$ is the channel vector from the $M$-antenna base station to the user (units: complex gain), $\\mathbf{f}_q \\in \\mathbb{C}^{M \\times 1}$ is the beamforming vector selected from codebook $\\mathcal{F}$ (dimensionless), $x \\in \\mathbb{C}$ is the transmitted data symbol (dimensionless, with $\\mathbb{E}[|x|^2] = P$ where $P$ is the transmit power in watts, W), and $n_k \\in \\mathbb{C}$ is the additive noise sample on subcarrier $k$, modeled as $n_k \\sim \\mathcal{N}_{\\mathbb{C}}(0, \\sigma^2)$ (units: volts, V).",
+   "question_text": "Fill in the two components representing the effective channel gain after beamforming.",
+   "equation": "$$y_{u,k} = [MASK] [MASK] x + n_k$$",
+   "options": null,
+   "correct_answer": "\\boxed{\\mathbf{h}_{u,k}^T} and \\boxed{\\mathbf{f}_q}",
+   "contamination": {
+    "hits_total": 0,
+    "docs_total": 0,
+    "in_S0": true,
+    "in_S1": true,
+    "matched_ngrams_capped": []
+   },
+   "source_license_class": "cc-by",
+   "record_license": "CC-BY-4.0",
+   "_answer_parts": [
+    "\\mathbf{h}_{u,k}^T",
+    "\\mathbf{f}_q"
+   ]
+  },
+  {
+   "id": "16992",
+   "paper_id": "2304.06988v1",
+   "type": "fill_blank_50",
+   "split": "test",
+   "background": "In a massive MIMO system, this equation models the energy dissipation for channel estimation. $Q_{CE}$ (in J) is the total energy, $B$ is the system bandwidth (in Hz), $U = T_c B_c$ is the coherence block (in s$\\cdot$Hz), $M$ is the number of base station antennas, $K$ is the number of users, $k$ is Boltzmann's constant, $T$ is temperature, $N$ is the number of transistors, and $Q_{CE}^R$ (in J) is the residual dissipation. The term $6 M K^2 + 2 M K (K - 1)$ represents the number of real floating-point operations per coherence block for MMSE estimation with orthogonal pilots.",
+   "question_text": "Fill in the coefficient that includes the bandwidth and coherence time.",
+   "equation": "$$Q_{CE} = [MASK]\\left(2 + \\log \\frac{3}{4}\\right) \\left[6 M K^2 + 2 M K (K - 1)\\right] k T N + Q_{CE}^R$$",
+   "options": null,
+   "correct_answer": "\\boxed{\\frac{3 B}{4 U}}",
+   "contamination": {
+    "hits_total": 1,
+    "docs_total": 1,
+    "in_S0": false,
+    "in_S1": true,
+    "matched_ngrams_capped": [
+     "is the number of base station antennas, k is the number of users,"
+    ]
+   },
+   "source_license_class": "cc-by",
+   "record_license": "CC-BY-4.0",
+   "_answer_parts": [
+    "\\frac{3 B}{4 U}"
+   ]
+  },
+  {
+   "id": "17358",
+   "paper_id": "2304.07813v1",
+   "type": "fill_blank_75",
+   "split": "train",
+   "background": "In a downlink NOMA system, a base station transmits a superposition of signals to multiple users. The composite signal is formed by allocating different power levels to each user's data stream, where $s_k$ represents the composite transmitted signal in the $k$-th transmission round (a complex scalar), $P$ is the total available transmit power at the base station (in watts), $\\alpha_{i,k}$ is the power allocation coefficient for user $i$ in transmission round $k$ (dimensionless, satisfying $0 < \\alpha_{i,k} < 1$ and $\\sum_{i=1}^{N} \\alpha_{i,k} = 1$), $x_{i,k}$ is the unit-energy information-bearing signal for user $i$ in transmission round $k$ (dimensionless, $\\mathbb{E}[|x_{i,k}|^2] = 1$), and $N$ is the total number of users in the system.",
+   "question_text": "Fill in the summation and the power allocation term for the composite signal.",
+   "equation": "$$s_k = [MASK]\\sqrt{P}[MASK]x_{i,k}$$",
+   "options": null,
+   "correct_answer": "\\boxed{\\sum_{i=1}^{N}}, \\boxed{\\sqrt{\\alpha_{i,k}}}",
+   "contamination": {
+    "hits_total": 0,
+    "docs_total": 0,
+    "in_S0": true,
+    "in_S1": true,
+    "matched_ngrams_capped": []
+   },
+   "source_license_class": "cc0",
+   "record_license": "CC-BY-4.0",
+   "_answer_parts": [
+    "\\sum_{i=1}^{N}",
+    "\\sqrt{\\alpha_{i,k}}"
+   ]
+  },
+  {
+   "id": "12468",
+   "paper_id": "2310.03969v1",
+   "type": "fill_blank_75",
+   "split": "train",
+   "background": "In a Low Earth Orbit (LEO) satellite network, the maximum reliable communication distance is constrained by the signal-to-noise ratio (SNR) at the receiver. The system considers a terrestrial source node transmitting to a satellite, where $r_{\\mathrm{max}}$ (in km) is the maximum distance for successful decoding, $P_{\\mathrm{tx}}$ (in W) is the transmit power, $\\sigma^2$ (in W) is the noise power at the receiver, $\\theta$ (dimensionless) is the minimum SNR required for successful decoding, and $\\alpha$ (dimensionless) is the path loss exponent characterizing the signal attenuation with distance.",
+   "question_text": "Complete the numerator and the two terms in the denominator.",
+   "equation": "$$r_{\\mathrm{max}} = \\left( \\frac{[MASK]}{[MASK] [MASK]} \\right)^{\\frac{1}{\\alpha}}$$",
+   "options": null,
+   "correct_answer": "\\boxed{P_{\\mathrm{tx}}}, \\boxed{\\sigma^2}, \\boxed{\\theta}",
+   "contamination": {
+    "hits_total": 0,
+    "docs_total": 0,
+    "in_S0": true,
+    "in_S1": true,
+    "matched_ngrams_capped": []
+   },
+   "source_license_class": "cc-by",
+   "record_license": "CC-BY-4.0",
+   "_answer_parts": [
+    "P_{\\mathrm{tx}}",
+    "\\sigma^2",
+    "\\theta"
+   ]
+  },
+  {
+   "id": "15808",
+   "paper_id": "2210.05055v3",
+   "type": "fill_blank_75",
+   "split": "train",
+   "background": "In the downlink data phase, APs precode signals before transmission. Regularized Zero-Forcing (RZF) is a common precoding strategy. Here, $\\boldsymbol{V} \\in \\mathbb{C}^{ML \\times K}$ is the global downlink precoding matrix. $\\boldsymbol{M}^{(s)} = \\boldsymbol{M} \\otimes \\boldsymbol{1}_L \\in \\mathbb{R}^{ML \\times K}$ is the expanded binary selection matrix defining which APs serve which users, $\\hat{\\boldsymbol{G}} \\in \\mathbb{C}^{ML \\times K}$ is the global matrix of effective channel estimates, $\\rho$ is the regularization parameter (dimensionless), $\\boldsymbol{I}_{ML}$ is the identity matrix, and $\\boldsymbol{\\Lambda} = \\mathrm{diag}(\\lambda_1, \\dots, \\lambda_K)$ is a diagonal power normalization matrix.",
+   "question_text": "What is the regularization term added to the Gramian matrix before inversion?",
+   "equation": "$$\\boldsymbol{V} = \\left[ (\\boldsymbol{M}^{(s)} \\circ \\hat{\\boldsymbol{G}}) (\\boldsymbol{M}^{(s)} \\circ \\hat{\\boldsymbol{G}})^* + [MASK] \\right]^{-1} (\\boldsymbol{M}^{(s)} \\circ \\hat{\\boldsymbol{G}}) \\boldsymbol{\\Lambda}$$",
+   "options": null,
+   "correct_answer": "\\boxed{\\rho \\boldsymbol{I}_{ML}}}",
+   "contamination": {
+    "hits_total": 0,
+    "docs_total": 0,
+    "in_S0": true,
+    "in_S1": true,
+    "matched_ngrams_capped": []
+   },
+   "source_license_class": "cc-by",
+   "record_license": "CC-BY-4.0",
+   "_answer_parts": [
+    "\\rho \\boldsymbol{I}_{ML}"
+   ]
+  },
+  {
+   "id": "663",
+   "paper_id": "2505.14055v1",
+   "type": "fill_blank_75",
+   "split": "train",
+   "background": "In an RIS-assisted ISAC system with a blocked line-of-sight path, the user equipment (UE) receives signals only via reflections from a mutual coupling-affected reconfigurable intelligent surface (RIS). The received signal vector $\\boldsymbol{y} \\in \\mathbb{C}^{N_t}$ contains the superposition of the channel-affected signal and noise over $N_t$ transmissions, where $\\beta \\in \\mathbb{C}$ is the overall complex channel gain (dimensionless), $\\boldsymbol{h} \\in \\mathbb{C}^{N_t}$ is the cascaded RIS-reflected channel vector whose $t$-th element represents the effective channel for the $t$-th transmission, and $\\boldsymbol{n} \\sim \\mathcal{CN}(\\boldsymbol{0}, N_0\\mathbf{I}_{N_t})$ is the additive white Gaussian noise vector with noise power spectral density $N_0$ (in W/Hz).",
+   "question_text": "Complete the three missing components of the received signal model.",
+   "equation": "$$\\boldsymbol{y} = [MASK][MASK] + [MASK]$$",
+   "options": null,
+   "correct_answer": "\\boxed{\\beta}, \\boxed{\\boldsymbol{h}}, \\boxed{\\boldsymbol{n}}",
+   "contamination": {
+    "hits_total": 0,
+    "docs_total": 0,
+    "in_S0": true,
+    "in_S1": true,
+    "matched_ngrams_capped": []
+   },
+   "source_license_class": "cc-by",
+   "record_license": "CC-BY-4.0",
+   "_answer_parts": [
+    "\\beta",
+    "\\boldsymbol{h}",
+    "\\boldsymbol{n}"
+   ]
+  },
+  {
+   "id": "4268",
+   "paper_id": "2506.20858v1",
+   "type": "fill_blank_75",
+   "split": "train",
+   "background": "In a LoRa Direct-to-Satellite (DtS) communication system with a Low Earth Orbit (LEO) satellite, the relative motion between the satellite and the ground terminal induces a time-varying Doppler shift on the transmitted signal. The Doppler shift $F_\\mathrm{D}(t)$ is a fundamental parameter that must be characterized and compensated for at the receiver, where $F_\\mathrm{D}(t)$ represents the instantaneous Doppler frequency shift (in Hz), $v(t)$ is the relative radial velocity between the satellite and the terminal (in m/s), $c \\approx 3 \\times 10^8$ m/s is the speed of light, and $F_\\mathrm{C}$ is the carrier frequency of the transmitted signal (in Hz).",
+   "question_text": "Complete the sign and the two variables in the numerator and denominator of the fraction.",
+   "equation": "$$F_\\mathrm{D}(t) = [MASK]\\frac{[MASK]}{[MASK]} F_\\mathrm{C}$$",
+   "options": null,
+   "correct_answer": "\\boxed{-}, \\boxed{v(t)}, \\boxed{c}}",
+   "contamination": {
+    "hits_total": 3,
+    "docs_total": 1,
+    "in_S0": false,
+    "in_S1": true,
+    "matched_ngrams_capped": [
+     "3 10^8 m/s is the speed of light, and f_ c is the",
+     "10^8 m/s is the speed of light, and f_ c is the carrier",
+     "m/s is the speed of light, and f_ c is the carrier frequency"
+    ]
+   },
+   "source_license_class": "cc-by",
+   "record_license": "CC-BY-4.0",
+   "_answer_parts": [
+    "-",
+    "v(t)",
+    "c"
+   ]
+  },
+  {
+   "id": "3719",
+   "paper_id": "2508.12964v1",
+   "type": "fill_blank_100",
+   "split": "train",
+   "background": "In a quasi-static multipath Rayleigh fading channel, the FTN received signal incorporates both intentional ISI and channel-induced effects. The received signal at time $n\\tau T$ combines contributions from multiple paths, where $y(n\\tau T)$ is the received signal (in volts), $h_l$ is the complex channel coefficient for the $l$-th path (dimensionless), $\\delta_l$ is the delay for the $l$-th path (in symbols), $a_k$ is the transmitted symbol (dimensionless), $x(t) = g(t) * g(-t)$ is the ISI kernel (dimensionless), $w(t)$ is AWGN (in volts/√Hz), and $L$ is the number of multipath components.",
+   "question_text": "Write the complete received signal equation for the multipath FTN channel.",
+   "equation": "$$y(n\\tau T) = [MASK]$$",
+   "options": null,
+   "correct_answer": "\\boxed{\\sum_{l=0}^{L-1} \\sum_k h_l a_k x((n-k-\\delta_l)\\tau T) + w(n\\tau T)}",
+   "contamination": {
+    "hits_total": 0,
+    "docs_total": 0,
+    "in_S0": true,
+    "in_S1": true,
+    "matched_ngrams_capped": []
+   },
+   "source_license_class": "cc-by",
+   "record_license": "CC-BY-4.0",
+   "_answer_parts": [
+    "\\sum_{l=0}^{L-1} \\sum_k h_l a_k x((n-k-\\delta_l)\\tau T) + w(n\\tau T)"
+   ]
+  },
+  {
+   "id": "6694",
+   "paper_id": "2504.09986v3",
+   "type": "fill_blank_100",
+   "split": "train",
+   "background": "This equation characterizes the diversity order $\\kappa_2$ for a SIMO system with $L$ independent receive branches under $\\alpha$-$\\mu$ fading (Variant 1) in the high-SNR regime. The diversity order determines the slope of the bit error rate (BER) curve. Here, $\\kappa_2$ is the diversity exponent (dimensionless), $\\alpha$ is the fading parameter for the $\\alpha$-$\\mu$ distribution (dimensionless), $\\mu$ is the inverse normalized variance parameter for the $\\alpha$-$\\mu$ distribution (dimensionless), and $L$ is the number of receive antennas (dimensionless).",
+   "question_text": "Write the complete expression for the diversity exponent.",
+   "equation": "$$\\kappa_2 = [MASK]$$",
+   "options": null,
+   "correct_answer": "\\boxed{\\frac{\\alpha \\mu}{2} L}",
+   "contamination": {
+    "hits_total": 0,
+    "docs_total": 0,
+    "in_S0": true,
+    "in_S1": true,
+    "matched_ngrams_capped": []
+   },
+   "source_license_class": "cc-by",
+   "record_license": "CC-BY-4.0",
+   "_answer_parts": [
+    "\\frac{\\alpha \\mu}{2} L"
+   ]
+  },
+  {
+   "id": "17459",
+   "paper_id": "2211.12955v2",
+   "type": "fill_blank_100",
+   "split": "test",
+   "background": "In the DD domain, the received signal after passing through a wireless channel is given by a 2D convolution. For a channel with $P$ paths, $y[k, l] \\in \\mathbb{C}$ is the received symbol at delay index $l$ and Doppler index $k$, $x[k, l] \\in \\mathbb{C}$ is the transmitted DD domain symbol, $h_i \\in \\mathbb{C}$ is the complex gain of the $i$-th path (dimensionless), $k_i$ is the integer Doppler index of the $i$-th path, $l_i$ is the integer delay index of the $i$-th path, $(\\cdot)_N$ and $(\\cdot)_M$ denote modulo-$N$ and modulo-$M$ operations respectively, accounting for the circular nature of the DD domain, $n[k, l] \\in \\mathbb{C}$ is the additive noise sample, and $MN$ is the product of the grid dimensions, which normalizes the phase term.",
+   "question_text": "Write the complete equation for the received DD domain symbol.",
+   "equation": "$$y[k, l] = [MASK]$$",
+   "options": null,
+   "correct_answer": "\\boxed{\\sum_{i=1}^{P} h_i x[(k - k_i)_N, (l - l_i)_M] e^{j 2 \\pi \\frac{(k - k_i)(l - l_i)}{MN}} + n[k, l]}}",
+   "contamination": {
+    "hits_total": 0,
+    "docs_total": 0,
+    "in_S0": true,
+    "in_S1": true,
+    "matched_ngrams_capped": []
+   },
+   "source_license_class": "cc-by",
+   "record_license": "CC-BY-4.0",
+   "_answer_parts": [
+    "\\sum_{i=1}^{P} h_i x[(k - k_i)_N, (l - l_i)_M] e^{j 2 \\pi \\frac{(k - k_i)(l - l_i)}{MN}} + n[k, l]"
+   ]
+  },
+  {
+   "id": "16479",
+   "paper_id": "2407.11563v1",
+   "type": "fill_blank_100",
+   "split": "train",
+   "background": "In this O-RAN system supporting traffic puncturing, the achievable data rate for an eMBB user is calculated. The rate is reduced when some mini-slots within a Transmission Time Interval (TTI) are punctured to accommodate URLLC traffic. Here, $r_{l,k}^{e,w}(t)$ is the achievable rate for eMBB user $w$ on RB $k$ of RU $l$ at time $t$ (in bits/second), $B$ is the bandwidth of a single RB (in Hz), $M$ is the number of mini-slots per TTI (dimensionless), $\\delta_{k,m}^{l,w}(t) \\in \\{0,1\\}$ is the binary puncturing decision variable for mini-slot $m$, and $\\Omega_{l,k}^{e,w}(t)$ is the SINR (dimensionless).",
+   "question_text": "Write the complete formula for the punctured eMBB achievable rate.",
+   "equation": "$$r_{l,k}^{e,w}(t) = [MASK]$$",
+   "options": null,
+   "correct_answer": "\\boxed{B \\left( 1 - \\frac{ \\sum_{m=1}^{M} \\delta_{k,m}^{l,w}(t) }{ M } \\right) \\log_{2} \\left( 1 + \\Omega_{l,k}^{e,w}(t) \\right)}}",
+   "contamination": {
+    "hits_total": 0,
+    "docs_total": 0,
+    "in_S0": true,
+    "in_S1": true,
+    "matched_ngrams_capped": []
+   },
+   "source_license_class": "cc-by",
+   "record_license": "CC-BY-4.0",
+   "_answer_parts": [
+    "B \\left( 1 - \\frac{ \\sum_{m=1}^{M} \\delta_{k,m}^{l,w}(t) }{ M } \\right) \\log_{2} \\left( 1 + \\Omega_{l,k}^{e,w}(t) \\right)"
+   ]
+  },
+  {
+   "id": "5879",
+   "paper_id": "2503.08466v1",
+   "type": "fill_blank_100",
+   "split": "train",
+   "background": "In a massive MIMO-NOMA system with user clustering, zero-forcing beamforming is used to suppress inter-cluster interference. The beamforming matrix for cluster $k$ is designed based on the channel of its representative user, where $\\mathbf{W}_{i,k} \\in \\mathbb{C}^{M \\times N}$ is the ZF beamforming matrix for cluster $k$, $\\mathbf{H}_{i,k} \\in \\mathbb{C}^{N \\times M}$ is the channel matrix for the representative user in cluster $k$, $(\\cdot)^\\dagger$ denotes the Moore-Penrose pseudoinverse, $(\\cdot)^H$ represents the Hermitian transpose, and $(\\cdot)^{-1}$ denotes the matrix inverse.",
+   "question_text": "Write the complete expression for the zero-forcing beamforming matrix using the pseudoinverse.",
+   "equation": "$$\\mathbf{W}_{i,k} = [MASK]$$",
+   "options": null,
+   "correct_answer": "\\boxed{\\mathbf{H}_{i,k}^{\\dagger} = \\left( \\mathbf{H}_{i,k}^{H} \\mathbf{H}_{i,k} \\right)^{-1} \\mathbf{H}_{i,k}^{H}}",
+   "contamination": {
+    "hits_total": 0,
+    "docs_total": 0,
+    "in_S0": true,
+    "in_S1": true,
+    "matched_ngrams_capped": []
+   },
+   "source_license_class": "cc-by",
+   "record_license": "CC-BY-4.0",
+   "_answer_parts": [
+    "\\mathbf{H}_{i,k}^{\\dagger} = \\left( \\mathbf{H}_{i,k}^{H} \\mathbf{H}_{i,k} \\right)^{-1} \\mathbf{H}_{i,k}^{H}"
+   ]
+  },
+  {
+   "id": "9159",
+   "paper_id": "2410.21658v1",
+   "type": "fill_blank_100",
+   "split": "train",
+   "background": "In a Low Earth Orbit (LEO) satellite communication system, the channel between a mobile ground user and a satellite is characterized by multiple propagation paths. The $M$-dimensional discrete-time channel vector for the $k$-th user at the $n$-th transmission block and $m$-th subcarrier is modeled as a sum of the contributions from $L_k$ individual paths, where $\\boldsymbol{h}_{k}^{m}(n) \\in \\mathbb{C}^{M \\times 1}$ is the channel vector, $\\tilde{g}_{k,l}(n) \\in \\mathbb{C}$ is the equivalent complex channel gain for the $l$-th path (dimensionless), $\\boldsymbol{a}_{k}(n) \\in \\mathbb{C}^{M \\times 1}$ is the array response vector of the satellite's Uniform Planar Array (UPA), $f_c \\in \\mathbb{R}^+$ is the carrier frequency (in Hz), $\\Delta f \\in \\mathbb{R}^+$ is the subcarrier spacing (in Hz), and $\\tau_{k,l}(n) \\in \\mathbb{R}^+$ is the propagation delay for the $l$-th path (in seconds).",
+   "question_text": "Write the complete channel vector equation as a sum over all paths.",
+   "equation": "$$\\boldsymbol{h}_{k}^{m}(n) = [MASK]$$",
+   "options": null,
+   "correct_answer": "\\boxed{\\sum_{l=0}^{L_k-1} \\tilde{g}_{k,l}(n) \\boldsymbol{a}_{k}(n) e^{-j 2\\pi (f_c + m \\triangle f) \\tau_{k,l}(n)}}",
+   "contamination": {
+    "hits_total": 0,
+    "docs_total": 0,
+    "in_S0": true,
+    "in_S1": true,
+    "matched_ngrams_capped": []
+   },
+   "source_license_class": "cc-by",
+   "record_license": "CC-BY-4.0",
+   "_answer_parts": [
+    "\\sum_{l=0}^{L_k-1} \\tilde{g}_{k,l}(n) \\boldsymbol{a}_{k}(n) e^{-j 2\\pi (f_c + m \\triangle f) \\tau_{k,l}(n)}"
+   ]
+  }
+ ],
+ "ladder": [
+  {
+   "id": "9720",
+   "paper_id": "2308.13268v1",
+   "type": "MCQ",
+   "split": "train",
+   "background": "In a narrowband MISO channel model for a mmWave/THz system with a Uniform Planar Array (UPA), the channel matrix is represented as a sum of contributions from $L$ propagation paths. The channel matrix $\\boldsymbol{H} \\in \\mathbb{C}^{N \\times N}$ represents the wireless channel between the transmitter's $N$ antennas and a single-antenna receiver, where $N$ is the total number of antenna elements in the UPA. $\\beta_\\ell \\in \\mathbb{C}$ is the complex gain of the $\\ell$-th path (dimensionless), $\\omega_{a,\\ell} \\in [-\\pi, \\pi)$ and $\\omega_{e,\\ell} \\in [-\\pi, \\pi)$ are the beamspace angles (in radians) for the azimuth and elevation dimensions of the $\\ell$-th path, respectively. $\\mathbf{a}_N(\\omega) \\in \\mathbb{C}^{N \\times 1}$ is the array response Vandermonde vector for a given spatial frequency $\\omega$.",
+   "question_text": "Which expression correctly represents the physical channel model as a sum of $L$ paths?",
+   "equation": "$$\\mathbf{H} = [MASK]$$",
+   "options": {
+    "A": "$\\sum_{\\ell=1}^{L} \\beta_\\ell \\mathbf{a}_N(\\omega_{e,\\ell}) \\mathbf{a}_N^\\mathrm{T}(\\omega_{a,\\ell})$",
+    "B": "$\\sum_{\\ell=1}^{L} \\beta_\\ell \\mathbf{a}_N(\\omega_{a,\\ell}) \\mathbf{a}_N^\\mathrm{T}(\\omega_{e,\\ell})$",
+    "C": "$\\mathbf{a}_N(\\omega_{e,\\ell}) \\mathbf{a}_N^\\mathrm{T}(\\omega_{a,\\ell}) \\sum_{\\ell=1}^{L} \\beta_\\ell$",
+    "D": "$\\sum_{\\ell=1}^{L} \\beta_\\ell \\mathbf{a}_N^\\mathrm{T}(\\omega_{e,\\ell}) \\mathbf{a}_N(\\omega_{a,\\ell})$"
+   },
+   "correct_answer": "A",
+   "contamination": {
+    "hits_total": 0,
+    "docs_total": 0,
+    "in_S0": true,
+    "in_S1": true,
+    "matched_ngrams_capped": []
+   },
+   "source_license_class": "cc-by",
+   "record_license": "CC-BY-4.0",
+   "_answer_parts": null
+  },
+  {
+   "id": "9721",
+   "paper_id": "2308.13268v1",
+   "type": "fill_blank_25",
+   "split": "train",
+   "background": "In a narrowband MISO channel model for a mmWave/THz system with a Uniform Planar Array (UPA), the channel matrix is represented as a sum of contributions from $L$ propagation paths. The channel matrix $\\boldsymbol{H} \\in \\mathbb{C}^{N \\times N}$ represents the wireless channel between the transmitter's $N$ antennas and a single-antenna receiver, where $N$ is the total number of antenna elements in the UPA. $\\beta_\\ell \\in \\mathbb{C}$ is the complex gain of the $\\ell$-th path (dimensionless), $\\omega_{a,\\ell} \\in [-\\pi, \\pi)$ and $\\omega_{e,\\ell} \\in [-\\pi, \\pi)$ are the beamspace angles (in radians) for the azimuth and elevation dimensions of the $\\ell$-th path, respectively. $\\mathbf{a}_N(\\omega) \\in \\mathbb{C}^{N \\times 1}$ is the array response Vandermonde vector for a given spatial frequency $\\omega$.",
+   "question_text": "What is the missing array response vector for the complementary spatial dimension?",
+   "equation": "$$\\mathbf{H} = \\sum_{\\ell=1}^{L} \\beta_\\ell \\mathbf{a}_N(\\omega_{e,\\ell}) [MASK]$$",
+   "options": null,
+   "correct_answer": "\\boxed{\\mathbf{a}_N^\\mathrm{T}(\\omega_{a,\\ell})}",
+   "contamination": {
+    "hits_total": 0,
+    "docs_total": 0,
+    "in_S0": true,
+    "in_S1": true,
+    "matched_ngrams_capped": []
+   },
+   "source_license_class": "cc-by",
+   "record_license": "CC-BY-4.0",
+   "_answer_parts": [
+    "\\mathbf{a}_N^\\mathrm{T}(\\omega_{a,\\ell})"
+   ]
+  },
+  {
+   "id": "9722",
+   "paper_id": "2308.13268v1",
+   "type": "fill_blank_50",
+   "split": "train",
+   "background": "In a narrowband MISO channel model for a mmWave/THz system with a Uniform Planar Array (UPA), the channel matrix is represented as a sum of contributions from $L$ propagation paths. The channel matrix $\\boldsymbol{H} \\in \\mathbb{C}^{N \\times N}$ represents the wireless channel between the transmitter's $N$ antennas and a single-antenna receiver, where $N$ is the total number of antenna elements in the UPA. $\\beta_\\ell \\in \\mathbb{C}$ is the complex gain of the $\\ell$-th path (dimensionless), $\\omega_{a,\\ell} \\in [-\\pi, \\pi)$ and $\\omega_{e,\\ell} \\in [-\\pi, \\pi)$ are the beamspace angles (in radians) for the azimuth and elevation dimensions of the $\\ell$-th path, respectively. $\\mathbf{a}_N(\\omega) \\in \\mathbb{C}^{N \\times 1}$ is the array response Vandermonde vector for a given spatial frequency $\\omega$.",
+   "question_text": "Fill in the complex path gain and the transposed array response vector.",
+   "equation": "$$\\mathbf{H} = \\sum_{\\ell=1}^{L} [MASK] \\mathbf{a}_N(\\omega_{e,\\ell}) [MASK]$$",
+   "options": null,
+   "correct_answer": "\\boxed{\\beta_\\ell} and \\boxed{\\mathbf{a}_N^\\mathrm{T}(\\omega_{a,\\ell})}",
+   "contamination": {
+    "hits_total": 0,
+    "docs_total": 0,
+    "in_S0": true,
+    "in_S1": true,
+    "matched_ngrams_capped": []
+   },
+   "source_license_class": "cc-by",
+   "record_license": "CC-BY-4.0",
+   "_answer_parts": [
+    "\\beta_\\ell",
+    "\\mathbf{a}_N^\\mathrm{T}(\\omega_{a,\\ell})"
+   ]
+  },
+  {
+   "id": "9723",
+   "paper_id": "2308.13268v1",
+   "type": "fill_blank_75",
+   "split": "train",
+   "background": "In a narrowband MISO channel model for a mmWave/THz system with a Uniform Planar Array (UPA), the channel matrix is represented as a sum of contributions from $L$ propagation paths. The channel matrix $\\boldsymbol{H} \\in \\mathbb{C}^{N \\times N}$ represents the wireless channel between the transmitter's $N$ antennas and a single-antenna receiver, where $N$ is the total number of antenna elements in the UPA. $\\beta_\\ell \\in \\mathbb{C}$ is the complex gain of the $\\ell$-th path (dimensionless), $\\omega_{a,\\ell} \\in [-\\pi, \\pi)$ and $\\omega_{e,\\ell} \\in [-\\pi, \\pi)$ are the beamspace angles (in radians) for the azimuth and elevation dimensions of the $\\ell$-th path, respectively. $\\mathbf{a}_N(\\omega) \\in \\mathbb{C}^{N \\times 1}$ is the array response Vandermonde vector for a given spatial frequency $\\omega$.",
+   "question_text": "Complete the summation operator, the path gain, and the two angle variables.",
+   "equation": "$$\\mathbf{H} = [MASK]_{\\ell=1}^{L} [MASK] \\mathbf{a}_N([MASK]) \\mathbf{a}_N^\\mathrm{T}([MASK])$$",
+   "options": null,
+   "correct_answer": "\\boxed{\\sum}, \\boxed{\\beta_\\ell}, \\boxed{\\omega_{e,\\ell}}, \\boxed{\\omega_{a,\\ell}}",
+   "contamination": {
+    "hits_total": 0,
+    "docs_total": 0,
+    "in_S0": true,
+    "in_S1": true,
+    "matched_ngrams_capped": []
+   },
+   "source_license_class": "cc-by",
+   "record_license": "CC-BY-4.0",
+   "_answer_parts": [
+    "\\sum",
+    "\\beta_\\ell",
+    "\\omega_{e,\\ell}",
+    "\\omega_{a,\\ell}"
+   ]
+  },
+  {
+   "id": "9724",
+   "paper_id": "2308.13268v1",
+   "type": "fill_blank_100",
+   "split": "train",
+   "background": "In a narrowband MISO channel model for a mmWave/THz system with a Uniform Planar Array (UPA), the channel matrix is represented as a sum of contributions from $L$ propagation paths. The channel matrix $\\boldsymbol{H} \\in \\mathbb{C}^{N \\times N}$ represents the wireless channel between the transmitter's $N$ antennas and a single-antenna receiver, where $N$ is the total number of antenna elements in the UPA. $\\beta_\\ell \\in \\mathbb{C}$ is the complex gain of the $\\ell$-th path (dimensionless), $\\omega_{a,\\ell} \\in [-\\pi, \\pi)$ and $\\omega_{e,\\ell} \\in [-\\pi, \\pi)$ are the beamspace angles (in radians) for the azimuth and elevation dimensions of the $\\ell$-th path, respectively. $\\mathbf{a}_N(\\omega) \\in \\mathbb{C}^{N \\times 1}$ is the array response Vandermonde vector for a given spatial frequency $\\omega$.",
+   "question_text": "Write the complete equation for the physical channel model.",
+   "equation": "$$\\mathbf{H} = [MASK]$$",
+   "options": null,
+   "correct_answer": "\\boxed{\\sum_{\\ell=1}^{L} \\beta_\\ell \\mathbf{a}_N(\\omega_{e,\\ell}) \\mathbf{a}_N^\\mathrm{T}(\\omega_{a,\\ell})}",
+   "contamination": {
+    "hits_total": 0,
+    "docs_total": 0,
+    "in_S0": true,
+    "in_S1": true,
+    "matched_ngrams_capped": []
+   },
+   "source_license_class": "cc-by",
+   "record_license": "CC-BY-4.0",
+   "_answer_parts": [
+    "\\sum_{\\ell=1}^{L} \\beta_\\ell \\mathbf{a}_N(\\omega_{e,\\ell}) \\mathbf{a}_N^\\mathrm{T}(\\omega_{a,\\ell})"
+   ]
+  }
+ ]
+}

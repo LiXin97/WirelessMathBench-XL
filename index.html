@@ -1,0 +1,1154 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WirelessMathBench-XL: An Auditable Benchmark for Wireless Mathematical Reasoning</title>
+<meta name="description" content="WirelessMathBench-XL (NeurIPS 2026, Evaluations and Datasets Track): 4,027 wireless mathematical-reasoning problems from 836 arXiv papers, released with source-paper IDs and a per-problem reverse-probe 13-gram audit against RedPajama-arXiv.">
+<meta property="og:title" content="WirelessMathBench-XL: An Auditable Benchmark for Wireless Mathematical Reasoning">
+<meta property="og:description" content="4,027 wireless-math problems with source provenance and a rerunnable, channel-specific 13-gram prompt-surface overlap audit. NeurIPS 2026 Evaluations and Datasets Track.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://lixin.ai/WirelessMathBench-XL/">
+<link rel="canonical" href="https://lixin.ai/WirelessMathBench-XL/">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image" content="https://lixin.ai/WirelessMathBench-XL/assets/img/wmbxl-overview.jpg">
+<meta name="theme-color" content="#fbf8f2" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#10141d" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<script>(function(){var d=document.documentElement;d.className=d.className.replace("no-js","js");try{var t=localStorage.getItem("wmbxl-theme");if(t==="dark"||t==="light")d.setAttribute("data-theme",t);}catch(e){}})();</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,650;12..96,750;12..96,800&family=Inter:wght@400;500;600;650;700;800&family=JetBrains+Mono:wght@400;600&family=STIX+Two+Text:ital,wght@0,400;0,600;1,400&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<link rel="stylesheet" href="assets/css/style.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script defer src="assets/js/main.js"></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="#top"><img src="assets/img/favicon.svg" alt="" width="28" height="28"><span>WMB-XL</span></a>
+    <nav class="topnav" aria-label="Chapters">
+      <a class="chap-link" href="#problem">Problem</a>
+      <a class="chap-link" href="#try">Try it</a>
+      <a class="chap-link" href="#audit">Audit</a>
+      <a class="chap-link" href="#scope">Scope</a>
+      <a class="chap-link" href="#results">Results</a>
+      <a class="chap-link" href="#release">Release</a>
+      <a class="chap-link" href="#cite">Cite</a>
+      <a href="https://github.com/LiXin97/WirelessMathBench-XL">Code</a>
+      <a href="https://huggingface.co/datasets/XINLI1997/WirelessMATHBench-XL">Data</a>
+      <button type="button" class="theme-toggle" aria-label="Switch colour theme" title="Switch light / dark theme">
+        <svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M19.5 14.6A8 8 0 0 1 9.4 4.5a8 8 0 1 0 10.1 10.1z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M16 4.5v3M14.5 6h3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+    </nav>
+  </div>
+  <div class="progress" aria-hidden="true"></div>
+</header>
+
+<nav class="rail" aria-label="Chapter progress">
+  <ol>
+    <li class="c1"><a href="#problem"><span class="dot">1</span><span class="lbl">The problem</span></a></li>
+    <li class="c2"><a href="#try"><span class="dot">2</span><span class="lbl">Try it yourself</span></a></li>
+    <li class="c3"><a href="#audit"><span class="dot">3</span><span class="lbl">The reverse-probe audit</span></a></li>
+    <li class="c4"><a href="#scope"><span class="dot">4</span><span class="lbl">Can / cannot say</span></a></li>
+    <li class="c5"><a href="#results"><span class="dot">5</span><span class="lbl">Results</span></a></li>
+    <li class="c6"><a href="#release"><span class="dot">6</span><span class="lbl">Open release</span></a></li>
+    <li class="c7"><a href="#cite"><span class="dot">7</span><span class="lbl">Citation</span></a></li>
+  </ol>
+</nav>
+
+<main id="main">
+<!-- ================= HERO ================= -->
+<section class="hero" id="top">
+  <div class="hero-stage">
+    <div class="hero-art">
+      <svg class="il hero-svg" viewBox="0 0 820 600" preserveAspectRatio="xMidYMid slice" role="img" aria-labelledby="hero-title hero-desc">
+        <title id="hero-title">A base station's antenna array radiating waves that turn into mathematics</title>
+        <desc id="hero-desc">A lattice mast topped by a 4-by-4 antenna array sends out circular waves and two beams. One beam lands on a 16-QAM constellation diagram; the other becomes the capacity formula log2(1 + SNR). Between them float a summation sign, a 2-by-2 channel matrix H, the Hermitian product H-superscript-H H, and the positive-part operator.</desc>
+        <defs>
+          <pattern id="hero-dots" width="22" height="22" patternUnits="userSpaceOnUse"><circle cx="11" cy="11" r="1.3" class="f-shade2"/></pattern>
+          <radialGradient id="hero-fade" cx="58%" cy="46%" r="62%"><stop offset="0" stop-color="#fff"/><stop offset=".7" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+          <mask id="hero-mask"><rect width="820" height="600" fill="url(#hero-fade)"/></mask>
+          <linearGradient id="beam-a" x1="0" y1="0" x2="1" y2="0"><stop offset="0" style="stop-color:var(--blue);stop-opacity:.34"/><stop offset="1" style="stop-color:var(--blue);stop-opacity:.04"/></linearGradient>
+          <linearGradient id="beam-b" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color:var(--teal);stop-opacity:.34"/><stop offset="1" style="stop-color:var(--teal);stop-opacity:.04"/></linearGradient>
+        </defs>
+        <!-- backdrop -->
+        <rect width="820" height="600" fill="url(#hero-dots)" mask="url(#hero-mask)"/>
+        <circle cx="470" cy="300" r="250" class="h-teal f-as" opacity=".75"/>
+        <circle cx="668" cy="150" r="126" class="h-violet f-as" opacity=".85"/>
+        <circle cx="620" cy="478" r="112" class="h-amber f-as" opacity=".85"/>
+        <ellipse cx="210" cy="550" rx="124" ry="12" class="f-shade"/>
+
+        <!-- expanding ripples (ambient) -->
+        <g fill="none" stroke-width="2.5">
+          <circle class="ripple r1" cx="210" cy="168" r="200" style="stroke:var(--teal)"/>
+          <circle class="ripple r2" cx="210" cy="168" r="200" style="stroke:var(--blue)"/>
+          <circle class="ripple r3" cx="210" cy="168" r="200" style="stroke:var(--violet)"/>
+        </g>
+
+        <!-- beams -->
+        <path d="M258 160 C340 112, 470 96, 556 128 C 480 176, 352 188, 258 176 Z" fill="url(#beam-a)"/>
+        <path d="M252 196 C300 270, 370 360, 452 402 C 400 420, 330 360, 244 206 Z" fill="url(#beam-b)"/>
+        <g class="h-blue"><path class="ln-a travel" d="M262 168 q7.5 -9 15 0 t15 0 t15 0 t15 0 t15 0 t15 0 t15 0 t15 0 t15 0 t15 0 t15 0 t15 0 t15 0 t15 0 t15 0 t15 0 t15 0 t15 0" transform="rotate(-6 262 168)"/></g>
+        <g class="h-teal"><path class="ln-a travel" d="M0 0 q7.5 -9 15 0 t15 0 t15 0 t15 0 t15 0 t15 0 t15 0 t15 0 t15 0 t15 0 t15 0 t15 0 t15 0 t15 0 t15 0" transform="translate(256 200) rotate(52)"/></g>
+
+        <!-- static wave arcs -->
+        <g class="h-teal"><path class="ln-a" d="M271 116.6 A80 80 0 0 1 271 219.4" stroke-width="3"/></g>
+        <g class="h-blue"><path class="ln-a" d="M301.9 90.9 A120 120 0 0 1 301.9 245.1" stroke-width="3" opacity=".8"/></g>
+        <g class="h-violet"><path class="ln-a" d="M332.6 65.2 A160 160 0 0 1 332.6 270.8" stroke-width="3" opacity=".55"/></g>
+        <g class="h-teal"><path class="ln-a" d="M149 116.6 A80 80 0 0 0 149 219.4" stroke-width="3" opacity=".7"/></g>
+        <g class="h-blue"><path class="ln-a" d="M118.1 90.9 A120 120 0 0 0 118.1 245.1" stroke-width="3" opacity=".45"/></g>
+
+        <!-- lattice mast -->
+        <g>
+          <path class="ln" d="M194 232 L166 546 M226 232 L254 546" stroke-width="4"/>
+          <path class="ln" d="M188 300 H232 M182 370 H238 M176 440 H244 M170 510 H250"/>
+          <path class="ln-t" d="M194 232 L232 300 L182 370 L244 440 L170 510 L254 546 M226 232 L188 300 L238 370 L176 440 L250 510 L166 546"/>
+          <rect x="198" y="214" width="24" height="20" rx="4" class="f-ink"/>
+        </g>
+        <!-- massive-MIMO array panel -->
+        <g>
+          <rect x="160" y="118" width="100" height="100" rx="12" class="f-paper"/>
+          <rect x="160" y="118" width="100" height="100" rx="12" class="ln" stroke-width="3"/>
+          <g class="h-teal">
+            <rect x="171" y="129" width="14" height="14" rx="3" class="f-a"/><rect x="193" y="129" width="14" height="14" rx="3" class="f-a"/><rect x="215" y="129" width="14" height="14" rx="3" class="f-a"/><rect x="237" y="129" width="14" height="14" rx="3" class="f-a"/>
+            <rect x="171" y="151" width="14" height="14" rx="3" class="f-a"/><rect x="193" y="151" width="14" height="14" rx="3" class="f-as"/><rect x="215" y="151" width="14" height="14" rx="3" class="f-a"/><rect x="237" y="151" width="14" height="14" rx="3" class="f-a"/>
+            <rect x="171" y="173" width="14" height="14" rx="3" class="f-a"/><rect x="193" y="173" width="14" height="14" rx="3" class="f-a"/><rect x="215" y="173" width="14" height="14" rx="3" class="f-a"/><rect x="237" y="173" width="14" height="14" rx="3" class="f-as"/>
+            <rect x="171" y="195" width="14" height="14" rx="3" class="f-as"/><rect x="193" y="195" width="14" height="14" rx="3" class="f-a"/><rect x="215" y="195" width="14" height="14" rx="3" class="f-a"/><rect x="237" y="195" width="14" height="14" rx="3" class="f-a"/>
+          </g>
+          <path class="ln" d="M210 118 V104"/>
+          <circle class="beacon h-coral f-a" cx="210" cy="98" r="7"/>
+        </g>
+
+        <!-- constellation diagram (16-QAM) -->
+        <g class="float f2">
+          <rect x="548" y="44" width="214" height="206" rx="16" class="f-paper"/>
+          <rect x="548" y="44" width="214" height="206" rx="16" class="ln"/>
+          <text x="566" y="70" class="t-mut t-cap">16-QAM · I/Q</text>
+          <path class="ln-m" stroke-width="1.5" d="M619 84 V236 M691 84 V236 M570 122 H742 M570 194 H742" stroke-dasharray="3 5"/>
+          <path class="ln-t" d="M566 158 H746 M655 82 V240"/>
+          <g class="h-violet">
+            <g class="jit"><circle cx="601" cy="104" r="9" class="f-as"/><circle cx="601" cy="104" r="4.4" class="f-a"/></g>
+            <g class="jit"><circle cx="637" cy="104" r="9" class="f-as"/><circle cx="637" cy="104" r="4.4" class="f-a"/></g>
+            <g class="jit"><circle cx="673" cy="104" r="9" class="f-as"/><circle cx="673" cy="104" r="4.4" class="f-a"/></g>
+            <g class="jit"><circle cx="709" cy="104" r="9" class="f-as"/><circle cx="709" cy="104" r="4.4" class="f-a"/></g>
+            <g class="jit"><circle cx="601" cy="140" r="9" class="f-as"/><circle cx="601" cy="140" r="4.4" class="f-a"/></g>
+            <g class="jit"><circle cx="637" cy="140" r="9" class="f-as"/><circle cx="637" cy="140" r="4.4" class="f-a"/></g>
+            <g class="jit"><circle cx="673" cy="140" r="9" class="f-as"/><circle cx="673" cy="140" r="4.4" class="f-a"/></g>
+            <g class="jit"><circle cx="709" cy="140" r="9" class="f-as"/><circle cx="709" cy="140" r="4.4" class="f-a"/></g>
+            <g class="jit"><circle cx="601" cy="176" r="9" class="f-as"/><circle cx="601" cy="176" r="4.4" class="f-a"/></g>
+            <g class="jit"><circle cx="637" cy="176" r="9" class="f-as"/><circle cx="637" cy="176" r="4.4" class="f-a"/></g>
+            <g class="jit"><circle cx="673" cy="176" r="9" class="f-as"/><circle cx="673" cy="176" r="4.4" class="f-a"/></g>
+            <g class="jit"><circle cx="709" cy="176" r="9" class="f-as"/><circle cx="709" cy="176" r="4.4" class="f-a"/></g>
+            <g class="jit"><circle cx="601" cy="212" r="9" class="f-as"/><circle cx="601" cy="212" r="4.4" class="f-a"/></g>
+            <g class="jit"><circle cx="637" cy="212" r="9" class="f-as"/><circle cx="637" cy="212" r="4.4" class="f-a"/></g>
+            <g class="jit"><circle cx="673" cy="212" r="9" class="f-as"/><circle cx="673" cy="212" r="4.4" class="f-a"/></g>
+            <g class="jit"><circle cx="709" cy="212" r="9" class="f-as"/><circle cx="709" cy="212" r="4.4" class="f-a"/></g>
+          </g>
+          <g class="h-coral"><circle cx="673" cy="140" r="13" class="ln-a"/></g>
+          <text x="750" y="152" class="t-mut t-math" font-size="15" font-style="italic" text-anchor="end">I</text>
+          <text x="662" y="93" class="t-mut t-math" font-size="15" font-style="italic">Q</text>
+        </g>
+
+        <!-- floating math glyphs -->
+        <text class="float t-math h-blue t-a" x="392" y="300" font-size="96">Σ</text>
+        <g class="float f3">
+          <path class="ln" d="M560 292 h-8 v74 h8 M660 292 h8 v74 h-8"/>
+          <text x="610" y="322" class="t-ink t-math" font-size="22" font-style="italic" text-anchor="middle">h<tspan font-size="13" dy="5">11</tspan><tspan dy="-5">  h</tspan><tspan font-size="13" dy="5">12</tspan></text>
+          <text x="610" y="354" class="t-ink t-math" font-size="22" font-style="italic" text-anchor="middle">h<tspan font-size="13" dy="5">21</tspan><tspan dy="-5">  h</tspan><tspan font-size="13" dy="5">22</tspan></text>
+          <text x="498" y="338" class="t-ink t-math" font-size="26" font-weight="600">H =</text>
+        </g>
+        <g class="float f4">
+          <rect x="430" y="396" width="318" height="86" rx="16" class="f-paper"/>
+          <rect x="430" y="396" width="318" height="86" rx="16" class="ln"/>
+          <text x="450" y="420" class="t-mut t-cap">CAPACITY · bits/s/Hz</text>
+          <text x="450" y="462" class="t-ink t-math" font-size="31"><tspan font-style="italic">C</tspan> = log<tspan font-size="19" dy="7">2</tspan><tspan dy="-7">(1 + </tspan><tspan class="h-teal t-a" font-weight="600">SNR</tspan>)</text>
+        </g>
+        <text class="float f2 t-ink2 t-math" x="300" y="444" font-size="30"><tspan font-weight="600">H</tspan><tspan font-size="17" dy="-13">H</tspan><tspan dy="13" font-weight="600">H</tspan></text>
+        <text class="float f3 h-coral t-a t-math" x="324" y="522" font-size="30">(·)<tspan font-size="18" dy="-13">+</tspan></text>
+        <text class="float t-mut t-math" x="492" y="560" font-size="24" font-style="italic">h<tspan font-style="normal">[</tspan>t<tspan font-style="normal">]</tspan></text>
+        <text class="float f4 h-violet t-a t-math" x="700" y="330" font-size="30" font-style="italic">γ</text>
+      </svg>
+    </div>
+    <div class="wrap">
+      <div class="hero-copy">
+        <div class="venue">
+          <span class="pill dark">NeurIPS 2026</span>
+          <span class="pill">Evaluations &amp; Datasets Track</span>
+        </div>
+        <h1>WirelessMathBench-<span class="xl">XL</span></h1>
+        <p class="subtitle">An Auditable Benchmark for Wireless Mathematical Reasoning</p>
+        <ul class="authors" aria-label="Authors">
+          <li>Xin Li</li><li>Mengbing Liu</li><li>Yiyang Zhu</li><li>Wenhe Zhang</li><li>Li Wei</li><li>Jiancheng An</li><li>Chau Yuen</li>
+        </ul>
+        <p class="affil">Nanyang Technological University</p>
+        <div class="btns">
+          <!-- TODO: paper link -->
+          <a class="btn soon" href="#" aria-disabled="true" title="Paper link coming soon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2.8h8.5l4.7 4.7v13.7H6z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M14.5 2.8v4.7h4.7" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M8.8 14q1.3-2.6 2.6 0t2.6 0 2.6 0M8.8 18h7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            Paper <small>(coming soon)</small></a>
+          <a class="btn primary" href="https://github.com/LiXin97/WirelessMathBench-XL">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="4" width="19" height="16" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M2.5 8.5h19" stroke="currentColor" stroke-width="2"/><path d="M9.5 11.5l-2.5 2.5 2.5 2.5M14.5 11.5l2.5 2.5-2.5 2.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Code</a>
+          <a class="btn" href="https://huggingface.co/datasets/XINLI1997/WirelessMATHBench-XL">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3.5" width="18" height="5" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><rect x="3" y="9.5" width="18" height="5" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><rect x="3" y="15.5" width="18" height="5" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="6.5" cy="6" r="1" fill="currentColor"/><circle cx="6.5" cy="12" r="1" fill="currentColor"/><circle cx="6.5" cy="18" r="1" fill="currentColor"/></svg>
+            Dataset</a>
+          <a class="btn" href="https://huggingface.co/XINLI1997">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6.5l6 5.5M6 17.5l6-5.5M12 12h6M6 6.5v11" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="6" cy="6.5" r="2.6" fill="var(--surface)" stroke="currentColor" stroke-width="2"/><circle cx="6" cy="17.5" r="2.6" fill="var(--surface)" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="2.6" fill="var(--surface)" stroke="currentColor" stroke-width="2"/><circle cx="18.5" cy="12" r="2.6" fill="currentColor"/></svg>
+            Models</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="stats" role="list">
+      <div class="stat h-teal" role="listitem"><b>4,027</b><span>problems, verifier-facing ground truths</span></div>
+      <div class="stat h-blue" role="listitem"><b>836</b><span>retained arXiv source papers, 20 subfields</span></div>
+      <div class="stat h-violet" role="listitem"><b>3</b><span>task formats: MCQ · Fill-in · Full Equation Completion</span></div>
+      <div class="stat h-coral" role="listitem"><b>12.9&nbsp;B</b><span>RedPajama-arXiv 13-grams streamed by the audit</span></div>
+      <div class="stat h-amber" role="listitem"><b>95.7%</b><span>in the strict zero-hit view S<sub>0</sub> (3,853 problems; one audit channel)</span></div>
+    </div>
+
+    <div class="tldr">
+      <span class="tag">TL;DR</span>
+      <p>WirelessMathBench-XL is a <strong>4,027-problem benchmark</strong> for wireless mathematical reasoning, built from 836 arXiv papers. Its distinguishing feature is a <strong>reverse-probe audit at a fixed 13-gram threshold</strong>: every problem ships with its source-paper ID and per-problem prompt-surface lexical-overlap metadata against RedPajama-arXiv, so reviewers and users can inspect and recompute it. It is an auditable protocol for one channel, <strong>not a cleanliness certificate</strong>.</p>
+    </div>
+
+    <div class="scroll-cue" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><path d="M12 4v15M5 12l7 7 7-7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Scroll: the paper in seven illustrated chapters
+    </div>
+  </div>
+</section>
+
+<!-- ================= CHAPTER 1 ================= -->
+<section class="chapter c1" id="problem" aria-labelledby="ch1-title">
+  <div class="wrap">
+    <div class="chap-head">
+      <div class="chap-art">
+        <svg class="il" viewBox="0 0 120 120" aria-hidden="true">
+          <circle cx="62" cy="64" r="50" class="f-as"/>
+          <path d="M20 30h38l12 12v54H20z" class="f-paper"/><path d="M20 30h38l12 12v54H20z M58 30v12h12" class="ln"/>
+          <text x="27" y="48" class="t-a" font-size="10" font-weight="800">arXiv</text>
+          <path d="M28 58h28M28 67h32M28 76h20" class="ln-m"/>
+          <path d="M28 87q4-6 8 0t8 0 8 0" class="ln-a"/>
+          <path d="M72 16h28a10 10 0 0 1 10 10v14a10 10 0 0 1-10 10H86l-9 9v-9h-5a10 10 0 0 1-10-10V26a10 10 0 0 1 10-10z" class="f-paper"/>
+          <path d="M72 16h28a10 10 0 0 1 10 10v14a10 10 0 0 1-10 10H86l-9 9v-9h-5a10 10 0 0 1-10-10V26a10 10 0 0 1 10-10z" class="ln"/>
+          <text x="86" y="41" text-anchor="middle" class="t-a" font-size="22" font-weight="800">?</text>
+        </svg>
+        <span class="chap-num" aria-hidden="true">1</span>
+      </div>
+      <div>
+        <p class="eyebrow">Chapter 1 · The problem</p>
+        <h2 id="ch1-title">Deriving the equation, or remembering the paper?</h2>
+        <p class="lede">When a frontier model solves a wireless-math item, it may be deriving the equation from the stated constraints, or it may have seen the source-paper text during pretraining. Two facts make this question sharp.</p>
+      </div>
+    </div>
+
+    <div class="story-row full">
+      <div class="story-text" style="max-width:820px">
+        <h3>Wireless math is full of rules nobody writes down</h3>
+        <p>Derivation-grounded wireless problems carry <strong>implicit constraints</strong>. The load-bearing content of a problem is often the constraint, not only the equation. Four recurring classes describe what the task formats probe:</p>
+      </div>
+      <ul class="constraints">
+        <li class="cons">
+          <figure>
+            <div class="plate">
+              <svg class="il" viewBox="0 0 240 150" role="img" aria-labelledby="c1-t">
+                <title id="c1-t">Water-filling: four channels with floors of different heights under a common water level. Three channels get positive power; the fourth floor sits above the water, so its would-be negative power is clipped to zero.</title>
+                <text x="24" y="30" class="t-mut" font-size="11" font-weight="700">water level μ</text>
+                <rect x="22" y="56" width="44" height="36" class="f-water"/><rect x="74" y="56" width="44" height="16" class="f-water"/><rect x="126" y="56" width="44" height="46" class="f-water"/>
+                <rect x="22" y="92" width="44" height="28" rx="2" class="f-shade2"/><rect x="74" y="72" width="44" height="48" rx="2" class="f-shade2"/><rect x="126" y="102" width="44" height="18" rx="2" class="f-shade2"/><rect x="178" y="36" width="44" height="84" rx="2" class="f-shade2"/>
+                <path d="M16 56H226" class="ln-w dash"/>
+                <path d="M16 56V32" class="ln-t"/><path d="M12 36l4-5 4 5" class="ln-t"/>
+                <text x="44" y="80" text-anchor="middle" class="t-ink t-math" font-size="14" font-style="italic">p<tspan font-size="10" dy="3">1</tspan></text>
+                <text x="96" y="68" text-anchor="middle" class="t-ink t-math" font-size="13" font-style="italic">p<tspan font-size="9" dy="3">2</tspan></text>
+                <text x="148" y="84" text-anchor="middle" class="t-ink t-math" font-size="14" font-style="italic">p<tspan font-size="10" dy="3">3</tspan></text>
+                <text x="200" y="28" text-anchor="middle" class="t-a t-math" font-size="13"><tspan font-style="italic">p</tspan><tspan font-size="9" dy="3">4</tspan><tspan dy="-3"> = 0</tspan></text>
+                <path d="M16 120H226" class="ln"/>
+                <rect x="186" y="121" width="28" height="22" rx="3" class="f-as"/>
+                <rect x="186" y="121" width="28" height="22" rx="3" class="ln-a dash"/>
+                <path d="M194 126l12 12M206 126l-12 12" class="ln-a"/>
+                <text x="180" y="138" text-anchor="end" class="t-a" font-size="10.5" font-weight="700">(μ − floor) &lt; 0</text>
+              </svg>
+            </div>
+            <figcaption class="body">
+              <span class="code">C1</span><h4>Power non-negativity</h4>
+              <p class="cap">Power can’t be poured below zero: when a channel is too weak, its share is clipped to 0, not made negative.</p>
+              <p class="tech">KKT closed forms can admit negative roots that need a water-filling $(\cdot)^{+}$ never stated in the text.</p>
+            </figcaption>
+          </figure>
+        </li>
+        <li class="cons">
+          <figure>
+            <div class="plate">
+              <svg class="il" viewBox="0 0 240 150" role="img" aria-labelledby="c2-t">
+                <title id="c2-t">Matrix shapes: a tall N-by-M channel matrix H. The product H-Hermitian times H is a small M-by-M square, while H times H-Hermitian is a large N-by-N square; silently swapping them changes the dimensions.</title>
+                <defs><marker id="c2-ah" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M1 1L9 5L1 9" class="ln-a" stroke-width="2"/></marker></defs>
+                <g class="h-blue">
+                  <rect x="18" y="52" width="12" height="12" rx="2.5" class="f-a"/><rect x="32" y="52" width="12" height="12" rx="2.5" class="f-a"/>
+                  <rect x="18" y="66" width="12" height="12" rx="2.5" class="f-a"/><rect x="32" y="66" width="12" height="12" rx="2.5" class="f-a"/>
+                  <rect x="18" y="80" width="12" height="12" rx="2.5" class="f-a"/><rect x="32" y="80" width="12" height="12" rx="2.5" class="f-a"/>
+                  <rect x="18" y="94" width="12" height="12" rx="2.5" class="f-a"/><rect x="32" y="94" width="12" height="12" rx="2.5" class="f-a"/>
+                </g>
+                <text x="31" y="44" text-anchor="middle" class="t-ink t-math" font-size="16" font-weight="600">H</text>
+                <text x="31" y="124" text-anchor="middle" class="t-mut" font-size="11" font-weight="700">N×M</text>
+                <g class="h-teal">
+                  <rect x="80" y="66" width="12" height="12" rx="2.5" class="f-a"/><rect x="94" y="66" width="12" height="12" rx="2.5" class="f-a"/>
+                  <rect x="80" y="80" width="12" height="12" rx="2.5" class="f-a"/><rect x="94" y="80" width="12" height="12" rx="2.5" class="f-a"/>
+                </g>
+                <text x="93" y="58" text-anchor="middle" class="t-ink t-math" font-size="15"><tspan font-weight="600">H</tspan><tspan font-size="10" dy="-7">H</tspan><tspan dy="7" font-weight="600">H</tspan></text>
+                <text x="93" y="110" text-anchor="middle" class="t-mut" font-size="11" font-weight="700">M×M</text>
+                <text x="133" y="86" text-anchor="middle" class="t-a t-math" font-size="26">≠</text>
+                <g class="f-shade2">
+                  <rect x="156" y="52" width="12" height="12" rx="2.5"/><rect x="170" y="52" width="12" height="12" rx="2.5"/><rect x="184" y="52" width="12" height="12" rx="2.5"/><rect x="198" y="52" width="12" height="12" rx="2.5"/>
+                  <rect x="156" y="66" width="12" height="12" rx="2.5"/><rect x="170" y="66" width="12" height="12" rx="2.5"/><rect x="184" y="66" width="12" height="12" rx="2.5"/><rect x="198" y="66" width="12" height="12" rx="2.5"/>
+                  <rect x="156" y="80" width="12" height="12" rx="2.5"/><rect x="170" y="80" width="12" height="12" rx="2.5"/><rect x="184" y="80" width="12" height="12" rx="2.5"/><rect x="198" y="80" width="12" height="12" rx="2.5"/>
+                  <rect x="156" y="94" width="12" height="12" rx="2.5"/><rect x="170" y="94" width="12" height="12" rx="2.5"/><rect x="184" y="94" width="12" height="12" rx="2.5"/><rect x="198" y="94" width="12" height="12" rx="2.5"/>
+                </g>
+                <text x="183" y="44" text-anchor="middle" class="t-ink t-math" font-size="15"><tspan font-weight="600">HH</tspan><tspan font-size="10" dy="-7">H</tspan></text>
+                <text x="183" y="124" text-anchor="middle" class="t-mut" font-size="11" font-weight="700">N×N</text>
+                <path d="M106 40 C120 18, 156 16, 172 28" class="ln-a dash" marker-end="url(#c2-ah)" marker-start="url(#c2-ah)"/>
+                <text x="138" y="12" text-anchor="middle" class="t-a halo" font-size="11" font-weight="800">silent swap ✗</text>
+                <path d="M52 79h18" class="ln-t"/><path d="M66 75l4 4-4 4" class="ln-t"/>
+              </svg>
+            </div>
+            <figcaption class="body">
+              <span class="code">C2</span><h4>Complex-matrix dimensionality</h4>
+              <p class="cap">Hᴴ H and H Hᴴ are different sizes: swapping them quietly changes the shape of the answer.</p>
+              <p class="tech">Silent $\mathbf{H}^{H}\mathbf{H}\leftrightarrow\mathbf{H}\mathbf{H}^{H}$ swaps under Hermitian transpose, Kronecker product, inversion.</p>
+            </figcaption>
+          </figure>
+        </li>
+        <li class="cons">
+          <figure>
+            <div class="plate">
+              <svg class="il" viewBox="0 0 240 150" role="img" aria-labelledby="c3-t">
+                <title id="c3-t">The rate curve log2(1 + gamma). For gamma at least zero the curve rises smoothly; the region gamma below zero is shaded as not a valid SINR, and a point evaluated there is crossed out.</title>
+                <defs><pattern id="c3-hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="7" height="7" class="f-as"/><path d="M0 0V7" class="ln-a" stroke-width="1.4" opacity=".55"/></pattern></defs>
+                <rect x="16" y="14" width="54" height="132" rx="4" fill="url(#c3-hatch)"/>
+                <text x="20" y="28" class="t-a halo" font-size="11" font-weight="800">γ &lt; 0</text>
+                <text x="20" y="41" class="t-a halo" font-size="11" font-weight="800">invalid</text>
+                <path d="M34 16V146" class="ln-m dash" stroke-width="1.6"/>
+                <path d="M16 110H228M70 146V14" class="ln-t"/>
+                <path d="M224 106l4 4-4 4M66 18l4-4 4 4" class="ln-t"/>
+                <path d="M70 110 L84.4 97.4 L98.8 88 L113.2 80.4 L127.6 74.2 L142 68.8 L156.4 64.1 L170.8 59.9 L185.2 56.2 L199.6 52.8 L214 49.6" class="ln" stroke-width="3"/>
+                <path d="M48.4 144.4 L52 136 L55.6 129.2 L59.2 123.4 L62.8 118.4 L66.4 114 L70 110" class="ln-a dash" stroke-width="2.5"/>
+                <circle cx="142" cy="68.8" r="5" class="f-ink"/>
+                <text x="150" y="88" class="t-ink2" font-size="10.5" font-weight="700">valid: γ ≥ 0</text>
+                <circle cx="55.6" cy="129.2" r="7" class="f-paper"/>
+                <path d="M51.6 125.2l8 8M59.6 125.2l-8 8" class="ln-a"/>
+                <text x="222" y="40" text-anchor="end" class="t-ink t-math" font-size="15">log<tspan font-size="10" dy="4">2</tspan><tspan dy="-4">(1+</tspan><tspan font-style="italic">γ</tspan>)</text>
+                <text x="226" y="128" text-anchor="end" class="t-mut t-math" font-size="15" font-style="italic">γ</text>
+                <text x="74" y="124" class="t-mut" font-size="10">0</text>
+              </svg>
+            </div>
+            <figcaption class="body">
+              <span class="code">C3</span><h4>Log-domain validity</h4>
+              <p class="cap">A rate log(1+γ) only makes sense for a genuine SINR γ ≥ 0; algebra can push it out of that domain.</p>
+              <p class="tech">$\log(1+\gamma)$ used outside its domain after aggressive interference cancellation.</p>
+            </figcaption>
+          </figure>
+        </li>
+        <li class="cons">
+          <figure>
+            <div class="plate">
+              <svg class="il" viewBox="0 0 240 150" role="img" aria-labelledby="c4-t">
+                <title id="c4-t">A timeline of channel samples at t minus 2, t minus 1, t and t plus 1. Arrows from past and present samples feed the decision W at time t; the arrow from the future sample h at t plus 1 is crossed out.</title>
+                <defs><marker id="c4-ah" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M1 1L9 5L1 9" class="ln" stroke-width="2"/></marker></defs>
+                <rect x="162" y="10" width="68" height="112" rx="8" class="f-as"/>
+                <text x="224" y="26" text-anchor="end" class="t-a" font-size="10.5" font-weight="800">future</text>
+                <path d="M14 112H226" class="ln"/><path d="M222 108l4 4-4 4" class="ln"/>
+                <path d="M40 112V80M88 112V66M136 112V76" class="ln-t"/>
+                <circle cx="40" cy="78" r="5.5" class="f-ink"/><circle cx="88" cy="64" r="5.5" class="f-ink"/><circle cx="136" cy="74" r="5.5" class="f-ink"/>
+                <path d="M188 112V60" class="ln-a dash"/><circle cx="188" cy="56" r="5.5" class="f-paper"/><circle cx="188" cy="56" r="5.5" class="ln-a"/>
+                <text x="40" y="132" text-anchor="middle" class="t-mut t-math" font-size="13" font-style="italic">t−2</text>
+                <text x="88" y="132" text-anchor="middle" class="t-mut t-math" font-size="13" font-style="italic">t−1</text>
+                <text x="136" y="132" text-anchor="middle" class="t-ink t-math" font-size="13" font-style="italic" font-weight="600">t</text>
+                <text x="188" y="132" text-anchor="middle" class="t-a t-math" font-size="13" font-style="italic">t+1</text>
+                <rect x="96" y="16" width="52" height="28" rx="6" class="f-paper"/><rect x="96" y="16" width="52" height="28" rx="6" class="ln"/>
+                <text x="122" y="35" text-anchor="middle" class="t-ink t-math" font-size="14"><tspan font-weight="600">W</tspan>[<tspan font-style="italic">t</tspan>]</text>
+                <path d="M45 74L100 46M91 59L112 47M136 68V49" class="ln-t" marker-end="url(#c4-ah)"/>
+                <path d="M183 52L154 38" class="ln-a dash"/>
+                <circle cx="168" cy="45" r="7" class="f-paper"/><path d="M164 41l8 8M172 41l-8 8" class="ln-a"/>
+                <text x="195" y="92" class="t-a t-math halo" font-size="13"><tspan font-weight="600">h</tspan>[<tspan font-style="italic">t</tspan>+1]</text>
+              </svg>
+            </div>
+            <figcaption class="body">
+              <span class="code">C4</span><h4>Signal causality</h4>
+              <p class="cap">A decision made at time t can use channel samples up to t, never the future h[t+1].</p>
+              <p class="tech">Filters or precoders conditioning on $\mathbf{h}[t+1]$ inside a $t$-time decision.</p>
+            </figcaption>
+          </figure>
+        </li>
+      </ul>
+      <p class="fine" style="margin:0">These four classes describe what the task formats probe. In v1.0 they are descriptive (not per-instance labels), so they are not used to claim class-level prevalence. The mini-diagrams are explanatory sketches, not benchmark items.</p>
+    </div>
+
+    <div class="story-row flip">
+      <div class="story-text">
+        <h3>…and the source papers may already be in the training data</h3>
+        <p>Benchmarks built from arXiv papers can overlap the same public text used in LLM pretraining: public resources such as RedPajama, Dolma, and ProofPile-2 include arXiv-derived slices, and exposure varies by model cutoff and training mixture.</p>
+        <p>For a released technical-domain benchmark, this turns the validity question into an <strong>artifact question</strong>: does the release give reviewers and future users enough provenance and metadata to re-check the audit?</p>
+        <div class="callout h-teal">WirelessMathBench-XL's answer: keep every problem's <code>paper_id</code>, and attach per-problem, recomputable overlap evidence from a corpus-scale audit (Chapter 3), with its limits stated up front (Chapter 4).</div>
+      </div>
+      <div class="illus">
+        <svg class="il" viewBox="0 0 560 300" role="img" aria-labelledby="ov-t ov-d">
+          <title id="ov-t">How overlap can arise</title>
+          <desc id="ov-d">One arXiv paper feeds two paths: it becomes a benchmark item, and it may also appear in a pretraining corpus that an LLM learns from. When the LLM answers the benchmark item, it is unclear whether it derived or recalled the answer.</desc>
+          <defs>
+            <marker id="ov-ah" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" class="ln" stroke-width="2"/></marker>
+            <marker id="ov-ahc" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1L9 5L1 9" class="ln-a" stroke-width="2"/></marker>
+          </defs>
+          <circle cx="300" cy="150" r="130" class="f-as" opacity=".6"/>
+          <!-- paper -->
+          <path d="M24 92h66l20 20v104H24z" class="f-paper"/><path d="M24 92h66l20 20v104H24z M90 92v20h20" class="ln"/>
+          <text x="36" y="132" font-size="17" font-weight="800" class="t-a">arXiv</text>
+          <path d="M36 150h58M36 164h48M36 178h58" class="ln-m"/>
+          <path d="M36 196q5-7 10 0t10 0 10 0 10 0" class="ln-a"/>
+          <text x="67" y="246" font-size="16" font-weight="700" class="t-ink" text-anchor="middle">source paper</text>
+          <path d="M114 120 C150 90, 160 72, 192 66" class="ln" marker-end="url(#ov-ah)"/>
+          <path d="M114 190 C150 214, 160 226, 192 230" class="ln" marker-end="url(#ov-ah)"/>
+          <!-- benchmark item -->
+          <g class="h-blue">
+            <rect x="200" y="24" width="190" height="86" rx="14" class="f-as"/><rect x="200" y="24" width="190" height="86" rx="14" class="ln-a"/>
+            <text x="216" y="52" font-size="17" font-weight="800" class="t-ink">Benchmark item</text>
+            <rect x="216" y="66" width="70" height="26" rx="6" class="f-paper"/>
+            <text x="251" y="85" font-size="16" class="t-ink t-math" text-anchor="middle"><tspan font-style="italic">R</tspan> =</text>
+          </g>
+          <rect x="292" y="66" width="80" height="26" rx="6" class="f-paper"/><rect x="292" y="66" width="80" height="26" rx="6" class="ln-a dash"/>
+          <text x="332" y="85" font-size="14" font-weight="800" class="t-a" text-anchor="middle">MASK</text>
+          <!-- corpus cylinder -->
+          <g class="h-amber">
+            <path d="M200 206v58c0 12 190 12 190 0v-58" class="f-as"/><path d="M200 206v58c0 12 190 12 190 0v-58" class="ln-a"/>
+            <ellipse cx="295" cy="206" rx="95" ry="14" class="f-paper"/><ellipse cx="295" cy="206" rx="95" ry="14" class="ln-a"/>
+          </g>
+          <text x="295" y="245" font-size="16" font-weight="800" class="t-ink" text-anchor="middle">Pretraining corpus</text>
+          <text x="295" y="266" font-size="14" class="t-ink2" text-anchor="middle">arXiv-derived slices</text>
+          <!-- model -->
+          <path d="M394 236 C420 236, 426 226, 438 216" class="ln" marker-end="url(#ov-ah)"/>
+          <rect x="444" y="160" width="96" height="84" rx="22" class="f-ink"/>
+          <g class="h-teal"><circle cx="474" cy="196" r="8" class="f-a"/><circle cx="510" cy="196" r="8" class="f-a"/></g>
+          <g class="h-amber"><path d="M476 222q16 10 32 0" class="ln-a" stroke-width="4"/></g>
+          <path d="M492 160v-12" class="ln" stroke-width="4"/><circle cx="492" cy="143" r="6" class="f-a"/>
+          <text x="492" y="268" font-size="16" font-weight="700" class="t-ink" text-anchor="middle">LLM</text>
+          <!-- question -->
+          <path d="M470 150 C460 100, 430 76, 400 70" class="ln-a dash" marker-end="url(#ov-ahc)"/>
+          <rect x="420" y="18" width="130" height="54" rx="12" class="f-paper"/><rect x="420" y="18" width="130" height="54" rx="12" class="ln-a"/>
+          <text x="485" y="41" font-size="14.5" font-weight="800" class="t-a" text-anchor="middle">derived…</text>
+          <text x="485" y="60" font-size="14.5" font-weight="800" class="t-a" text-anchor="middle">or recalled?</text>
+        </svg>
+      </div>
+    </div>
+
+    <div class="story-row">
+      <div class="story-text">
+        <h3>Where the 4,027 problems come from</h3>
+        <p>Papers are filtered for wireless relevance and mathematical content, structured records are extracted from each paper's LaTeX, three verifier-facing formats are generated, and every problem passes a two-tier QA (GPT-4o rubric, then expert validation) before audit metadata is attached.</p>
+        <ul class="funnel">
+          <li><b>~47,000</b><span>candidate papers from 24 arXiv categories, July 2005 – August 2025 (deterministic relevance score)</span></li>
+          <li><b>3,186</b><span>with substantial mathematical content (GPT-4o verifier)</span></li>
+          <li><b>970</b><span>paper source pool after ranking on rigour, citation signal and topical diversity</span></li>
+          <li><b>836</b><span>retained papers contribute accepted problems</span></li>
+          <li><b>4,027</b><span>accepted problems: 4,027 / 5,205 expert-screened candidates (77.4%); problem-level 3,227 / 800 train/test split</span></li>
+        </ul>
+      </div>
+      <figure class="overview-fig">
+        <div class="imgbox"><img src="assets/img/wmbxl-overview.jpg" width="1600" height="678" loading="lazy" alt="Three-panel construction pipeline. Panel 1, Paper Collection: arXiv multi-category crawling, an initial crawl of about 47,000 papers, an LLM relevance filter to 3,186 papers, and manual refinement to a final selection of 970. Panel 2, Formula Extraction with DeepSeek-R1: 10 to 25 formulas per paper turned into MCQ, Fill-in and FEC candidates. Panel 3, Quality Assurance: an automated rubric and five expert reviewers with a quality threshold of 3 out of 5; 78 percent pass and 22 percent fail."></div>
+        <figcaption><strong>Figure 1 (paper).</strong> WirelessMathBench-XL construction pipeline. Counts inside the MCQ, Fill-in, and FEC boxes denote pre-QA generated candidates; the final release contains 4,027 accepted problems.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CHAPTER 2 ================= -->
+<section class="chapter c2 alt" id="try" aria-labelledby="ch2-title">
+  <div class="wrap">
+    <div class="chap-head">
+      <div class="chap-art">
+        <svg class="il" viewBox="0 0 120 120" aria-hidden="true">
+          <circle cx="60" cy="62" r="50" class="f-as"/>
+          <rect x="12" y="34" width="84" height="54" rx="8" class="f-paper"/><rect x="12" y="34" width="84" height="54" rx="8" class="ln"/>
+          <text x="20" y="67" class="t-ink t-math" font-size="17" font-style="italic">R =</text>
+          <rect x="54" y="49" width="32" height="24" rx="5" class="f-as"/><rect x="54" y="49" width="32" height="24" rx="5" class="ln-a dash"/>
+          <text x="70" y="67" text-anchor="middle" class="t-a" font-size="16" font-weight="800">?</text>
+          <path d="M20 78h28" class="ln-m"/>
+          <g transform="translate(78 94) rotate(-38)"><path d="M0-6h34v12H0z" class="f-a"/><path d="M0-6h34v12H0z M0-6l-11 6 11 6 M34-6v12" class="ln"/><path d="M-11 0l4.5-2.4v4.8z" class="f-ink"/></g>
+        </svg>
+        <span class="chap-num" aria-hidden="true">2</span>
+      </div>
+      <div>
+        <p class="eyebrow">Chapter 2 · Try it yourself</p>
+        <h2 id="ch2-title">Three formats, three kinds of hard</h2>
+        <p class="lede">Each structured record yields problems in three formats with deliberately different difficulty profiles. Below is a pool of 29 real, publicly released records (CC BY 4.0), shown verbatim. Filter by format or by audit metadata, draw another problem, answer the multiple-choice items, then climb the masking ladder to watch one equation lose its scaffolding.</p>
+      </div>
+    </div>
+    <div class="try-intro" aria-hidden="true">
+      <span class="fmt-chip h-blue"><svg class="il" viewBox="0 0 28 28"><circle cx="14" cy="14" r="13" class="f-as"/><rect x="7" y="7" width="5" height="5" rx="1.5" class="f-a"/><path d="M15 9.5h7M15 18.5h7" class="ln-t"/><rect x="7" y="16" width="5" height="5" rx="1.5" class="ln-a" stroke-width="1.6"/></svg>MCQ: mask the right-hand side, four options</span>
+      <span class="fmt-chip h-violet"><svg class="il" viewBox="0 0 28 28"><circle cx="14" cy="14" r="13" class="f-as"/><rect x="6" y="18" width="4" height="4" rx="1" class="f-a"/><rect x="12" y="13" width="4" height="9" rx="1" class="f-a"/><rect x="18" y="7" width="4" height="15" rx="1" class="f-a"/></svg>Fill-in: mask 25 / 50 / 75% of components</span>
+      <span class="fmt-chip h-coral"><svg class="il" viewBox="0 0 28 28"><circle cx="14" cy="14" r="13" class="f-as"/><rect x="6" y="10" width="16" height="8" rx="2" class="f-a"/><path d="M9 14h10" class="ln-t" style="stroke:var(--il-paper)"/></svg>FEC: mask everything</span>
+    </div>
+
+    <div class="explorer" id="explorer">
+      <div class="ex-bar js-only">
+        <div class="ctl-group">
+          <span class="ctl-label" id="fmt-lbl"><svg class="il" viewBox="0 0 34 34" aria-hidden="true"><circle cx="17" cy="17" r="16" class="f-as"/><path d="M8 10h18l-7 8.5v6.5l-4 2.5v-9z" class="f-paper"/><path d="M8 10h18l-7 8.5v6.5l-4 2.5v-9z" class="ln-t"/><path d="M11.5 13h11" class="ln-a"/></svg>Format</span>
+          <div class="seg" role="group" aria-labelledby="fmt-lbl" data-filter="fmt">
+            <button type="button" aria-pressed="true" data-val="all">All <span class="ct"></span></button>
+            <button type="button" aria-pressed="false" data-val="MCQ">MCQ <span class="ct"></span></button>
+            <button type="button" aria-pressed="false" data-val="fill_blank_25">Fill 25% <span class="ct"></span></button>
+            <button type="button" aria-pressed="false" data-val="fill_blank_50">Fill 50% <span class="ct"></span></button>
+            <button type="button" aria-pressed="false" data-val="fill_blank_75">Fill 75% <span class="ct"></span></button>
+            <button type="button" aria-pressed="false" data-val="fill_blank_100">FEC <span class="ct"></span></button>
+          </div>
+        </div>
+        <div class="ctl-group">
+          <span class="ctl-label" id="aud-lbl"><svg class="il" viewBox="0 0 34 34" aria-hidden="true"><circle cx="17" cy="17" r="16" class="f-as"/><rect x="5.5" y="9" width="17" height="8" rx="2.5" class="f-paper"/><rect x="5.5" y="9" width="17" height="8" rx="2.5" class="ln-t"/><path d="M9 13h10" class="ln-a"/><circle cx="21" cy="21" r="5" class="f-paper"/><circle cx="21" cy="21" r="5" class="ln-t"/><path d="M24.6 24.6l3.6 3.6" class="ln"/></svg>Audit metadata</span>
+          <div class="seg" role="group" aria-labelledby="aud-lbl" data-filter="audit">
+            <button type="button" aria-pressed="true" data-val="all">All <span class="ct"></span></button>
+            <button type="button" aria-pressed="false" data-val="s0">Zero-hit (S<sub>0</sub>) <span class="ct"></span></button>
+            <button type="button" aria-pressed="false" data-val="hit">Detected overlap <span class="ct"></span></button>
+          </div>
+        </div>
+        <p class="ex-status" id="ex-status" role="status" aria-live="polite"></p>
+        <button type="button" class="btn primary shuffle" id="ex-shuffle">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="4.5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="8.6" cy="8.6" r="1.6" fill="currentColor"/><circle cx="15.4" cy="8.6" r="1.6" fill="currentColor"/><circle cx="12" cy="12" r="1.6" fill="currentColor"/><circle cx="8.6" cy="15.4" r="1.6" fill="currentColor"/><circle cx="15.4" cy="15.4" r="1.6" fill="currentColor"/></svg>
+          Another problem</button>
+      </div>
+      <div id="ex-card" class="ex-card">
+<article class="problem p-mcq" aria-labelledby="ex-title" data-id="16130"><div class="problem-head"><div class="fmt"><span class="badge">MCQ</span><h3 id="ex-title" tabindex="-1">Multiple choice<span class="rec"> · record #16130</span></h3></div><span class="hint">Distractors are built to violate an implicit constraint</span></div><div class="problem-body mcq" data-answer="B"><div><p class="p-label">Background</p><p class="p-bg">In the UAV-GBS communication link, the real-time data rate depends on the elevation angle and distance. Here, $R_{g_m}(t)$ is the communication rate from the UAV to the $m$-th GBS at time $t$ (in bps), $\theta_{g_m}(t)$ is the elevation angle (in degrees), $d_{g_m}(t)$ is the distance (in meters), $P(t)$ is the UAV's transmission power (in watts), $H$ is the bandwidth (in Hz). The model uses environment-dependent parameters $\chi_1, \chi_2, \chi_3, \chi_4$ (dimensionless, with $\chi_1&lt;0, \chi_2&gt;0, \chi_4&gt;0, \chi_3+\chi_4=1$), a normalized SNR parameter $\hat{\gamma}$ (dimensionless), and the path-loss exponent $\alpha$ (dimensionless).</p></div><div><p class="p-label">Question</p><p class="p-q">Which expression completes the capacity component of the communication rate equation?</p><div class="eq">$R_{g_m}(t) = \left( \chi_3 + \frac{\chi_4}{1 + e^{-(\chi_1 + \chi_2 \theta_{g_m}(t))}} \right) \boxed{\,\color{#b3401c}{?}\,}$</div><ul class="options" aria-label="Answer options"><li><button type="button" class="opt" data-letter="A" aria-pressed="false"><span class="letter" aria-hidden="true">A</span><span class="opt-math"><span class="sr-only">Option A: </span>$H \log_2 \left(1 + \frac{ P(t) }{ \hat{\gamma} (d_{g_m}(t))^{\alpha} } \right)$</span><span class="verdict" aria-hidden="true"></span></button></li><li><button type="button" class="opt" data-letter="B" aria-pressed="false"><span class="letter" aria-hidden="true">B</span><span class="opt-math"><span class="sr-only">Option B: </span>$H \log_2 \left(1 + \frac{ \hat{\gamma} P(t) }{ (d_{g_m}(t))^{\alpha} } \right)$</span><span class="verdict" aria-hidden="true"></span></button></li><li><button type="button" class="opt" data-letter="C" aria-pressed="false"><span class="letter" aria-hidden="true">C</span><span class="opt-math"><span class="sr-only">Option C: </span>$\log_2 \left(1 + \frac{ \hat{\gamma} H P(t) }{ (d_{g_m}(t))^{\alpha} } \right)$</span><span class="verdict" aria-hidden="true"></span></button></li><li><button type="button" class="opt" data-letter="D" aria-pressed="false"><span class="letter" aria-hidden="true">D</span><span class="opt-math"><span class="sr-only">Option D: </span>$H \log_2 \left(1 + \hat{\gamma} P(t) (d_{g_m}(t))^{\alpha} \right)$</span><span class="verdict" aria-hidden="true"></span></button></li></ul><p class="feedback" aria-live="polite"></p><details class="reveal"><summary>Reveal answer</summary><div class="answer"><p>Ground truth: <strong>option B</strong></p><div class="eq">$R_{g_m}(t) = \left( \chi_3 + \frac{\chi_4}{1 + e^{-(\chi_1 + \chi_2 \theta_{g_m}(t))}} \right) \boxed{\color{#00706c}{H \log_2 \left(1 + \frac{ \hat{\gamma} P(t) }{ (d_{g_m}(t))^{\alpha} } \right)}}$</div><p>MCQ distractors are constraint-violating by construction (for example matrix-dimension mismatches, operator-order errors, or sign violations), so the format probes implicit constraints rather than surface plausibility.</p></div></details></div></div><div class="provenance"><span class="credit"><svg class="ci" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2.8h8.5l4.7 4.7v13.7H6z M14.5 2.8v4.7h4.7" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 13h7M9 17h5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>Derived from <a href="https://arxiv.org/abs/2411.02757v1">arXiv:2411.02757v1</a></span><span class="chip">record #16130</span><span class="chip">type <code class="no-math">MCQ</code></span><span class="chip">test split</span><a class="chip lic" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a><span class="chip audit"><svg class="ci" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 12.4l2.7 2.6L16 9.6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>RedPajama-arXiv 13-gram hits: 0 · in S<sub>0</sub></span></div></article>
+      </div>
+      <noscript>
+        <div class="pool-list">
+          <p class="p-label">The full explorer pool (29 records)</p>
+          <p class="fine">With JavaScript enabled you can filter and draw each of these records as a card like the one above. Every record comes from <code>problems_cc_by.jsonl</code> and is credited to its arXiv source paper.</p>
+          <ol>
+            <li><b>#16130</b> · MCQ · test · <a href="https://arxiv.org/abs/2411.02757v1">arXiv:2411.02757v1</a> · 0 hits (S<sub>0</sub>)</li>
+            <li><b>#10950</b> · MCQ · train · <a href="https://arxiv.org/abs/2207.11021v1">arXiv:2207.11021v1</a> · 0 hits (S<sub>0</sub>)</li>
+            <li><b>#17375</b> · MCQ · train · <a href="https://arxiv.org/abs/2304.07813v1">arXiv:2304.07813v1</a> · 0 hits (S<sub>0</sub>)</li>
+            <li><b>#15790</b> · MCQ · train · <a href="https://arxiv.org/abs/2210.05055v3">arXiv:2210.05055v3</a> · 0 hits (S<sub>0</sub>)</li>
+            <li><b>#6410</b> · MCQ · test · <a href="https://arxiv.org/abs/2503.01741v1">arXiv:2503.01741v1</a> · 0 hits (S<sub>0</sub>)</li>
+            <li><b>#3545</b> · MCQ · test · <a href="https://arxiv.org/abs/2103.09694v1">arXiv:2103.09694v1</a> · 3 hits (not in S<sub>0</sub>)</li>
+            <li><b>#12690</b> · MCQ · train · <a href="https://arxiv.org/abs/2403.07903v1">arXiv:2403.07903v1</a> · 0 hits (S<sub>0</sub>)</li>
+            <li><b>#9720</b> · MCQ · train · <a href="https://arxiv.org/abs/2308.13268v1">arXiv:2308.13268v1</a> · 0 hits (S<sub>0</sub>)</li>
+            <li><b>#10121</b> · Fill-in 25% · test · <a href="https://arxiv.org/abs/2309.08995v1">arXiv:2309.08995v1</a> · 0 hits (S<sub>0</sub>)</li>
+            <li><b>#13036</b> · Fill-in 25% · train · <a href="https://arxiv.org/abs/2409.16811v1">arXiv:2409.16811v1</a> · 0 hits (S<sub>0</sub>)</li>
+            <li><b>#4401</b> · Fill-in 25% · train · <a href="https://arxiv.org/abs/2312.04688v1">arXiv:2312.04688v1</a> · 0 hits (S<sub>0</sub>)</li>
+            <li><b>#9151</b> · Fill-in 25% · train · <a href="https://arxiv.org/abs/2408.13329v1">arXiv:2408.13329v1</a> · 0 hits (S<sub>0</sub>)</li>
+            <li><b>#5436</b> · Fill-in 25% · train · <a href="https://arxiv.org/abs/2501.15091v1">arXiv:2501.15091v1</a> · 1 hit (not in S<sub>0</sub>)</li>
+            <li><b>#15962</b> · Fill-in 50% · test · <a href="https://arxiv.org/abs/2407.02342v1">arXiv:2407.02342v1</a> · 0 hits (S<sub>0</sub>)</li>
+            <li><b>#12472</b> · Fill-in 50% · train · <a href="https://arxiv.org/abs/2310.03969v1">arXiv:2310.03969v1</a> · 0 hits (S<sub>0</sub>)</li>
+            <li><b>#4697</b> · Fill-in 50% · train · <a href="https://arxiv.org/abs/2508.06975v1">arXiv:2508.06975v1</a> · 0 hits (S<sub>0</sub>)</li>
+            <li><b>#15817</b> · Fill-in 50% · train · <a href="https://arxiv.org/abs/2102.09527v2">arXiv:2102.09527v2</a> · 0 hits (S<sub>0</sub>)</li>
+            <li><b>#16992</b> · Fill-in 50% · test · <a href="https://arxiv.org/abs/2304.06988v1">arXiv:2304.06988v1</a> · 1 hit (not in S<sub>0</sub>)</li>
+            <li><b>#17358</b> · Fill-in 75% · train · <a href="https://arxiv.org/abs/2304.07813v1">arXiv:2304.07813v1</a> · 0 hits (S<sub>0</sub>)</li>
+            <li><b>#12468</b> · Fill-in 75% · train · <a href="https://arxiv.org/abs/2310.03969v1">arXiv:2310.03969v1</a> · 0 hits (S<sub>0</sub>)</li>
+            <li><b>#15808</b> · Fill-in 75% · train · <a href="https://arxiv.org/abs/2210.05055v3">arXiv:2210.05055v3</a> · 0 hits (S<sub>0</sub>)</li>
+            <li><b>#663</b> · Fill-in 75% · train · <a href="https://arxiv.org/abs/2505.14055v1">arXiv:2505.14055v1</a> · 0 hits (S<sub>0</sub>)</li>
+            <li><b>#4268</b> · Fill-in 75% · train · <a href="https://arxiv.org/abs/2506.20858v1">arXiv:2506.20858v1</a> · 3 hits (not in S<sub>0</sub>)</li>
+            <li><b>#3719</b> · FEC · train · <a href="https://arxiv.org/abs/2508.12964v1">arXiv:2508.12964v1</a> · 0 hits (S<sub>0</sub>)</li>
+            <li><b>#6694</b> · FEC · train · <a href="https://arxiv.org/abs/2504.09986v3">arXiv:2504.09986v3</a> · 0 hits (S<sub>0</sub>)</li>
+            <li><b>#17459</b> · FEC · test · <a href="https://arxiv.org/abs/2211.12955v2">arXiv:2211.12955v2</a> · 0 hits (S<sub>0</sub>)</li>
+            <li><b>#16479</b> · FEC · train · <a href="https://arxiv.org/abs/2407.11563v1">arXiv:2407.11563v1</a> · 0 hits (S<sub>0</sub>)</li>
+            <li><b>#5879</b> · FEC · train · <a href="https://arxiv.org/abs/2503.08466v1">arXiv:2503.08466v1</a> · 0 hits (S<sub>0</sub>)</li>
+            <li><b>#9159</b> · FEC · train · <a href="https://arxiv.org/abs/2410.21658v1">arXiv:2410.21658v1</a> · 0 hits (S<sub>0</sub>)</li>
+          </ol>
+        </div>
+      </noscript>
+    </div>
+
+    <div class="ladder" id="ladder">
+      <div class="ladder-head">
+        <div class="ladder-art" aria-hidden="true">
+          <svg class="il" viewBox="0 0 200 150">
+            <circle cx="100" cy="78" r="70" class="f-as"/>
+            <path d="M16 6v140M184 6v140" class="ln-m"/>
+            <g class="lad-rung" data-rung="3" transform="translate(0 10)">
+              <rect x="24" y="0" width="152" height="26" rx="6" class="f-paper"/><rect x="24" y="0" width="152" height="26" rx="6" class="ln strip"/>
+              <text x="32" y="18" font-size="14" font-style="italic" class="t-ink t-math">H =</text>
+              <rect x="62" y="6" width="106" height="14" rx="4" class="f-as"/><rect x="62" y="6" width="106" height="14" rx="4" class="ln-a dash"/>
+              <text x="115" y="17.5" font-size="12" font-weight="800" text-anchor="middle" class="t-a">?</text>
+            </g>
+            <g class="lad-rung" data-rung="2" transform="translate(0 44)">
+              <rect x="24" y="0" width="152" height="26" rx="6" class="f-paper"/><rect x="24" y="0" width="152" height="26" rx="6" class="ln strip"/>
+              <text x="32" y="18" font-size="14" font-style="italic" class="t-ink t-math">H =</text>
+              <rect x="62" y="6" width="22" height="14" rx="4" class="f-as"/><rect x="62" y="6" width="22" height="14" rx="4" class="ln-a dash"/>
+              <rect x="90" y="6" width="22" height="14" rx="4" class="f-as"/><rect x="90" y="6" width="22" height="14" rx="4" class="ln-a dash"/>
+              <rect x="118" y="6" width="22" height="14" rx="4" class="f-as"/><rect x="118" y="6" width="22" height="14" rx="4" class="ln-a dash"/>
+              <rect x="146" y="6" width="22" height="14" rx="4" class="f-shade2"/>
+            </g>
+            <g class="lad-rung" data-rung="1" transform="translate(0 78)">
+              <rect x="24" y="0" width="152" height="26" rx="6" class="f-paper"/><rect x="24" y="0" width="152" height="26" rx="6" class="ln strip"/>
+              <text x="32" y="18" font-size="14" font-style="italic" class="t-ink t-math">H =</text>
+              <rect x="62" y="6" width="22" height="14" rx="4" class="f-shade2"/>
+              <rect x="90" y="6" width="22" height="14" rx="4" class="f-as"/><rect x="90" y="6" width="22" height="14" rx="4" class="ln-a dash"/>
+              <rect x="118" y="6" width="22" height="14" rx="4" class="f-shade2"/>
+              <rect x="146" y="6" width="22" height="14" rx="4" class="f-as"/><rect x="146" y="6" width="22" height="14" rx="4" class="ln-a dash"/>
+            </g>
+            <g class="lad-rung" data-rung="0" transform="translate(0 112)">
+              <rect x="24" y="0" width="152" height="26" rx="6" class="f-paper"/><rect x="24" y="0" width="152" height="26" rx="6" class="ln strip"/>
+              <text x="32" y="18" font-size="14" font-style="italic" class="t-ink t-math">H =</text>
+              <rect x="62" y="6" width="22" height="14" rx="4" class="f-shade2"/>
+              <rect x="90" y="6" width="22" height="14" rx="4" class="f-shade2"/>
+              <rect x="118" y="6" width="22" height="14" rx="4" class="f-shade2"/>
+              <rect x="146" y="6" width="22" height="14" rx="4" class="f-as"/><rect x="146" y="6" width="22" height="14" rx="4" class="ln-a dash"/>
+            </g>
+          </svg>
+        </div>
+        <div class="ladder-copy">
+          <p class="eyebrow">Mask ladder</p>
+          <h3>One equation, four masking levels</h3>
+          <p class="fine">Records #9721&ndash;#9724 share one background and one channel-model equation. Each masks a larger share of its components, ending with Full Equation Completion. Same physics, less scaffolding.</p>
+          <div class="ladder-ctl js-only">
+            <label for="mask-slider" class="ctl-label">Masked: <output id="mask-out" for="mask-slider">25%</output></label>
+            <input type="range" id="mask-slider" min="0" max="3" step="1" value="0" aria-valuetext="25% masked, 1 blank">
+            <div class="mask-ticks" aria-hidden="true"><button type="button" tabindex="-1">25%</button><button type="button" tabindex="-1">50%</button><button type="button" tabindex="-1">75%</button><button type="button" tabindex="-1">100%</button></div>
+          </div>
+        </div>
+      </div>
+      <details class="bgfold"><summary>Shared background (all four rungs)</summary>
+        <p class="p-bg">In a narrowband MISO channel model for a mmWave/THz system with a Uniform Planar Array (UPA), the channel matrix is represented as a sum of contributions from $L$ propagation paths. The channel matrix $\boldsymbol{H} \in \mathbb{C}^{N \times N}$ represents the wireless channel between the transmitter's $N$ antennas and a single-antenna receiver, where $N$ is the total number of antenna elements in the UPA. $\beta_\ell \in \mathbb{C}$ is the complex gain of the $\ell$-th path (dimensionless), $\omega_{a,\ell} \in [-\pi, \pi)$ and $\omega_{e,\ell} \in [-\pi, \pi)$ are the beamspace angles (in radians) for the azimuth and elevation dimensions of the $\ell$-th path, respectively. $\mathbf{a}_N(\omega) \in \mathbb{C}^{N \times 1}$ is the array response Vandermonde vector for a given spatial frequency $\omega$.</p>
+      </details>
+      <div class="rungs-wrap">
+<div class="rung-panel p-fill" id="rung-0" data-rung="0"><span class="rung-tag">25% masked · 1 blank · record #9721 · <code class="no-math">fill_blank_25</code></span><p class="p-q">What is the missing array response vector for the complementary spatial dimension?</p><div class="eq">$\mathbf{H} = \sum_{\ell=1}^{L} \beta_\ell \mathbf{a}_N(\omega_{e,\ell}) \boxed{\,\color{#b3401c}{?}\,}$</div><details class="reveal"><summary>Reveal answer</summary><div class="answer"><p>Ground truth: $\mathbf{a}_N^\mathrm{T}(\omega_{a,\ell})$</p><div class="eq">$\mathbf{H} = \sum_{\ell=1}^{L} \beta_\ell \mathbf{a}_N(\omega_{e,\ell}) \boxed{\color{#00706c}{\mathbf{a}_N^\mathrm{T}(\omega_{a,\ell})}}$</div></div></details></div>
+<div class="rung-panel p-fill" id="rung-1" data-rung="1"><span class="rung-tag">50% masked · 2 blanks · record #9722 · <code class="no-math">fill_blank_50</code></span><p class="p-q">Fill in the complex path gain and the transposed array response vector.</p><div class="eq">$\mathbf{H} = \sum_{\ell=1}^{L} \boxed{\,\color{#b3401c}{?_{1}}\,} \mathbf{a}_N(\omega_{e,\ell}) \boxed{\,\color{#b3401c}{?_{2}}\,}$</div><details class="reveal"><summary>Reveal answer</summary><div class="answer"><p>Ground truth: $?_{1} = \beta_\ell$, $?_{2} = \mathbf{a}_N^\mathrm{T}(\omega_{a,\ell})$</p><div class="eq">$\mathbf{H} = \sum_{\ell=1}^{L} \boxed{\color{#00706c}{\beta_\ell}} \mathbf{a}_N(\omega_{e,\ell}) \boxed{\color{#00706c}{\mathbf{a}_N^\mathrm{T}(\omega_{a,\ell})}}$</div></div></details></div>
+<div class="rung-panel p-fill" id="rung-2" data-rung="2"><span class="rung-tag">75% masked · 4 blanks · record #9723 · <code class="no-math">fill_blank_75</code></span><p class="p-q">Complete the summation operator, the path gain, and the two angle variables.</p><div class="eq">$\mathbf{H} = \boxed{\,\color{#b3401c}{?_{1}}\,}_{\ell=1}^{L} \boxed{\,\color{#b3401c}{?_{2}}\,} \mathbf{a}_N(\boxed{\,\color{#b3401c}{?_{3}}\,}) \mathbf{a}_N^\mathrm{T}(\boxed{\,\color{#b3401c}{?_{4}}\,})$</div><details class="reveal"><summary>Reveal answer</summary><div class="answer"><p>Ground truth: $?_{1} = \sum$, $?_{2} = \beta_\ell$, $?_{3} = \omega_{e,\ell}$, $?_{4} = \omega_{a,\ell}$</p><div class="eq">$\mathbf{H} = \boxed{\color{#00706c}{\sum}}_{\ell=1}^{L} \boxed{\color{#00706c}{\beta_\ell}} \mathbf{a}_N(\boxed{\color{#00706c}{\omega_{e,\ell}}}) \mathbf{a}_N^\mathrm{T}(\boxed{\color{#00706c}{\omega_{a,\ell}}})$</div></div></details></div>
+<div class="rung-panel p-fec" id="rung-3" data-rung="3"><span class="rung-tag">100% masked (FEC): the whole right-hand side · record #9724 · <code class="no-math">fill_blank_100</code></span><p class="p-q">Write the complete equation for the physical channel model.</p><div class="eq">$\mathbf{H} = \boxed{\,\color{#b3401c}{?}\,}$</div><details class="reveal"><summary>Reveal answer</summary><div class="answer"><p>Ground truth: $\sum_{\ell=1}^{L} \beta_\ell \mathbf{a}_N(\omega_{e,\ell}) \mathbf{a}_N^\mathrm{T}(\omega_{a,\ell})$</p><div class="eq">$\mathbf{H} = \boxed{\color{#00706c}{\sum_{\ell=1}^{L} \beta_\ell \mathbf{a}_N(\omega_{e,\ell}) \mathbf{a}_N^\mathrm{T}(\omega_{a,\ell})}}$</div></div></details></div>
+      </div>
+      <div class="provenance">
+        <span class="credit"><svg class="ci" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2.8h8.5l4.7 4.7v13.7H6z M14.5 2.8v4.7h4.7" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 13h7M9 17h5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>Derived from <a href="https://arxiv.org/abs/2308.13268v1">arXiv:2308.13268v1</a></span>
+        <span class="chip">records #9721&ndash;#9724</span>
+        <span class="chip">type <code class="no-math">fill_blank_25/50/75/100</code></span>
+        <span class="chip">train split</span>
+        <a class="chip lic" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>
+        <span class="chip audit"><svg class="ci" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 12.4l2.7 2.6L16 9.6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>RedPajama-arXiv 13-gram hits: 0 · in S<sub>0</sub> (all four)</span>
+        <button type="button" class="linkish js-only" data-show-problem="9720">Same family as an MCQ: open #9720 in the explorer <span aria-hidden="true">&uarr;</span></button>
+      </div>
+    </div>
+    <p class="ladder-note">Examples are drawn only from <code>problems_cc_by.jsonl</code> (records from CC BY 4.0 or CC0 source papers, released under CC BY 4.0) and shown verbatim with their released fields. Credit for the underlying mathematics belongs to the authors of the linked arXiv papers. Audit chips show each record's released per-problem metadata for the one fixed channel the audit covers (13-gram prompt-surface overlap against RedPajama-arXiv).</p>
+  </div>
+</section>
+
+<!-- ================= CHAPTER 3 ================= -->
+<section class="chapter c3" id="audit" aria-labelledby="ch3-title">
+  <div class="wrap">
+    <div class="chap-head">
+      <div class="chap-art">
+        <svg class="il" viewBox="0 0 120 120" aria-hidden="true">
+          <circle cx="60" cy="62" r="50" class="f-as"/>
+          <g class="f-shade2"><rect x="6" y="62" width="6" height="11" rx="1.5"/><rect x="14" y="62" width="6" height="11" rx="1.5"/><rect x="22" y="62" width="6" height="11" rx="1.5"/><rect x="94" y="62" width="6" height="11" rx="1.5"/><rect x="102" y="62" width="6" height="11" rx="1.5"/><rect x="110" y="62" width="6" height="11" rx="1.5"/></g>
+          <circle cx="60" cy="67" r="27" class="f-paper"/>
+          <g class="f-a"><rect x="31" y="62" width="4.4" height="11" rx="1.2"/><rect x="36.5" y="62" width="4.4" height="11" rx="1.2"/><rect x="42" y="62" width="4.4" height="11" rx="1.2"/><rect x="47.5" y="62" width="4.4" height="11" rx="1.2"/><rect x="53" y="62" width="4.4" height="11" rx="1.2"/><rect x="58.5" y="62" width="4.4" height="11" rx="1.2"/><rect x="64" y="62" width="4.4" height="11" rx="1.2"/><rect x="69.5" y="62" width="4.4" height="11" rx="1.2"/><rect x="75" y="62" width="4.4" height="11" rx="1.2"/><rect x="80.5" y="62" width="4.4" height="11" rx="1.2"/><rect x="86" y="62" width="4.4" height="11" rx="1.2"/></g>
+          <circle cx="60" cy="67" r="27" class="ln" stroke-width="3.2"/>
+          <path d="M79 86l20 20" class="ln" stroke-width="7"/>
+          <text x="60" y="54" text-anchor="middle" class="t-a" font-size="11" font-weight="800">n = 13</text>
+        </svg>
+        <span class="chap-num" aria-hidden="true">3</span>
+      </div>
+      <div>
+        <p class="eyebrow">Chapter 3 · The reverse-probe audit</p>
+        <h2 id="ch3-title">Index the small side, stream the big side</h2>
+        <p class="lede">Auditing overlap at training-corpus scale means searching billions of corpus <span class="no-math">n</span>-grams while keeping evidence per problem. The reverse probe flips the usual direction, so memory scales with the benchmark rather than the corpus. Scroll through six steps; the illustration follows along in four stages.</p>
+      </div>
+    </div>
+
+    <div class="scrolly">
+      <div class="figure-col">
+        <div class="sticky">
+          <figure class="probe-fig">
+            <svg id="probe-svg" class="il probe-svg" viewBox="0 0 540 660" role="img" aria-labelledby="probe-t probe-d" preserveAspectRatio="xMidYMid meet">
+              <title id="probe-t">Reverse-probe audit, illustrated in four stages</title>
+              <desc id="probe-d">Stage 1: each benchmark prompt surface (background, question and masked equation, but not the answer) is normalised, cut into 13-token windows and hashed into a probe index that maps hashes to problem ids. Stage 2: the RedPajama-arXiv corpus is streamed through parallel workers while a 13-token window slides over its text. Stage 3: every corpus 13-gram is looked up in the index and each hit adds one to that problem's counter. Stage 4: problems with zero hits are labelled S0; problems whose hits come from at most two distinct documents are labelled S1. Rows and hashes are illustrative.</desc>
+              <defs>
+                <marker id="pb-ah" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M1 1L9 5L1 9" class="ln" stroke-width="2"/></marker>
+                <clipPath id="pb-lanes"><rect x="140" y="240" width="384" height="70"/></clipPath>
+                <clipPath id="pb-strip"><rect x="140" y="318" width="384" height="22"/></clipPath>
+              </defs>
+              <path d="M16 214H524M16 370H524M16 518H524" class="ln-m dash" stroke-width="1.4" opacity=".7"/>
+              <g class="hl s1 s2"><circle cx="22" cy="18" r="11" class="f-ai"/><text x="22" y="22" text-anchor="middle" font-size="12" font-weight="800" class="f-bg">1</text><text x="40" y="22" class="t-a t-cap" font-size="12">INDEX THE BENCHMARK PROMPTS</text></g>
+              <g class="hl s1">
+                <rect x="28" y="50" width="150" height="118" rx="10" class="f-paper"/><rect x="28" y="50" width="150" height="118" rx="10" class="ln-m" stroke-width="1.8"/>
+                <rect x="22" y="45" width="150" height="118" rx="10" class="f-paper"/><rect x="22" y="45" width="150" height="118" rx="10" class="ln-m" stroke-width="1.8"/>
+                <rect x="16" y="40" width="150" height="118" rx="10" class="f-paper"/><rect x="16" y="40" width="150" height="118" rx="10" class="ln"/>
+                <text x="28" y="58" class="t-mut t-cap" font-size="9">BACKGROUND</text>
+                <path d="M28 68h106M28 78h124M28 88h80" class="ln-m" stroke-width="5"/>
+                <text x="28" y="106" class="t-mut t-cap" font-size="9">QUESTION</text>
+                <path d="M28 116h96" class="ln-m" stroke-width="5"/>
+                <text x="28" y="145" class="t-ink t-math" font-size="16" font-style="italic">γ =</text>
+                <g class="h-coral"><rect x="60" y="130" width="58" height="20" rx="5" class="f-as"/><rect x="60" y="130" width="58" height="20" rx="5" class="ln-a dash" stroke-width="1.8"/><text x="89" y="144" text-anchor="middle" font-size="10.5" font-weight="800" class="t-a">MASK</text></g>
+                <text x="156" y="58" text-anchor="end" class="t-mut t-mono" font-size="10">p17</text>
+                <rect x="16" y="176" width="160" height="24" rx="12" class="f-shade"/>
+                <text x="96" y="192" text-anchor="middle" font-size="10.5" font-weight="650" class="t-ink2">answer + derivation: not indexed</text>
+              </g>
+              <g class="hl s2">
+                <text x="196" y="47" font-size="10.5" font-weight="650" class="t-ink2">normalised tokens</text>
+                <path d="M170 66h20" class="ln-t" marker-end="url(#pb-ah)"/>
+                <g class="f-shade2"><rect x="196" y="56" width="8" height="16" rx="2"/><rect x="206" y="56" width="8" height="16" rx="2"/><rect x="216" y="56" width="8" height="16" rx="2"/><rect x="226" y="56" width="8" height="16" rx="2"/><rect x="236" y="56" width="8" height="16" rx="2"/><rect x="246" y="56" width="8" height="16" rx="2"/><rect x="256" y="56" width="8" height="16" rx="2"/><rect x="266" y="56" width="8" height="16" rx="2"/><rect x="276" y="56" width="8" height="16" rx="2"/><rect x="286" y="56" width="8" height="16" rx="2"/><rect x="296" y="56" width="8" height="16" rx="2"/><rect x="306" y="56" width="8" height="16" rx="2"/><rect x="316" y="56" width="8" height="16" rx="2"/><rect x="326" y="56" width="8" height="16" rx="2"/><rect x="336" y="56" width="8" height="16" rx="2"/></g>
+                <path d="M270 96V108" class="ln-t" marker-end="url(#pb-ah)"/>
+                <rect x="226" y="112" width="88" height="24" rx="6" class="f-ink"/>
+                <text x="270" y="128" text-anchor="middle" font-size="11" class="f-bg t-mono">xxhash64</text>
+                <path d="M316 124H356" class="ln-t" marker-end="url(#pb-ah)"/>
+                <rect x="360" y="40" width="164" height="148" rx="12" class="f-paper"/><rect x="360" y="40" width="164" height="148" rx="12" class="ln"/>
+                <path d="M360 68V52a12 12 0 0 1 12-12h140a12 12 0 0 1 12 12v16z" class="f-ai"/>
+                <text x="372" y="59" font-size="10.5" font-weight="800" class="f-bg" letter-spacing=".08em">PROBE INDEX</text>
+                <g class="f-as"><rect x="370" y="78" width="144" height="28" rx="5"/><rect x="370" y="112" width="144" height="28" rx="5"/><rect x="370" y="146" width="144" height="28" rx="5"/></g>
+                <path d="M376 92h6M376 126h6M376 160h6" class="ln-t" stroke-width="2.2"/>
+                <g font-size="10.5" class="t-ink2 t-mono"><text x="388" y="96">a3f9… → p17, p902</text><text x="388" y="130">0c71… → p4</text><text x="388" y="164">e52b… → p17</text></g>
+                <text x="442" y="205" text-anchor="middle" font-size="10.5" font-weight="650" class="t-mut">~511K entries · ~50 MB</text>
+              </g>
+              <g class="hl s2 s6 h-coral">
+                <rect x="203" y="51" width="132" height="26" rx="6" class="ln-a" stroke-width="2.8"/>
+                <text x="269" y="92" text-anchor="middle" font-size="11" font-weight="800" class="t-a">13-gram window</text>
+              </g>
+              <g class="hl s3"><circle cx="22" cy="222" r="11" class="f-ai"/><text x="22" y="226" text-anchor="middle" font-size="12" font-weight="800" class="f-bg">2</text><text x="40" y="226" class="t-a t-cap" font-size="12">STREAM THE CORPUS 13-GRAMS</text></g>
+              <g class="hl s3 h-blue">
+                <path d="M16 250v70c0 11 110 11 110 0v-70" class="f-as"/><path d="M16 250v70c0 11 110 11 110 0v-70" class="ln-a"/>
+                <ellipse cx="71" cy="250" rx="55" ry="10" class="f-paper"/><ellipse cx="71" cy="250" rx="55" ry="10" class="ln-a"/>
+                <text x="71" y="286" text-anchor="middle" font-size="11.5" font-weight="800" class="t-ink">RedPajama-</text>
+                <text x="71" y="300" text-anchor="middle" font-size="11.5" font-weight="800" class="t-ink">arXiv</text>
+                <text x="71" y="346" text-anchor="middle" font-size="10" class="t-ink2">1,558,306 records</text>
+                <path d="M140 250H524 M140 266H524 M140 282H524 M140 298H524" class="ln-m" stroke-width="1.4" stroke-dasharray="2 5"/>
+                <g clip-path="url(#pb-lanes)"><g class="belt">
+                  <g class="f-paper"><rect x="74" y="244" width="14" height="11" rx="2"/><rect x="140" y="244" width="14" height="11" rx="2"/><rect x="206" y="244" width="14" height="11" rx="2"/><rect x="272" y="244" width="14" height="11" rx="2"/><rect x="338" y="244" width="14" height="11" rx="2"/><rect x="404" y="244" width="14" height="11" rx="2"/><rect x="470" y="244" width="14" height="11" rx="2"/><rect x="104" y="260" width="14" height="11" rx="2"/><rect x="170" y="260" width="14" height="11" rx="2"/><rect x="236" y="260" width="14" height="11" rx="2"/><rect x="302" y="260" width="14" height="11" rx="2"/><rect x="368" y="260" width="14" height="11" rx="2"/><rect x="434" y="260" width="14" height="11" rx="2"/><rect x="500" y="260" width="14" height="11" rx="2"/><rect x="88" y="276" width="14" height="11" rx="2"/><rect x="154" y="276" width="14" height="11" rx="2"/><rect x="220" y="276" width="14" height="11" rx="2"/><rect x="286" y="276" width="14" height="11" rx="2"/><rect x="352" y="276" width="14" height="11" rx="2"/><rect x="418" y="276" width="14" height="11" rx="2"/><rect x="484" y="276" width="14" height="11" rx="2"/><rect x="118" y="292" width="14" height="11" rx="2"/><rect x="184" y="292" width="14" height="11" rx="2"/><rect x="250" y="292" width="14" height="11" rx="2"/><rect x="316" y="292" width="14" height="11" rx="2"/><rect x="382" y="292" width="14" height="11" rx="2"/><rect x="448" y="292" width="14" height="11" rx="2"/><rect x="514" y="292" width="14" height="11" rx="2"/></g>
+                  <g class="ln-a" stroke-width="1.6" fill="none"><rect x="74" y="244" width="14" height="11" rx="2"/><rect x="140" y="244" width="14" height="11" rx="2"/><rect x="206" y="244" width="14" height="11" rx="2"/><rect x="272" y="244" width="14" height="11" rx="2"/><rect x="338" y="244" width="14" height="11" rx="2"/><rect x="404" y="244" width="14" height="11" rx="2"/><rect x="470" y="244" width="14" height="11" rx="2"/><rect x="104" y="260" width="14" height="11" rx="2"/><rect x="170" y="260" width="14" height="11" rx="2"/><rect x="236" y="260" width="14" height="11" rx="2"/><rect x="302" y="260" width="14" height="11" rx="2"/><rect x="368" y="260" width="14" height="11" rx="2"/><rect x="434" y="260" width="14" height="11" rx="2"/><rect x="500" y="260" width="14" height="11" rx="2"/><rect x="88" y="276" width="14" height="11" rx="2"/><rect x="154" y="276" width="14" height="11" rx="2"/><rect x="220" y="276" width="14" height="11" rx="2"/><rect x="286" y="276" width="14" height="11" rx="2"/><rect x="352" y="276" width="14" height="11" rx="2"/><rect x="418" y="276" width="14" height="11" rx="2"/><rect x="484" y="276" width="14" height="11" rx="2"/><rect x="118" y="292" width="14" height="11" rx="2"/><rect x="184" y="292" width="14" height="11" rx="2"/><rect x="250" y="292" width="14" height="11" rx="2"/><rect x="316" y="292" width="14" height="11" rx="2"/><rect x="382" y="292" width="14" height="11" rx="2"/><rect x="448" y="292" width="14" height="11" rx="2"/><rect x="514" y="292" width="14" height="11" rx="2"/></g>
+                </g></g>
+                <text x="524" y="236" text-anchor="end" font-size="10" font-weight="700" class="t-a">16 parallel workers →</text>
+              </g>
+              <g class="hl s3 s6">
+                <g class="f-shade2"><rect x="140" y="322" width="8" height="14" rx="2"/><rect x="150" y="322" width="8" height="14" rx="2"/><rect x="160" y="322" width="8" height="14" rx="2"/><rect x="170" y="322" width="8" height="14" rx="2"/><rect x="180" y="322" width="8" height="14" rx="2"/><rect x="190" y="322" width="8" height="14" rx="2"/><rect x="200" y="322" width="8" height="14" rx="2"/><rect x="210" y="322" width="8" height="14" rx="2"/><rect x="220" y="322" width="8" height="14" rx="2"/><rect x="230" y="322" width="8" height="14" rx="2"/><rect x="240" y="322" width="8" height="14" rx="2"/><rect x="250" y="322" width="8" height="14" rx="2"/><rect x="260" y="322" width="8" height="14" rx="2"/><rect x="270" y="322" width="8" height="14" rx="2"/><rect x="280" y="322" width="8" height="14" rx="2"/><rect x="290" y="322" width="8" height="14" rx="2"/><rect x="300" y="322" width="8" height="14" rx="2"/><rect x="310" y="322" width="8" height="14" rx="2"/><rect x="320" y="322" width="8" height="14" rx="2"/><rect x="330" y="322" width="8" height="14" rx="2"/><rect x="340" y="322" width="8" height="14" rx="2"/><rect x="350" y="322" width="8" height="14" rx="2"/><rect x="360" y="322" width="8" height="14" rx="2"/><rect x="370" y="322" width="8" height="14" rx="2"/><rect x="380" y="322" width="8" height="14" rx="2"/><rect x="390" y="322" width="8" height="14" rx="2"/><rect x="400" y="322" width="8" height="14" rx="2"/><rect x="410" y="322" width="8" height="14" rx="2"/><rect x="420" y="322" width="8" height="14" rx="2"/><rect x="430" y="322" width="8" height="14" rx="2"/><rect x="440" y="322" width="8" height="14" rx="2"/><rect x="450" y="322" width="8" height="14" rx="2"/><rect x="460" y="322" width="8" height="14" rx="2"/><rect x="470" y="322" width="8" height="14" rx="2"/><rect x="480" y="322" width="8" height="14" rx="2"/><rect x="490" y="322" width="8" height="14" rx="2"/><rect x="500" y="322" width="8" height="14" rx="2"/><rect x="510" y="322" width="8" height="14" rx="2"/><rect x="520" y="322" width="8" height="14" rx="2"/></g>
+                <g class="slide h-coral"><rect x="147" y="317" width="132" height="24" rx="6" class="ln-a" stroke-width="2.8"/></g>
+                <text x="140" y="358" font-size="10.5" font-weight="650" class="t-mut">12.9 B 13-grams streamed · ~7 min · &lt;6 GB peak</text>
+              </g>
+              <g class="hl s4"><circle cx="22" cy="380" r="11" class="f-ai"/><text x="22" y="384" text-anchor="middle" font-size="12" font-weight="800" class="f-bg">3</text><text x="40" y="384" class="t-a t-cap" font-size="12">COUNT PER-PROBLEM HITS</text></g>
+              <g class="hl s4">
+                <g class="h-blue"><rect x="16" y="410" width="120" height="34" rx="8" class="f-as"/><rect x="16" y="410" width="120" height="34" rx="8" class="ln-a" stroke-width="1.8"/><g class="f-a"><rect x="24" y="420" width="6" height="14" rx="1.5"/><rect x="32" y="420" width="6" height="14" rx="1.5"/><rect x="40" y="420" width="6" height="14" rx="1.5"/><rect x="48" y="420" width="6" height="14" rx="1.5"/><rect x="56" y="420" width="6" height="14" rx="1.5"/><rect x="64" y="420" width="6" height="14" rx="1.5"/><rect x="72" y="420" width="6" height="14" rx="1.5"/><rect x="80" y="420" width="6" height="14" rx="1.5"/><rect x="88" y="420" width="6" height="14" rx="1.5"/><rect x="96" y="420" width="6" height="14" rx="1.5"/><rect x="104" y="420" width="6" height="14" rx="1.5"/><rect x="112" y="420" width="6" height="14" rx="1.5"/><rect x="120" y="420" width="6" height="14" rx="1.5"/></g></g>
+                <text x="76" y="460" text-anchor="middle" font-size="10" class="t-mut">each corpus 13-gram</text>
+                <path d="M138 427H180" class="ln-t" marker-end="url(#pb-ah)"/>
+                <g class="h-amber"><path d="M222 399L262 427L222 455L182 427Z" class="f-as"/><path d="M222 399L262 427L222 455L182 427Z" class="ln-a"/></g>
+                <text x="222" y="425" text-anchor="middle" font-size="10.5" font-weight="800" class="t-ink">in the</text>
+                <text x="222" y="438" text-anchor="middle" font-size="10.5" font-weight="800" class="t-ink">index?</text>
+                <path d="M222 457V478" class="ln-t" marker-end="url(#pb-ah)"/>
+                <text x="222" y="494" text-anchor="middle" font-size="10" class="t-mut">no: move on</text>
+                <path d="M264 427H294" class="ln-t" marker-end="url(#pb-ah)"/>
+                <text x="279" y="419" text-anchor="middle" font-size="10" font-weight="800" class="t-a">+1</text>
+                <rect x="300" y="396" width="224" height="98" rx="10" class="f-paper"/><rect x="300" y="396" width="224" height="98" rx="10" class="ln"/>
+                <text x="314" y="414" class="t-mut t-cap" font-size="9">PROBLEM</text><text x="510" y="414" text-anchor="end" class="t-mut t-cap" font-size="9">HITS</text>
+                <g font-size="11.5" class="t-ink t-mono"><text x="314" y="438">p4</text><text x="314" y="460">p17</text><text x="314" y="482">p902</text></g>
+                <g class="f-a"><rect x="362" y="449" width="7" height="15" rx="2"/><rect x="373" y="449" width="7" height="15" rx="2"/><rect x="362" y="471" width="7" height="15" rx="2"/></g>
+                <path d="M362 434h90" class="ln-m dash" stroke-width="1.4"/>
+                <g font-size="12" font-weight="800" class="t-ink" text-anchor="end"><text x="510" y="438">0</text><text x="510" y="460">2</text><text x="510" y="482">1</text></g>
+                <text x="300" y="510" font-size="10" class="t-mut">matched n-grams kept (capped) for spot checks</text>
+              </g>
+              <g class="hl s5"><circle cx="22" cy="528" r="11" class="f-ai"/><text x="22" y="532" text-anchor="middle" font-size="12" font-weight="800" class="f-bg">4</text><text x="40" y="532" class="t-a t-cap" font-size="12">EMIT S₀ / S₁ LABELS</text></g>
+              <g class="hl s5 s6">
+                <rect x="16" y="546" width="160" height="88" rx="10" class="f-paper"/><rect x="16" y="546" width="160" height="88" rx="10" class="ln"/>
+                <text x="28" y="568" font-size="12.5" font-weight="700" class="t-ink t-mono">p4</text>
+                <text x="164" y="568" text-anchor="end" font-size="10" class="t-mut">0 hits · 0 docs</text>
+                <g class="h-teal"><rect x="28" y="584" width="64" height="34" rx="8" class="f-as"/><rect x="28" y="584" width="64" height="34" rx="8" class="ln-a" stroke-width="1.8" /><text x="60" y="606" text-anchor="middle" font-size="12" font-weight="800" class="t-a">S₀ ✓ in</text></g>
+                <g class="h-teal"><rect x="100" y="584" width="64" height="34" rx="8" class="f-as"/><rect x="100" y="584" width="64" height="34" rx="8" class="ln-a" stroke-width="1.8" /><text x="132" y="606" text-anchor="middle" font-size="12" font-weight="800" class="t-a">S₁ ✓ in</text></g>
+                <rect x="190" y="546" width="160" height="88" rx="10" class="f-paper"/><rect x="190" y="546" width="160" height="88" rx="10" class="ln"/>
+                <text x="202" y="568" font-size="12.5" font-weight="700" class="t-ink t-mono">p17</text>
+                <text x="338" y="568" text-anchor="end" font-size="10" class="t-mut">2 hits · 1 doc</text>
+                <g class="h-coral"><rect x="202" y="584" width="64" height="34" rx="8" class="f-as"/><rect x="202" y="584" width="64" height="34" rx="8" class="ln-a" stroke-width="1.8" stroke-dasharray="4 3"/><text x="234" y="606" text-anchor="middle" font-size="12" font-weight="800" class="t-a">S₀ ✗ out</text></g>
+                <g class="h-teal"><rect x="274" y="584" width="64" height="34" rx="8" class="f-as"/><rect x="274" y="584" width="64" height="34" rx="8" class="ln-a" stroke-width="1.8" /><text x="306" y="606" text-anchor="middle" font-size="12" font-weight="800" class="t-a">S₁ ✓ in</text></g>
+                <rect x="364" y="546" width="160" height="88" rx="10" class="f-paper"/><rect x="364" y="546" width="160" height="88" rx="10" class="ln"/>
+                <text x="376" y="568" font-size="12.5" font-weight="700" class="t-ink t-mono">p902</text>
+                <text x="512" y="568" text-anchor="end" font-size="10" class="t-mut">1 hit · 1 doc</text>
+                <g class="h-coral"><rect x="376" y="584" width="64" height="34" rx="8" class="f-as"/><rect x="376" y="584" width="64" height="34" rx="8" class="ln-a" stroke-width="1.8" stroke-dasharray="4 3"/><text x="408" y="606" text-anchor="middle" font-size="12" font-weight="800" class="t-a">S₀ ✗ out</text></g>
+                <g class="h-teal"><rect x="448" y="584" width="64" height="34" rx="8" class="f-as"/><rect x="448" y="584" width="64" height="34" rx="8" class="ln-a" stroke-width="1.8" /><text x="480" y="606" text-anchor="middle" font-size="12" font-weight="800" class="t-a">S₁ ✓ in</text></g>
+                <text x="270" y="654" text-anchor="middle" font-size="10.5" font-weight="650" class="t-ink2">S₀: zero detected hits · S₁: hits from ≤ 2 distinct documents</text>
+              </g>
+            </svg>
+            <figcaption class="probe-cap"><span><b id="probe-step-label">Six steps, four stages</b></span><span>Diagram rows and hashes are illustrative.</span></figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <ol class="steps">
+        <li class="step" data-step="1" data-vb="0 4 296 204">
+          <div class="step-card">
+            <span class="n"><i>1</i>Stage 1 · index</span>
+            <h3>Take only what the model sees</h3>
+            <p>For each problem, the audit uses the released <strong>prompt surface</strong>: background, question text, and masked equation. It is normalised by lower-casing, stripping LaTeX command tokens, and collapsing whitespace.</p>
+            <p>The unmasked <code>correct_answer</code> and source-paper derivation paragraphs are <em>not</em> part of the v1.0 audit input. So S<sub>0</sub> is a prompt-surface lexical-overlap label, not a target-equation exposure certificate.</p>
+          </div>
+        </li>
+        <li class="step" data-step="2" data-vb="160 26 380 190">
+          <div class="step-card">
+            <span class="n"><i>2</i>Stage 1 · index</span>
+            <h3>Index the small side</h3>
+            <p>Every 13-gram of every prompt is hashed with <code>xxhash64</code> into a <strong>probe index</strong>, a dictionary from gram hash to the problem IDs that contain it.</p>
+            <div class="mini-kv"><span>~511K unique entries</span><span>~50 MB resident</span><span>4,027 problems</span></div>
+          </div>
+        </li>
+        <li class="step" data-step="3" data-vb="4 214 400 150">
+          <div class="step-card">
+            <span class="n"><i>3</i>Stage 2 · stream</span>
+            <h3>Stream the big side</h3>
+            <p>The reference corpus is streamed file by file in parallel instead of being indexed. The release-defining target is <strong>RedPajama-arXiv</strong>: a 100-shard local snapshot of 1,558,306 records whose latest recorded timestamp is 7 March 2023.</p>
+            <div class="mini-kv"><span>12.9 B 13-grams streamed</span><span>memory O(problems), not O(corpus)</span><span>&lt;6 GB peak · 16 workers · ~7 min</span></div>
+          </div>
+        </li>
+        <li class="step" data-step="4" data-vb="124 374 410 144">
+          <div class="step-card">
+            <span class="n"><i>4</i>Stage 3 · count</span>
+            <h3>Count hits, keep the evidence</h3>
+            <p>Each corpus 13-gram is looked up in the probe index. A hit increments that problem's counter and (capped at a small constant) records the matched <span class="no-math">n</span>-gram for spot inspection.</p>
+            <p>Dolma v1.7 <code>arxiv</code> and ProofPile-2 <code>arxiv</code> turned out to repackage the same RedPajama dump, so they add no independent in-domain evidence. OpenWebMath serves as an off-domain corroboration run: 99.87% of RedPajama-S<sub>0</sub> problems also have zero detected OpenWebMath hits.</p>
+          </div>
+        </li>
+        <li class="step" data-step="5" data-vb="8 522 352 140">
+          <div class="step-card">
+            <span class="n"><i>5</i>Stage 4 · label</span>
+            <h3>Emit auditable labels</h3>
+            <p>The strict subset <strong>S<sub>0</sub></strong> keeps problems with zero detected RedPajama-arXiv matches; the lenient <strong>S<sub>1</sub></strong> allows up to two distinct source documents. Both definitions and their fallback rules were fixed before the audit ran; the fallbacks were not triggered.</p>
+            <div class="mini-kv"><span>|S₀| = 3,853 (95.7%)</span><span>|S₁| = 3,985 (99.0%)</span></div>
+            <p style="margin-top:12px">Hit counts, flags and memberships ship with the release, so users can tighten thresholds, audit new slices, or rebuild the filtered evaluation without regenerating the benchmark.</p>
+          </div>
+        </li>
+        <li class="step" data-step="6" data-vb="0 0 540 372">
+          <div class="step-card">
+            <span class="n"><i>6</i>Threshold</span>
+            <h3>Why <span class="no-math">n = 13</span>, and why it matters</h3>
+            <p>Papers dated April 2023 or later cannot be flagged through their own text, so hits on them act as a collision-rate proxy. On the test split that proxy falls from 64.5% at <span class="no-math">n = 8</span> to 3.1% at <span class="no-math">n = 13</span>. That rules out <span class="no-math">n = 8</span>, but does not make 13 a validated optimum. The threshold was fixed before any full-vs-S<sub>0</sub> result was examined.</p>
+            <p class="fine" style="margin-bottom:4px">Zero-hit share of the 800-item test split by <span class="no-math">n</span>:</p>
+            <div class="nbars" role="list">
+              <div class="nbar" role="listitem"><span>n = 8</span><span class="track"><span class="fill" style="width:33.0%"></span></span><span class="v">33.0%</span></div>
+              <div class="nbar" role="listitem"><span>n = 10</span><span class="track"><span class="fill" style="width:75.0%"></span></span><span class="v">75.0%</span></div>
+              <div class="nbar" role="listitem"><span>n = 12</span><span class="track"><span class="fill" style="width:93.1%"></span></span><span class="v">93.1%</span></div>
+              <div class="nbar fixed" role="listitem"><span>n = 13</span><span class="track"><span class="fill" style="width:96.2%"></span></span><span class="v">96.2%</span></div>
+              <div class="nbar" role="listitem"><span>n = 15</span><span class="track"><span class="fill" style="width:98.8%"></span></span><span class="v">98.8%</span></div>
+            </div>
+            <p>S<sub>0</sub> is therefore a fixed-threshold label, not a threshold-invariant property of a problem. The release exposes S<sub>0</sub> membership for every tested <span class="no-math">n</span>.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CHAPTER 4 ================= -->
+<section class="chapter c4 alt" id="scope" aria-labelledby="ch4-title">
+  <div class="wrap">
+    <div class="chap-head">
+      <div class="chap-art">
+        <svg class="il" viewBox="0 0 120 120" aria-hidden="true">
+          <circle cx="60" cy="62" r="50" class="f-as"/>
+          <path d="M40 30 L52 104 H72 L50 26 Z" class="f-glow"/>
+          <path d="M40 30 L52 104 H72 L50 26 Z" class="f-a" opacity=".28"/>
+          <path d="M30 58V106M88 58V106M104 58V106" class="ln-m dash"/>
+          <path d="M62 50V106" class="ln-a" stroke-width="3.5"/>
+          <path d="M20 106h92" class="ln"/>
+          <g transform="rotate(-22 44 22)"><rect x="32" y="12" width="26" height="18" rx="5" class="f-ink"/><rect x="56" y="10" width="6" height="22" rx="2" class="f-ink"/></g>
+          <circle cx="62" cy="80" r="5" class="f-ink"/>
+        </svg>
+        <span class="chap-num" aria-hidden="true">4</span>
+      </div>
+      <div>
+        <p class="eyebrow">Chapter 4 · Reading the audit correctly</p>
+        <h2 id="ch4-title">What the audit can say, and what it cannot</h2>
+        <p class="lede">The audit gives a reproducible bound for exactly one channel. Everything outside that channel remains open, and we say so explicitly.</p>
+      </div>
+    </div>
+
+    <div class="scope" role="region" aria-label="Audit scope">
+      <div class="scope-banner"><svg class="il" viewBox="0 0 44 30" aria-hidden="true"><g transform="rotate(-18 10 8)"><rect x="2" y="2" width="14" height="10" rx="3" style="fill:var(--bg)"/></g><path d="M14 10 L22 28 H32 L20 6 Z" style="fill:var(--amber);opacity:.85"/><path d="M4 28H42" style="stroke:var(--bg);stroke-width:2;stroke-linecap:round"/></svg><span>An auditable protocol for one fixed channel. <em>Not</em> a general cleanliness certificate.</span></div>
+      <div class="can">
+        <h3><svg class="il h-teal" viewBox="0 0 32 32" aria-hidden="true"><path d="M4 6 L13 27 H19 L28 6 Z" class="f-as"/><path d="M16 27V6" class="ln-a" stroke-width="3"/><circle cx="16" cy="16" r="4" class="f-ai"/></svg>In scope: one lit channel</h3>
+        <ul>
+          <li><span><strong>One channel:</strong> exact 13-gram prompt-surface lexical overlap against RedPajama-arXiv at a fixed threshold.</span></li>
+          <li><span><strong>Per-problem evidence:</strong> hit counts, S<sub>0</sub>/S<sub>1</sub> flags, and S<sub>0</sub> membership for each tested <span class="no-math">n</span>, all recomputable.</span></li>
+          <li><span><strong>A bounded stability summary:</strong> how much the few detected-overlap items could move the released scores (see the bound below).</span></li>
+          <li><span><strong>Corroboration:</strong> an off-domain OpenWebMath run and an algebraic-stack pipeline check.</span></li>
+        </ul>
+      </div>
+      <div class="cannot">
+        <h3><svg class="il h-coral" viewBox="0 0 32 32" aria-hidden="true"><path d="M6 6V27M13 6V27M20 6V27M27 6V27" class="ln-m dash" stroke-width="2.2"/><circle cx="16.5" cy="16" r="7" class="f-paper"/><path d="M13 12.5l7 7M20 12.5l-7 7" class="ln-a"/></svg>Outside this channel (not tested)</h3>
+        <ul>
+          <li><span><strong>Paraphrase</strong> or near-duplicate exposure.</span></li>
+          <li><span><strong>Target-answer</strong> exposure (answers and derivations are not indexed).</span></li>
+          <li><span><strong>Alternate arXiv versions</strong> and <strong>closed-corpus</strong> mirrors.</span></li>
+          <li><span><strong>Post-training</strong> exposure and reward-verifier co-adaptation.</span></li>
+          <li><span><strong>Source-paper-disjoint generalisation:</strong> the v1.0 split is by problem (766 of 800 test items share a source paper with training).</span></li>
+          <li><span><strong>A contamination-effect test.</strong> Full-vs-S<sub>0</sub> is structurally underpowered for that.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="bound-grid">
+      <div class="card waffle">
+        <h3>Only 30 of 800 test items carry detected overlap</h3>
+        <svg class="il" viewBox="0 0 400 200" role="img" aria-labelledby="wf-t">
+          <title id="wf-t">Waffle chart of the 800 test items: 770 with zero detected hits and 30 with detected overlap</title>
+          <defs>
+            <pattern id="wf0" width="10" height="10" patternUnits="userSpaceOnUse"><rect x="1" y="1" width="8" height="8" rx="2" class="h-teal f-a"/></pattern>
+            <pattern id="wf1" width="10" height="10" patternUnits="userSpaceOnUse"><rect x="1" y="1" width="8" height="8" rx="2" class="h-coral f-ai"/><path d="M2.5 7.5l5-5" style="stroke:var(--surface);stroke-width:1.3"/></pattern>
+          </defs>
+          <rect x="0" y="0" width="400" height="190" fill="url(#wf0)"/>
+          <rect x="0" y="190" width="100" height="10" fill="url(#wf0)"/>
+          <rect x="100" y="190" width="300" height="10" fill="url(#wf1)"/>
+        </svg>
+        <ul class="legend">
+          <li><span class="sw" style="background:var(--teal)"></span><span>770 zero-hit items (S<sub>0</sub>, 96.2%)</span></li>
+          <li><span class="sw" style="background:var(--coral-ink)"></span><span>30 with detected overlap (buckets of 11 / 9 / 4 / 6)</span></li>
+        </ul>
+        <p class="fine" style="margin:10px 0 0">One square per test item; the flagged items are grouped at the end for counting, not by position.</p>
+      </div>
+      <div class="card">
+        <p class="eyebrow">The bound</p>
+        <div class="hero-num">0.31–0.51<small> pp</small></div>
+        <p>If all 30 flagged items were counted as answered correctly (<em>all-flagged-correct counterfactual</em>), this is their <strong>largest possible positive score inflation</strong> for the five frontier rows.</p>
+        <p class="fine" style="margin:0">So full-versus-S<sub>0</sub> is a bounded, structurally underpowered stability summary, not a contamination-effect test or cleanliness claim.</p>
+      </div>
+    </div>
+
+    <div class="caveats">
+      <div class="caveat">
+        <h4><svg class="il h-amber" viewBox="0 0 34 34" aria-hidden="true"><circle cx="17" cy="17" r="16" class="f-as"/><path d="M8 24h18M11 24V14M17 24V10M23 24V16" class="ln-t"/><circle cx="17" cy="10" r="3" class="f-ai"/></svg>The threshold is a design choice</h4>
+        <p style="margin:0">At <span class="no-math">n = 8</span> only 264/800 test items stay zero-hit and the largest frontier point delta grows to +2.49 pp; for <span class="no-math">n ≥ 10</span> every frontier point delta stays within 0.96 pp. None of the ten frontier pairwise orderings changes sign across the full split and all five threshold views.</p>
+      </div>
+      <div class="caveat">
+        <h4><svg class="il h-amber" viewBox="0 0 34 34" aria-hidden="true"><circle cx="17" cy="17" r="16" class="f-as"/><rect x="12" y="7" width="12" height="20" rx="4" style="fill:var(--band);stroke:var(--band-edge);stroke-width:1.4"/><circle cx="16" cy="12" r="2.4" class="f-ink"/><circle cx="19" cy="17" r="2.4" class="f-ink"/><circle cx="17" cy="22" r="2.4" class="f-ink"/></svg>Frontier rows are a cluster, not a ranking</h4>
+        <p style="margin:0">The five 16k frontier rows fall between 86.5% and 91.3%. The matched-budget GPT-5.2-chat vs GPT-5-mini delta is −0.50 pp [−2.88, +1.88]. Treat them as a high-accuracy calibration cluster, not a resolved rank order.</p>
+      </div>
+      <div class="caveat">
+        <h4><svg class="il h-amber" viewBox="0 0 34 34" aria-hidden="true"><circle cx="17" cy="17" r="16" class="f-as"/><text x="17" y="24" text-anchor="middle" font-size="19" font-weight="800" class="h-coral t-a">†</text></svg>Judges and builders are disclosed</h4>
+        <p style="margin:0">Cross-judge variation of the LLM-judge fallback is 4.6–7.3% absolute (per-model worst case), so smaller gaps are descriptive. DeepSeek-R1 (extraction) and GPT-4o (filtering, rubric scoring) helped build the benchmark; their rows are marked <span class="dagger">†</span> and are descriptive only.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CHAPTER 5 ================= -->
+<section class="chapter c5" id="results" aria-labelledby="ch5-title">
+  <div class="wrap">
+    <div class="chap-head">
+      <div class="chap-art">
+        <svg class="il" viewBox="0 0 120 120" aria-hidden="true">
+          <circle cx="60" cy="62" r="50" class="f-as"/>
+          <rect x="56" y="18" width="36" height="66" rx="7" style="fill:var(--band);stroke:var(--band-edge);stroke-width:1.6"/>
+          <path d="M60 32H86M64 50H90M58 68H82M22 92H44" class="ln-t"/>
+          <circle cx="70" cy="32" r="4.5" class="f-ink"/><circle cx="80" cy="32" r="4.5" class="f-paper"/><circle cx="80" cy="32" r="4.5" class="ln-a" stroke-width="2"/>
+          <circle cx="78" cy="50" r="4.5" class="f-ink"/><circle cx="72" cy="50" r="4.5" class="f-paper"/><circle cx="72" cy="50" r="4.5" class="ln-a" stroke-width="2"/>
+          <circle cx="68" cy="68" r="4.5" class="f-ink"/><circle cx="72" cy="68" r="4.5" class="f-paper"/><circle cx="72" cy="68" r="4.5" class="ln-a" stroke-width="2"/>
+          <circle cx="32" cy="92" r="4.5" class="f-ink"/><circle cx="36" cy="92" r="4.5" class="f-paper"/><circle cx="36" cy="92" r="4.5" class="ln-a" stroke-width="2"/>
+          <path d="M14 106H108M30 102v4M60 102v4M90 102v4" class="ln"/>
+        </svg>
+        <span class="chap-num" aria-hidden="true">5</span>
+      </div>
+      <div>
+        <p class="eyebrow">Chapter 5 · Results</p>
+        <h2 id="ch5-title">Scores barely move when detected-overlap items are removed</h2>
+        <p class="lede">Filtering to S<sub>0</sub> changes accuracy by less than 1 pp for every evaluated model, across a 19-row calibration suite. Given the bound in Chapter 4, read this as stability under one audit channel, not as a leaderboard.</p>
+      </div>
+    </div>
+
+    <div class="tabs" role="tablist" aria-label="Result views">
+      <button type="button" role="tab" id="tab-frontier" aria-controls="panel-frontier" aria-selected="true">16k frontier</button>
+      <button type="button" role="tab" id="tab-locked" aria-controls="panel-locked" aria-selected="false">Locked 2k · D1–D14</button>
+      <button type="button" role="tab" id="tab-public" aria-controls="panel-public" aria-selected="false">Public 310 subset</button>
+    </div>
+
+    <div class="tabpanel res-card" id="panel-frontier" role="tabpanel" aria-labelledby="tab-frontier">
+      <h3>Frontier calibration at a 16k answer budget</h3>
+      <p class="fine">Full = 800-item test split; S<sub>0</sub> = 770-item strict zero-hit subset. Δ = Full − S<sub>0</sub> with paired-bootstrap 95% CIs (10,000 resamples by problem id). Every row moves by at most 0.44 pp.</p>
+      <div class="cluster-note"><svg class="il" viewBox="0 0 42 30" aria-hidden="true"><rect x="10" y="2" width="22" height="26" rx="6" style="fill:var(--surface);stroke:var(--band-edge);stroke-width:1.6"/><circle cx="17" cy="9" r="3.2" class="f-ink"/><circle cx="24" cy="15" r="3.2" class="f-ink"/><circle cx="20" cy="21" r="3.2" class="f-ink"/><path d="M2 15h6M34 15h6" class="ln-t"/></svg><span>These five rows form one <strong>high-accuracy calibration cluster (86.5–91.3%)</strong>, not a resolved rank order. Note the zoomed axis (84–94%).</span></div><ul class="key"><li><svg viewBox="0 0 30 16" aria-hidden="true"><circle cx="15" cy="8" r="5.5" style="fill:var(--ink)"/></svg><span>Full test split (800)</span></li><li><svg viewBox="0 0 30 16" aria-hidden="true"><circle cx="15" cy="8" r="5.5" style="fill:none;stroke:var(--a);stroke-width:2.5"/></svg><span>Strict zero-hit subset S<sub>0</sub> (770)</span></li><li><svg viewBox="0 0 30 16" aria-hidden="true"><path d="M3 8H27M3 4v8M27 4v8" style="stroke:var(--a);stroke-width:2"/><rect x="11" y="4" width="8" height="8" rx="1.5" transform="rotate(45 15 8)" style="fill:var(--a-ink)"/></svg><span>Δ = Full − S<sub>0</sub>, 95% paired-bootstrap CI</span></li><li><svg viewBox="0 0 30 16" aria-hidden="true"><rect x="2" y="1" width="26" height="14" rx="4" style="fill:var(--band);stroke:var(--band-edge);stroke-width:1.5"/></svg><span>high-accuracy calibration cluster (86.5–91.3%)</span></li></ul><div class="dchart" role="group" aria-label="Frontier rows at a 16k answer budget: accuracy on the full split and on S0, with the Full minus S0 difference"><div class="dc-cols" aria-hidden="true"><span>Model</span><span>Accuracy (%) · zoomed axis 84–94</span><span>Δ Full − S<sub>0</sub> (pp)</span><span>Full → S<sub>0</sub> · Δ</span></div><div class="dc-group cluster"><div class="dc-band" aria-hidden="true"><span style="left:25.00%;width:48.00%"><em>calibration cluster · 86.5–91.3% · not a rank order</em></span></div><ul class="dc-rows"><li class="dc-row"><span class="dc-name">GPT-5-mini</span><span class="dc-track" style="--nt:5" aria-hidden="true" title="GPT-5-mini: Full 91.25% · S0 91.69% · Δ −0.44 pp [−1.05, +0.08]"><i class="dc-link" style="left:72.50%;width:4.40%"></i><i class="pt full" style="left:72.50%"></i><i class="pt alt" style="left:76.90%"></i></span><span class="dc-delta" aria-hidden="true" title="GPT-5-mini: Full 91.25% · S0 91.69% · Δ −0.44 pp [−1.05, +0.08]"><i class="dc-ci" style="left:23.75%;width:28.25%"></i><i class="pt delta" style="left:39.00%"></i></span><span class="dc-nums"><span class="sr-only">Full </span><b>91.25</b> → <span class="sr-only">S0 </span><b>91.69</b><br>Δ <b>−0.44</b> <span class="ci-t"><span class="sr-only">pp, 95% CI </span>[−1.05, +0.08]</span></span></li><li class="dc-row"><span class="dc-name">GPT-5.2-chat</span><span class="dc-track" style="--nt:5" aria-hidden="true" title="GPT-5.2-chat: Full 90.75% · S0 90.91% · Δ −0.16 pp [−0.67, +0.26]"><i class="dc-link" style="left:67.50%;width:1.60%"></i><i class="pt full" style="left:67.50%"></i><i class="pt alt" style="left:69.10%"></i></span><span class="dc-delta" aria-hidden="true" title="GPT-5.2-chat: Full 90.75% · S0 90.91% · Δ −0.16 pp [−0.67, +0.26]"><i class="dc-ci" style="left:33.25%;width:23.25%"></i><i class="pt delta" style="left:46.00%"></i></span><span class="dc-nums"><span class="sr-only">Full </span><b>90.75</b> → <span class="sr-only">S0 </span><b>90.91</b><br>Δ <b>−0.16</b> <span class="ci-t"><span class="sr-only">pp, 95% CI </span>[−0.67, +0.26]</span></span></li><li class="dc-row"><span class="dc-name">GPT-4.1-mini</span><span class="dc-track" style="--nt:5" aria-hidden="true" title="GPT-4.1-mini: Full 89.62% · S0 89.35% · Δ +0.27 pp [−0.03, +0.52]"><i class="dc-link" style="left:53.50%;width:2.70%"></i><i class="pt full" style="left:56.20%"></i><i class="pt alt" style="left:53.50%"></i></span><span class="dc-delta" aria-hidden="true" title="GPT-4.1-mini: Full 89.62% · S0 89.35% · Δ +0.27 pp [−0.03, +0.52]"><i class="dc-ci" style="left:49.25%;width:13.75%"></i><i class="pt delta" style="left:56.75%"></i></span><span class="dc-nums"><span class="sr-only">Full </span><b>89.62</b> → <span class="sr-only">S0 </span><b>89.35</b><br>Δ <b>+0.27</b> <span class="ci-t"><span class="sr-only">pp, 95% CI </span>[−0.03, +0.52]</span></span></li><li class="dc-row"><span class="dc-name">Gemini-2.5-Pro</span><span class="dc-track" style="--nt:5" aria-hidden="true" title="Gemini-2.5-Pro: Full 86.88% · S0 87.01% · Δ −0.14 pp [−0.70, +0.33]"><i class="dc-link" style="left:28.80%;width:1.30%"></i><i class="pt full" style="left:28.80%"></i><i class="pt alt" style="left:30.10%"></i></span><span class="dc-delta" aria-hidden="true" title="Gemini-2.5-Pro: Full 86.88% · S0 87.01% · Δ −0.14 pp [−0.70, +0.33]"><i class="dc-ci" style="left:32.50%;width:25.75%"></i><i class="pt delta" style="left:46.50%"></i></span><span class="dc-nums"><span class="sr-only">Full </span><b>86.88</b> → <span class="sr-only">S0 </span><b>87.01</b><br>Δ <b>−0.14</b> <span class="ci-t"><span class="sr-only">pp, 95% CI </span>[−0.70, +0.33]</span></span></li><li class="dc-row"><span class="dc-name">Gemini-2.5-Flash</span><span class="dc-track" style="--nt:5" aria-hidden="true" title="Gemini-2.5-Flash: Full 86.50% · S0 86.49% · Δ +0.01 pp [−0.49, +0.43]"><i class="dc-link" style="left:24.90%;width:0.10%"></i><i class="pt full" style="left:25.00%"></i><i class="pt alt" style="left:24.90%"></i></span><span class="dc-delta" aria-hidden="true" title="Gemini-2.5-Flash: Full 86.50% · S0 86.49% · Δ +0.01 pp [−0.49, +0.43]"><i class="dc-ci" style="left:37.75%;width:23.00%"></i><i class="pt delta" style="left:50.25%"></i></span><span class="dc-nums"><span class="sr-only">Full </span><b>86.50</b> → <span class="sr-only">S0 </span><b>86.49</b><br>Δ <b>+0.01</b> <span class="ci-t"><span class="sr-only">pp, 95% CI </span>[−0.49, +0.43]</span></span></li></ul></div><div class="dc-axis" aria-hidden="true"><span></span><div class="dc-ticks acc"><span style="left:0.00%">84</span><span style="left:20.00%">86</span><span style="left:40.00%">88</span><span style="left:60.00%">90</span><span style="left:80.00%">92</span><span style="left:100.00%">94</span></div><div class="dc-ticks dl"><span style="left:0.00%">−2</span><span style="left:25.00%">−1</span><span style="left:50.00%">0</span><span style="left:75.00%">+1</span><span style="left:100.00%">+2</span></div><span></span></div></div>
+    </div>
+
+    <div class="tabpanel res-card" id="panel-locked" role="tabpanel" aria-labelledby="tab-locked">
+      <h3>Locked 2k calibration rows (D1–D14)</h3>
+      <p class="fine">Same full-vs-S<sub>0</sub> protocol at a locked 2k budget. Within a row, full and S<sub>0</sub> use the same budget; the 16k and 2k views are not a cross-budget leaderboard. <span style="color:var(--coral-ink);font-weight:800">†</span> construction-involved, descriptive calibration only (excluded from comparative claims).</p>
+      <ul class="key"><li><svg viewBox="0 0 30 16" aria-hidden="true"><circle cx="15" cy="8" r="5.5" style="fill:var(--ink)"/></svg><span>Full test split (800)</span></li><li><svg viewBox="0 0 30 16" aria-hidden="true"><circle cx="15" cy="8" r="5.5" style="fill:none;stroke:var(--a);stroke-width:2.5"/></svg><span>Strict zero-hit subset S<sub>0</sub> (770)</span></li><li><svg viewBox="0 0 30 16" aria-hidden="true"><path d="M3 8H27M3 4v8M27 4v8" style="stroke:var(--a);stroke-width:2"/><rect x="11" y="4" width="8" height="8" rx="1.5" transform="rotate(45 15 8)" style="fill:var(--a-ink)"/></svg><span>Δ = Full − S<sub>0</sub>, 95% paired-bootstrap CI</span></li></ul><div class="dchart" role="group" aria-label="Locked 2k calibration rows D1 to D14: accuracy on the full split and on S0, with the Full minus S0 difference"><div class="dc-cols" aria-hidden="true"><span>Model</span><span>Accuracy (%) · axis 0–100</span><span>Δ Full − S<sub>0</sub> (pp)</span><span>Full → S<sub>0</sub> · Δ</span></div><div class="dc-glabel">General-purpose calibration models</div><div class="dc-group"><ul class="dc-rows"><li class="dc-row"><span class="dc-name"><span class="rid">D1</span>Grok-4-Fast</span><span class="dc-track" style="--nt:4" aria-hidden="true" title="Grok-4-Fast: Full 88.00% · S0 88.31% · Δ −0.31 pp [−0.90, +0.20]"><i class="dc-link" style="left:88.00%;width:0.31%"></i><i class="pt full" style="left:88.00%"></i><i class="pt alt" style="left:88.31%"></i></span><span class="dc-delta" aria-hidden="true" title="Grok-4-Fast: Full 88.00% · S0 88.31% · Δ −0.31 pp [−0.90, +0.20]"><i class="dc-ci" style="left:27.50%;width:27.50%"></i><i class="pt delta" style="left:42.25%"></i></span><span class="dc-nums"><span class="sr-only">Full </span><b>88.00</b> → <span class="sr-only">S0 </span><b>88.31</b><br>Δ <b>−0.31</b> <span class="ci-t"><span class="sr-only">pp, 95% CI </span>[−0.90, +0.20]</span></span></li><li class="dc-row"><span class="dc-name"><span class="rid">D2</span>DeepSeek-V3.1 (671B)</span><span class="dc-track" style="--nt:4" aria-hidden="true" title="DeepSeek-V3.1 (671B): Full 84.88% · S0 84.42% · Δ +0.46 pp [+0.14, +0.75]"><i class="dc-link" style="left:84.42%;width:0.46%"></i><i class="pt full" style="left:84.88%"></i><i class="pt alt" style="left:84.42%"></i></span><span class="dc-delta" aria-hidden="true" title="DeepSeek-V3.1 (671B): Full 84.88% · S0 84.42% · Δ +0.46 pp [+0.14, +0.75]"><i class="dc-ci" style="left:53.50%;width:15.25%"></i><i class="pt delta" style="left:61.50%"></i></span><span class="dc-nums"><span class="sr-only">Full </span><b>84.88</b> → <span class="sr-only">S0 </span><b>84.42</b><br>Δ <b>+0.46</b> <span class="ci-t"><span class="sr-only">pp, 95% CI </span>[+0.14, +0.75]</span></span></li><li class="dc-row"><span class="dc-name"><span class="rid">D3</span>Claude-4.0-Sonnet</span><span class="dc-track" style="--nt:4" aria-hidden="true" title="Claude-4.0-Sonnet: Full 83.00% · S0 82.73% · Δ +0.27 pp [−0.20, +0.67]"><i class="dc-link" style="left:82.73%;width:0.27%"></i><i class="pt full" style="left:83.00%"></i><i class="pt alt" style="left:82.73%"></i></span><span class="dc-delta" aria-hidden="true" title="Claude-4.0-Sonnet: Full 83.00% · S0 82.73% · Δ +0.27 pp [−0.20, +0.67]"><i class="dc-ci" style="left:45.00%;width:21.75%"></i><i class="pt delta" style="left:56.75%"></i></span><span class="dc-nums"><span class="sr-only">Full </span><b>83.00</b> → <span class="sr-only">S0 </span><b>82.73</b><br>Δ <b>+0.27</b> <span class="ci-t"><span class="sr-only">pp, 95% CI </span>[−0.20, +0.67]</span></span></li><li class="dc-row"><span class="dc-name"><span class="rid">D4</span>o4-mini</span><span class="dc-track" style="--nt:4" aria-hidden="true" title="o4-mini: Full 81.88% · S0 82.08% · Δ −0.20 pp [−0.81, +0.34]"><i class="dc-link" style="left:81.88%;width:0.20%"></i><i class="pt full" style="left:81.88%"></i><i class="pt alt" style="left:82.08%"></i></span><span class="dc-delta" aria-hidden="true" title="o4-mini: Full 81.88% · S0 82.08% · Δ −0.20 pp [−0.81, +0.34]"><i class="dc-ci" style="left:29.75%;width:28.75%"></i><i class="pt delta" style="left:45.00%"></i></span><span class="dc-nums"><span class="sr-only">Full </span><b>81.88</b> → <span class="sr-only">S0 </span><b>82.08</b><br>Δ <b>−0.20</b> <span class="ci-t"><span class="sr-only">pp, 95% CI </span>[−0.81, +0.34]</span></span></li><li class="dc-row is-dag"><span class="dc-name"><span class="rid">D5</span>DeepSeek-R1 (671B)<span class="dag" title="construction-involved">†</span><span class="sr-only"> (construction-involved, descriptive only)</span></span><span class="dc-track" style="--nt:4" aria-hidden="true" title="DeepSeek-R1 (671B): Full 79.12% · S0 79.09% · Δ +0.03 pp [−0.55, +0.55]"><i class="dc-link" style="left:79.09%;width:0.03%"></i><i class="pt full" style="left:79.12%"></i><i class="pt alt" style="left:79.09%"></i></span><span class="dc-delta" aria-hidden="true" title="DeepSeek-R1 (671B): Full 79.12% · S0 79.09% · Δ +0.03 pp [−0.55, +0.55]"><i class="dc-ci" style="left:36.25%;width:27.50%"></i><i class="pt delta" style="left:50.75%"></i></span><span class="dc-nums"><span class="sr-only">Full </span><b>79.12</b> → <span class="sr-only">S0 </span><b>79.09</b><br>Δ <b>+0.03</b> <span class="ci-t"><span class="sr-only">pp, 95% CI </span>[−0.55, +0.55]</span></span></li><li class="dc-row is-dag"><span class="dc-name"><span class="rid">D6</span>GPT-4o<span class="dag" title="construction-involved">†</span><span class="sr-only"> (construction-involved, descriptive only)</span></span><span class="dc-track" style="--nt:4" aria-hidden="true" title="GPT-4o: Full 77.00% · S0 76.88% · Δ +0.12 pp [−0.48, +0.63]"><i class="dc-link" style="left:76.88%;width:0.12%"></i><i class="pt full" style="left:77.00%"></i><i class="pt alt" style="left:76.88%"></i></span><span class="dc-delta" aria-hidden="true" title="GPT-4o: Full 77.00% · S0 76.88% · Δ +0.12 pp [−0.48, +0.63]"><i class="dc-ci" style="left:38.00%;width:27.75%"></i><i class="pt delta" style="left:53.00%"></i></span><span class="dc-nums"><span class="sr-only">Full </span><b>77.00</b> → <span class="sr-only">S0 </span><b>76.88</b><br>Δ <b>+0.12</b> <span class="ci-t"><span class="sr-only">pp, 95% CI </span>[−0.48, +0.63]</span></span></li><li class="dc-row"><span class="dc-name"><span class="rid">D7</span>Qwen2.5-72B-Instruct (72B)</span><span class="dc-track" style="--nt:4" aria-hidden="true" title="Qwen2.5-72B-Instruct (72B): Full 73.62% · S0 73.77% · Δ −0.14 pp [−0.80, +0.46]"><i class="dc-link" style="left:73.62%;width:0.15%"></i><i class="pt full" style="left:73.62%"></i><i class="pt alt" style="left:73.77%"></i></span><span class="dc-delta" aria-hidden="true" title="Qwen2.5-72B-Instruct (72B): Full 73.62% · S0 73.77% · Δ −0.14 pp [−0.80, +0.46]"><i class="dc-ci" style="left:30.00%;width:31.50%"></i><i class="pt delta" style="left:46.50%"></i></span><span class="dc-nums"><span class="sr-only">Full </span><b>73.62</b> → <span class="sr-only">S0 </span><b>73.77</b><br>Δ <b>−0.14</b> <span class="ci-t"><span class="sr-only">pp, 95% CI </span>[−0.80, +0.46]</span></span></li><li class="dc-row"><span class="dc-name"><span class="rid">D8</span>Llama-3.3-70B-Instruct (70B)</span><span class="dc-track" style="--nt:4" aria-hidden="true" title="Llama-3.3-70B-Instruct (70B): Full 61.50% · S0 61.56% · Δ −0.06 pp [−0.74, +0.60]"><i class="dc-link" style="left:61.50%;width:0.06%"></i><i class="pt full" style="left:61.50%"></i><i class="pt alt" style="left:61.56%"></i></span><span class="dc-delta" aria-hidden="true" title="Llama-3.3-70B-Instruct (70B): Full 61.50% · S0 61.56% · Δ −0.06 pp [−0.74, +0.60]"><i class="dc-ci" style="left:31.50%;width:33.50%"></i><i class="pt delta" style="left:48.50%"></i></span><span class="dc-nums"><span class="sr-only">Full </span><b>61.50</b> → <span class="sr-only">S0 </span><b>61.56</b><br>Δ <b>−0.06</b> <span class="ci-t"><span class="sr-only">pp, 95% CI </span>[−0.74, +0.60]</span></span></li><li class="dc-row"><span class="dc-name"><span class="rid">D9</span>GPT-5-nano</span><span class="dc-track" style="--nt:4" aria-hidden="true" title="GPT-5-nano: Full 52.50% · S0 52.86% · Δ −0.36 pp [−1.07, +0.33]"><i class="dc-link" style="left:52.50%;width:0.36%"></i><i class="pt full" style="left:52.50%"></i><i class="pt alt" style="left:52.86%"></i></span><span class="dc-delta" aria-hidden="true" title="GPT-5-nano: Full 52.50% · S0 52.86% · Δ −0.36 pp [−1.07, +0.33]"><i class="dc-ci" style="left:23.25%;width:35.00%"></i><i class="pt delta" style="left:41.00%"></i></span><span class="dc-nums"><span class="sr-only">Full </span><b>52.50</b> → <span class="sr-only">S0 </span><b>52.86</b><br>Δ <b>−0.36</b> <span class="ci-t"><span class="sr-only">pp, 95% CI </span>[−1.07, +0.33]</span></span></li></ul></div><div class="dc-glabel">Open 7B-scale and WirelessMathLM reference rows</div><div class="dc-group"><ul class="dc-rows"><li class="dc-row"><span class="dc-name"><span class="rid">D10</span>WirelessMathLM-7B + GRPO (7B)<span class="ours">ours</span></span><span class="dc-track" style="--nt:4" aria-hidden="true" title="WirelessMathLM-7B + GRPO (7B): Full 47.88% · S0 48.70% · Δ −0.83 pp [−1.51, −0.17]"><i class="dc-link" style="left:47.88%;width:0.82%"></i><i class="pt full" style="left:47.88%"></i><i class="pt alt" style="left:48.70%"></i></span><span class="dc-delta" aria-hidden="true" title="WirelessMathLM-7B + GRPO (7B): Full 47.88% · S0 48.70% · Δ −0.83 pp [−1.51, −0.17]"><i class="dc-ci" style="left:12.25%;width:33.50%"></i><i class="pt delta" style="left:29.25%"></i></span><span class="dc-nums"><span class="sr-only">Full </span><b>47.88</b> → <span class="sr-only">S0 </span><b>48.70</b><br>Δ <b>−0.83</b> <span class="ci-t"><span class="sr-only">pp, 95% CI </span>[−1.51, −0.17]</span></span></li><li class="dc-row"><span class="dc-name"><span class="rid">D11</span>DeepSeekMath-7B-RL (7B)</span><span class="dc-track" style="--nt:4" aria-hidden="true" title="DeepSeekMath-7B-RL (7B): Full 41.00% · S0 40.91% · Δ +0.09 pp [−0.58, +0.78]"><i class="dc-link" style="left:40.91%;width:0.09%"></i><i class="pt full" style="left:41.00%"></i><i class="pt alt" style="left:40.91%"></i></span><span class="dc-delta" aria-hidden="true" title="DeepSeekMath-7B-RL (7B): Full 41.00% · S0 40.91% · Δ +0.09 pp [−0.58, +0.78]"><i class="dc-ci" style="left:35.50%;width:34.00%"></i><i class="pt delta" style="left:52.25%"></i></span><span class="dc-nums"><span class="sr-only">Full </span><b>41.00</b> → <span class="sr-only">S0 </span><b>40.91</b><br>Δ <b>+0.09</b> <span class="ci-t"><span class="sr-only">pp, 95% CI </span>[−0.58, +0.78]</span></span></li><li class="dc-row"><span class="dc-name"><span class="rid">D12</span>Qwen2.5-Math-7B-Instruct (7B)</span><span class="dc-track" style="--nt:4" aria-hidden="true" title="Qwen2.5-Math-7B-Instruct (7B): Full 40.00% · S0 40.13% · Δ −0.13 pp [−0.77, +0.55]"><i class="dc-link" style="left:40.00%;width:0.13%"></i><i class="pt full" style="left:40.00%"></i><i class="pt alt" style="left:40.13%"></i></span><span class="dc-delta" aria-hidden="true" title="Qwen2.5-Math-7B-Instruct (7B): Full 40.00% · S0 40.13% · Δ −0.13 pp [−0.77, +0.55]"><i class="dc-ci" style="left:30.75%;width:33.00%"></i><i class="pt delta" style="left:46.75%"></i></span><span class="dc-nums"><span class="sr-only">Full </span><b>40.00</b> → <span class="sr-only">S0 </span><b>40.13</b><br>Δ <b>−0.13</b> <span class="ci-t"><span class="sr-only">pp, 95% CI </span>[−0.77, +0.55]</span></span></li><li class="dc-row"><span class="dc-name"><span class="rid">D13</span>WirelessMathLM-3B + GRPO (3B)<span class="ours">ours</span></span><span class="dc-track" style="--nt:4" aria-hidden="true" title="WirelessMathLM-3B + GRPO (3B): Full 25.50% · S0 26.36% · Δ −0.86 pp [−1.28, −0.46]"><i class="dc-link" style="left:25.50%;width:0.86%"></i><i class="pt full" style="left:25.50%"></i><i class="pt alt" style="left:26.36%"></i></span><span class="dc-delta" aria-hidden="true" title="WirelessMathLM-3B + GRPO (3B): Full 25.50% · S0 26.36% · Δ −0.86 pp [−1.28, −0.46]"><i class="dc-ci" style="left:18.00%;width:20.50%"></i><i class="pt delta" style="left:28.50%"></i></span><span class="dc-nums"><span class="sr-only">Full </span><b>25.50</b> → <span class="sr-only">S0 </span><b>26.36</b><br>Δ <b>−0.86</b> <span class="ci-t"><span class="sr-only">pp, 95% CI </span>[−1.28, −0.46]</span></span></li><li class="dc-row"><span class="dc-name"><span class="rid">D14</span>WirelessMathLM-0.5B + GRPO (0.5B)<span class="ours">ours</span></span><span class="dc-track" style="--nt:4" aria-hidden="true" title="WirelessMathLM-0.5B + GRPO (0.5B): Full 2.12% · S0 2.21% · Δ −0.08 pp [−0.14, −0.04]"><i class="dc-link" style="left:2.12%;width:0.09%"></i><i class="pt full" style="left:2.12%"></i><i class="pt alt" style="left:2.21%"></i></span><span class="dc-delta" aria-hidden="true" title="WirelessMathLM-0.5B + GRPO (0.5B): Full 2.12% · S0 2.21% · Δ −0.08 pp [−0.14, −0.04]"><i class="dc-ci" style="left:46.50%;width:2.50%"></i><i class="pt delta" style="left:48.00%"></i></span><span class="dc-nums"><span class="sr-only">Full </span><b>2.12</b> → <span class="sr-only">S0 </span><b>2.21</b><br>Δ <b>−0.08</b> <span class="ci-t"><span class="sr-only">pp, 95% CI </span>[−0.14, −0.04]</span></span></li></ul></div><div class="dc-axis" aria-hidden="true"><span></span><div class="dc-ticks acc"><span style="left:0.00%">0</span><span style="left:25.00%">25</span><span style="left:50.00%">50</span><span style="left:75.00%">75</span><span style="left:100.00%">100</span></div><div class="dc-ticks dl"><span style="left:0.00%">−2</span><span style="left:25.00%">−1</span><span style="left:50.00%">0</span><span style="left:75.00%">+1</span><span style="left:100.00%">+2</span></div><span></span></div></div><div class="dagnote"><b class="big" aria-hidden="true">†</b><p style="margin:0"><strong>Construction-involved.</strong> DeepSeek-R1 extracted the structured records and GPT-4o filtered papers and scored the QA rubric, so both helped build the benchmark. Their rows are retained only as descriptive calibration and are excluded from comparative claims.</p></div>
+      <div class="res-foot">
+        <p>The only systematic nonzero deltas are the WirelessMathLM rows (−0.83, −0.86, −0.08 pp; CIs exclude zero), in the direction opposite to what a simple prompt-surface lexical-overlap shortcut would predict. This is kept as a released sensitivity finding, not a causal claim.</p>
+        <p>WirelessMathLM rows are release-split learnability checks under the published verifier stack, not source-paper-disjoint or verifier-independent evidence.</p>
+      </div>
+    </div>
+
+    <div class="tabpanel res-card" id="panel-public" role="tabpanel" aria-labelledby="tab-public">
+      <h3>Full 800 vs the 310-item public test subset</h3>
+      <p class="fine">490 of the 800 test items are withheld under their source-paper licenses, so full-split numbers cannot be reproduced externally. Every row is re-scored on the <strong>310-item public subset</strong> from the same archived per-item verdicts (no new model calls). CI is a 95% bootstrap over public items (10,000 resamples, seed 0); Δ = Public − Full.</p>
+      <ul class="key"><li><svg viewBox="0 0 30 16" aria-hidden="true"><circle cx="15" cy="8" r="5.5" style="fill:var(--ink)"/></svg><span>Full test split (800)</span></li><li><svg viewBox="0 0 30 16" aria-hidden="true"><path d="M3 8H27M3 4v8M27 4v8" style="stroke:var(--a);stroke-width:2"/><circle cx="15" cy="8" r="5.5" style="fill:var(--surface);stroke:var(--a);stroke-width:2.5"/></svg><span>Public test subset (310) with 95% CI</span></li><li><svg viewBox="0 0 30 16" aria-hidden="true"><rect x="2" y="1" width="26" height="14" rx="4" style="fill:var(--band);stroke:var(--band-edge);stroke-width:1.5"/></svg><span>high-accuracy calibration cluster (86.5–91.3%)</span></li></ul><div class="dchart nodelta" role="group" aria-label="Accuracy on the full 800-item test split versus the 310-item public test subset with 95% confidence intervals"><div class="dc-cols" aria-hidden="true"><span>Model</span><span>Accuracy (%) · axis 0–100</span><span>Full → Public [CI] · Δ</span></div><div class="dc-glabel">Frontier rows (16k budget)</div><div class="dc-group cluster"><div class="dc-band lab-r" aria-hidden="true"><span style="left:86.50%;width:4.80%"><em>cluster 86.5–91.3%</em></span></div><ul class="dc-rows"><li class="dc-row"><span class="dc-name">GPT-5-mini</span><span class="dc-track" style="--nt:4" aria-hidden="true" title="GPT-5-mini: Full 91.25% · Public-310 90.32% [86.77, 93.55] · Δ −0.93 pp"><i class="dc-ci" style="left:86.77%;width:6.78%"></i><i class="pt full" style="left:91.25%"></i><i class="pt alt" style="left:90.32%"></i></span><span class="dc-nums"><span class="sr-only">Full </span><b>91.25</b> → <span class="sr-only">Public 310 </span><b>90.32</b><br><span class="ci-t"><span class="sr-only">95% CI </span>[86.77, 93.55]</span> · Δ <b>−0.93</b></span></li><li class="dc-row"><span class="dc-name">GPT-5.2-chat</span><span class="dc-track" style="--nt:4" aria-hidden="true" title="GPT-5.2-chat: Full 90.75% · Public-310 90.00% [86.45, 93.23] · Δ −0.75 pp"><i class="dc-ci" style="left:86.45%;width:6.78%"></i><i class="pt full" style="left:90.75%"></i><i class="pt alt" style="left:90.00%"></i></span><span class="dc-nums"><span class="sr-only">Full </span><b>90.75</b> → <span class="sr-only">Public 310 </span><b>90.00</b><br><span class="ci-t"><span class="sr-only">95% CI </span>[86.45, 93.23]</span> · Δ <b>−0.75</b></span></li><li class="dc-row"><span class="dc-name">GPT-4.1-mini</span><span class="dc-track" style="--nt:4" aria-hidden="true" title="GPT-4.1-mini: Full 89.62% · Public-310 89.35% [85.81, 92.58] · Δ −0.27 pp"><i class="dc-ci" style="left:85.81%;width:6.77%"></i><i class="pt full" style="left:89.62%"></i><i class="pt alt" style="left:89.35%"></i></span><span class="dc-nums"><span class="sr-only">Full </span><b>89.62</b> → <span class="sr-only">Public 310 </span><b>89.35</b><br><span class="ci-t"><span class="sr-only">95% CI </span>[85.81, 92.58]</span> · Δ <b>−0.27</b></span></li><li class="dc-row"><span class="dc-name">Gemini-2.5-Pro</span><span class="dc-track" style="--nt:4" aria-hidden="true" title="Gemini-2.5-Pro: Full 86.88% · Public-310 85.48% [81.61, 89.35] · Δ −1.39 pp"><i class="dc-ci" style="left:81.61%;width:7.74%"></i><i class="pt full" style="left:86.88%"></i><i class="pt alt" style="left:85.48%"></i></span><span class="dc-nums"><span class="sr-only">Full </span><b>86.88</b> → <span class="sr-only">Public 310 </span><b>85.48</b><br><span class="ci-t"><span class="sr-only">95% CI </span>[81.61, 89.35]</span> · Δ <b>−1.39</b></span></li><li class="dc-row"><span class="dc-name">Gemini-2.5-Flash</span><span class="dc-track" style="--nt:4" aria-hidden="true" title="Gemini-2.5-Flash: Full 86.50% · Public-310 84.19% [80.00, 88.06] · Δ −2.31 pp"><i class="dc-ci" style="left:80.00%;width:8.06%"></i><i class="pt full" style="left:86.50%"></i><i class="pt alt" style="left:84.19%"></i></span><span class="dc-nums"><span class="sr-only">Full </span><b>86.50</b> → <span class="sr-only">Public 310 </span><b>84.19</b><br><span class="ci-t"><span class="sr-only">95% CI </span>[80.00, 88.06]</span> · Δ <b>−2.31</b></span></li></ul></div><div class="dc-glabel">Locked-2k rows D1–D14</div><div class="dc-group"><ul class="dc-rows"><li class="dc-row"><span class="dc-name"><span class="rid">D1</span>Grok-4-Fast</span><span class="dc-track" style="--nt:4" aria-hidden="true" title="Grok-4-Fast: Full 88.00% · Public-310 84.84% [80.65, 88.71] · Δ −3.16 pp"><i class="dc-ci" style="left:80.65%;width:8.06%"></i><i class="pt full" style="left:88.00%"></i><i class="pt alt" style="left:84.84%"></i></span><span class="dc-nums"><span class="sr-only">Full </span><b>88.00</b> → <span class="sr-only">Public 310 </span><b>84.84</b><br><span class="ci-t"><span class="sr-only">95% CI </span>[80.65, 88.71]</span> · Δ <b>−3.16</b></span></li><li class="dc-row"><span class="dc-name"><span class="rid">D2</span>DeepSeek-V3.1</span><span class="dc-track" style="--nt:4" aria-hidden="true" title="DeepSeek-V3.1: Full 84.88% · Public-310 83.87% [79.68, 87.74] · Δ −1.00 pp"><i class="dc-ci" style="left:79.68%;width:8.06%"></i><i class="pt full" style="left:84.88%"></i><i class="pt alt" style="left:83.87%"></i></span><span class="dc-nums"><span class="sr-only">Full </span><b>84.88</b> → <span class="sr-only">Public 310 </span><b>83.87</b><br><span class="ci-t"><span class="sr-only">95% CI </span>[79.68, 87.74]</span> · Δ <b>−1.00</b></span></li><li class="dc-row"><span class="dc-name"><span class="rid">D3</span>Claude-4.0-Sonnet</span><span class="dc-track" style="--nt:4" aria-hidden="true" title="Claude-4.0-Sonnet: Full 83.00% · Public-310 82.26% [77.74, 86.45] · Δ −0.74 pp"><i class="dc-ci" style="left:77.74%;width:8.71%"></i><i class="pt full" style="left:83.00%"></i><i class="pt alt" style="left:82.26%"></i></span><span class="dc-nums"><span class="sr-only">Full </span><b>83.00</b> → <span class="sr-only">Public 310 </span><b>82.26</b><br><span class="ci-t"><span class="sr-only">95% CI </span>[77.74, 86.45]</span> · Δ <b>−0.74</b></span></li><li class="dc-row"><span class="dc-name"><span class="rid">D4</span>o4-mini</span><span class="dc-track" style="--nt:4" aria-hidden="true" title="o4-mini: Full 81.88% · Public-310 79.35% [74.84, 83.87] · Δ −2.52 pp"><i class="dc-ci" style="left:74.84%;width:9.03%"></i><i class="pt full" style="left:81.88%"></i><i class="pt alt" style="left:79.35%"></i></span><span class="dc-nums"><span class="sr-only">Full </span><b>81.88</b> → <span class="sr-only">Public 310 </span><b>79.35</b><br><span class="ci-t"><span class="sr-only">95% CI </span>[74.84, 83.87]</span> · Δ <b>−2.52</b></span></li><li class="dc-row is-dag"><span class="dc-name"><span class="rid">D5</span>DeepSeek-R1<span class="dag" title="construction-involved">†</span><span class="sr-only"> (construction-involved, descriptive only)</span></span><span class="dc-track" style="--nt:4" aria-hidden="true" title="DeepSeek-R1: Full 79.12% · Public-310 77.74% [72.90, 82.26] · Δ −1.38 pp"><i class="dc-ci" style="left:72.90%;width:9.36%"></i><i class="pt full" style="left:79.12%"></i><i class="pt alt" style="left:77.74%"></i></span><span class="dc-nums"><span class="sr-only">Full </span><b>79.12</b> → <span class="sr-only">Public 310 </span><b>77.74</b><br><span class="ci-t"><span class="sr-only">95% CI </span>[72.90, 82.26]</span> · Δ <b>−1.38</b></span></li><li class="dc-row is-dag"><span class="dc-name"><span class="rid">D6</span>GPT-4o<span class="dag" title="construction-involved">†</span><span class="sr-only"> (construction-involved, descriptive only)</span></span><span class="dc-track" style="--nt:4" aria-hidden="true" title="GPT-4o: Full 77.00% · Public-310 75.81% [70.97, 80.32] · Δ −1.19 pp"><i class="dc-ci" style="left:70.97%;width:9.35%"></i><i class="pt full" style="left:77.00%"></i><i class="pt alt" style="left:75.81%"></i></span><span class="dc-nums"><span class="sr-only">Full </span><b>77.00</b> → <span class="sr-only">Public 310 </span><b>75.81</b><br><span class="ci-t"><span class="sr-only">95% CI </span>[70.97, 80.32]</span> · Δ <b>−1.19</b></span></li><li class="dc-row"><span class="dc-name"><span class="rid">D7</span>Qwen2.5-72B-Instruct</span><span class="dc-track" style="--nt:4" aria-hidden="true" title="Qwen2.5-72B-Instruct: Full 73.62% · Public-310 73.87% [69.03, 78.71] · Δ +0.25 pp"><i class="dc-ci" style="left:69.03%;width:9.68%"></i><i class="pt full" style="left:73.62%"></i><i class="pt alt" style="left:73.87%"></i></span><span class="dc-nums"><span class="sr-only">Full </span><b>73.62</b> → <span class="sr-only">Public 310 </span><b>73.87</b><br><span class="ci-t"><span class="sr-only">95% CI </span>[69.03, 78.71]</span> · Δ <b>+0.25</b></span></li><li class="dc-row"><span class="dc-name"><span class="rid">D8</span>Llama-3.3-70B-Instruct</span><span class="dc-track" style="--nt:4" aria-hidden="true" title="Llama-3.3-70B-Instruct: Full 61.50% · Public-310 59.35% [53.87, 64.84] · Δ −2.15 pp"><i class="dc-ci" style="left:53.87%;width:10.97%"></i><i class="pt full" style="left:61.50%"></i><i class="pt alt" style="left:59.35%"></i></span><span class="dc-nums"><span class="sr-only">Full </span><b>61.50</b> → <span class="sr-only">Public 310 </span><b>59.35</b><br><span class="ci-t"><span class="sr-only">95% CI </span>[53.87, 64.84]</span> · Δ <b>−2.15</b></span></li><li class="dc-row"><span class="dc-name"><span class="rid">D9</span>GPT-5-nano</span><span class="dc-track" style="--nt:4" aria-hidden="true" title="GPT-5-nano: Full 52.50% · Public-310 51.29% [45.81, 56.77] · Δ −1.21 pp"><i class="dc-ci" style="left:45.81%;width:10.96%"></i><i class="pt full" style="left:52.50%"></i><i class="pt alt" style="left:51.29%"></i></span><span class="dc-nums"><span class="sr-only">Full </span><b>52.50</b> → <span class="sr-only">Public 310 </span><b>51.29</b><br><span class="ci-t"><span class="sr-only">95% CI </span>[45.81, 56.77]</span> · Δ <b>−1.21</b></span></li><li class="dc-row"><span class="dc-name"><span class="rid">D10</span>WirelessMathLM-7B<span class="ours">ours</span></span><span class="dc-track" style="--nt:4" aria-hidden="true" title="WirelessMathLM-7B: Full 47.88% · Public-310 46.45% [40.65, 51.94] · Δ −1.42 pp"><i class="dc-ci" style="left:40.65%;width:11.29%"></i><i class="pt full" style="left:47.88%"></i><i class="pt alt" style="left:46.45%"></i></span><span class="dc-nums"><span class="sr-only">Full </span><b>47.88</b> → <span class="sr-only">Public 310 </span><b>46.45</b><br><span class="ci-t"><span class="sr-only">95% CI </span>[40.65, 51.94]</span> · Δ <b>−1.42</b></span></li><li class="dc-row"><span class="dc-name"><span class="rid">D11</span>DeepSeekMath-7B-RL</span><span class="dc-track" style="--nt:4" aria-hidden="true" title="DeepSeekMath-7B-RL: Full 41.00% · Public-310 38.71% [33.23, 44.19] · Δ −2.29 pp"><i class="dc-ci" style="left:33.23%;width:10.96%"></i><i class="pt full" style="left:41.00%"></i><i class="pt alt" style="left:38.71%"></i></span><span class="dc-nums"><span class="sr-only">Full </span><b>41.00</b> → <span class="sr-only">Public 310 </span><b>38.71</b><br><span class="ci-t"><span class="sr-only">95% CI </span>[33.23, 44.19]</span> · Δ <b>−2.29</b></span></li><li class="dc-row"><span class="dc-name"><span class="rid">D12</span>Qwen2.5-Math-7B-Instruct</span><span class="dc-track" style="--nt:4" aria-hidden="true" title="Qwen2.5-Math-7B-Instruct: Full 40.00% · Public-310 40.65% [35.16, 46.13] · Δ +0.65 pp"><i class="dc-ci" style="left:35.16%;width:10.97%"></i><i class="pt full" style="left:40.00%"></i><i class="pt alt" style="left:40.65%"></i></span><span class="dc-nums"><span class="sr-only">Full </span><b>40.00</b> → <span class="sr-only">Public 310 </span><b>40.65</b><br><span class="ci-t"><span class="sr-only">95% CI </span>[35.16, 46.13]</span> · Δ <b>+0.65</b></span></li><li class="dc-row"><span class="dc-name"><span class="rid">D13</span>WirelessMathLM-3B<span class="ours">ours</span></span><span class="dc-track" style="--nt:4" aria-hidden="true" title="WirelessMathLM-3B: Full 25.50% · Public-310 25.16% [20.32, 30.00] · Δ −0.34 pp"><i class="dc-ci" style="left:20.32%;width:9.68%"></i><i class="pt full" style="left:25.50%"></i><i class="pt alt" style="left:25.16%"></i></span><span class="dc-nums"><span class="sr-only">Full </span><b>25.50</b> → <span class="sr-only">Public 310 </span><b>25.16</b><br><span class="ci-t"><span class="sr-only">95% CI </span>[20.32, 30.00]</span> · Δ <b>−0.34</b></span></li><li class="dc-row"><span class="dc-name"><span class="rid">D14</span>WirelessMathLM-0.5B<span class="ours">ours</span></span><span class="dc-track" style="--nt:4" aria-hidden="true" title="WirelessMathLM-0.5B: Full 2.12% · Public-310 2.26% [0.65, 4.19] · Δ +0.13 pp"><i class="dc-ci" style="left:0.65%;width:3.54%"></i><i class="pt full" style="left:2.12%"></i><i class="pt alt" style="left:2.26%"></i></span><span class="dc-nums"><span class="sr-only">Full </span><b>2.12</b> → <span class="sr-only">Public 310 </span><b>2.26</b><br><span class="ci-t"><span class="sr-only">95% CI </span>[0.65, 4.19]</span> · Δ <b>+0.13</b></span></li></ul></div><div class="dc-axis" aria-hidden="true"><span></span><div class="dc-ticks acc"><span style="left:0.00%">0</span><span style="left:25.00%">25</span><span style="left:50.00%">50</span><span style="left:75.00%">75</span><span style="left:100.00%">100</span></div><span></span></div></div><div class="dagnote"><b class="big" aria-hidden="true">†</b><p style="margin:0"><strong>Construction-involved.</strong> DeepSeek-R1 extracted the structured records and GPT-4o filtered papers and scored the QA rubric, so both helped build the benchmark. Their rows are retained only as descriptive calibration and are excluded from comparative claims.</p></div>
+      <div class="res-foot">
+        <p>Among the five frontier rows no pairwise ordering changes; among the 14 locked-2k rows, one of 91 pairs changes order (DeepSeekMath-7B-RL vs Qwen2.5-Math-7B-Instruct, 1.00 pp apart on the full split). The public subset is slightly harder for most rows, and it is the recommended view for externally comparable results.</p>
+      </div>
+    </div>
+
+    <div class="learn">
+      <div class="card">
+        <p class="eyebrow">Learnability check</p>
+        <h3>A size-matched Math12K control</h3>
+        <p class="fine">Same Qwen2.5-7B base, 3,227 training examples, 40 epochs / 240 steps, locked 800-item evaluation; one run per condition.</p>
+        <div class="hbar"><span>Math12K GRPO control</span><span class="t"><span class="f" style="width:22.75%;background:var(--blue-ink)">22.75%</span></span></div>
+        <div class="hbar"><span>WirelessMathLM-7B</span><span class="t"><span class="f" style="width:47.88%;background:var(--teal-ink)">47.88%</span></span></div>
+        <p class="fine" style="margin-top:10px">Paired Δ −25.13 pp, 95% item-bootstrap CI [−29.00, −21.13]. This supports release-split domain-aligned learnability, not intrinsic difficulty, causal isolation of wireless constraints, seed robustness, or paper-disjoint generalisation. Lower-level batch, prompt-template and reward settings are not identical.</p>
+      </div>
+      <div class="card">
+        <p class="eyebrow">Learnability check</p>
+        <h3>GRPO from base checkpoints</h3>
+        <p class="fine">Training-time checks under greedy model selection (separate from the locked T = 0.6 + judge scores).</p>
+        <div class="hbar"><span>Qwen2.5-3B base</span><span class="t"><span class="f" style="width:12.37%;background:var(--line-2);color:var(--ink)">12.37%</span></span></div>
+        <div class="hbar"><span>Qwen2.5-3B + GRPO</span><span class="t"><span class="f" style="width:25.12%;background:var(--violet-ink)">25.12%</span></span></div>
+        <div class="hbar"><span>Qwen2.5-7B base</span><span class="t"><span class="f" style="width:21.88%;background:var(--line-2);color:var(--ink)">21.88%</span></span></div>
+        <div class="hbar"><span>Qwen2.5-7B + GRPO</span><span class="t"><span class="f" style="width:39.50%;background:var(--violet-ink)">39.50%</span></span></div>
+        <p class="fine" style="margin-top:10px">The 0.5B checkpoint moves only +1.49 points and stays near the floor; a single Qwen3-4B run improves by +4.24. These rows show the training split is learnable with a verifier reward under the published stack; the shared GPT-4.1-mini verifier family keeps verifier-independent reasoning outside the claim.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CHAPTER 6 ================= -->
+<section class="chapter c6 alt" id="release" aria-labelledby="ch6-title">
+  <div class="wrap">
+    <div class="chap-head">
+      <div class="chap-art">
+        <svg class="il" viewBox="0 0 120 120" aria-hidden="true">
+          <circle cx="60" cy="62" r="50" class="f-as"/>
+          <g transform="rotate(-10 48 44)"><rect x="32" y="20" width="32" height="42" rx="4" class="f-paper"/><rect x="32" y="20" width="32" height="42" rx="4" class="ln"/><path d="M39 31h18M39 39h18M39 47h12" class="ln-m"/></g>
+          <g transform="rotate(8 74 40)"><rect x="58" y="18" width="32" height="42" rx="4" class="f-paper"/><rect x="58" y="18" width="32" height="42" rx="4" class="ln"/><path d="M65 29q3-4.5 6 0t6 0 6 0" class="ln-a"/><path d="M65 38h18M65 46h12" class="ln-m"/></g>
+          <path d="M20 58h80v42a4 4 0 0 1-4 4H24a4 4 0 0 1-4-4z" class="f-a"/>
+          <path d="M20 58h80v42a4 4 0 0 1-4 4H24a4 4 0 0 1-4-4z M20 58l-10-12 M100 58l10-12" class="ln"/>
+          <rect x="46" y="72" width="28" height="16" rx="4" class="f-paper"/><rect x="46" y="72" width="28" height="16" rx="4" class="ln-t"/>
+          <text x="60" y="84" text-anchor="middle" class="t-ink" font-size="10" font-weight="800">CC</text>
+        </svg>
+        <span class="chap-num" aria-hidden="true">6</span>
+      </div>
+      <div>
+        <p class="eyebrow">Chapter 6 · Open release</p>
+        <h2 id="ch6-title">Take it, re-run it, tighten it</h2>
+        <p class="lede">Redistribution follows each source paper's license (harvested from arXiv OAI-PMH). Records whose license does not clearly permit derived text are withheld and listed by identifier only. Identifier-level audit metadata for all 4,027 problems is released under CC BY 4.0; code is MIT-licensed.</p>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>What is public</h3>
+        <div class="stack-label"><span>All 4,027 records</span><span>1,542 distributed</span></div>
+        <div class="stack" role="img" aria-label="Of 4,027 records: 1,334 CC BY 4.0, 43 CC BY-SA 4.0, 165 CC BY-NC-SA 4.0, 2,485 withheld and listed by ID only">
+          <div class="s-by" style="width:33.13%">1,334</div><div class="s-sa" style="width:1.07%"></div><div class="s-nc" style="width:4.10%"></div><div class="s-wh" style="width:61.71%">2,485 withheld</div>
+        </div>
+        <div class="stack-label"><span>800-item test split</span><span>310 distributed</span></div>
+        <div class="stack" role="img" aria-label="Of 800 test records: 273 from CC BY or CC0 sources, 9 CC BY-SA, 28 CC BY-NC-SA, 490 withheld">
+          <div class="s-by" style="width:34.13%">273</div><div class="s-sa" style="width:1.13%"></div><div class="s-nc" style="width:3.50%"></div><div class="s-wh" style="width:61.25%">490 withheld</div>
+        </div>
+        <ul class="legend">
+          <li><span class="sw s-by"></span><span>CC BY 4.0 (CC BY / CC0 sources): 1,334 · test 273</span></li>
+          <li><span class="sw s-sa"></span><span>CC BY-SA 4.0: 43 · test 9</span></li>
+          <li><span class="sw s-nc"></span><span>CC BY-NC-SA 4.0: 165 · test 28</span></li>
+          <li><span class="sw s-wh"></span><span>Withheld (ID only): 2,485 · test 490</span></li>
+        </ul>
+        <div class="callout">Report results on the <strong>310-item public test subset</strong> for externally comparable numbers; it is the union of the three <code>test</code> splits on the Hub (273 + 9 + 28), and its problem IDs also ship as <code>public_test_ids.json</code>. Reference scores for all 19 rows are in the <a href="#results">Public 310</a> tab.</div>
+      </div>
+
+      <div class="card">
+        <h3>Load it</h3>
+        <span class="planned">Planned Hugging Face layout · three license configs</span>
+        <table class="configs">
+          <thead><tr><th scope="col">Config</th><th scope="col">License</th><th scope="col" class="n">Records</th><th scope="col" class="n">In <code>test</code></th></tr></thead>
+          <tbody>
+            <tr><td><code>cc_by</code> <span class="fine">(default)</span></td><td>CC BY 4.0</td><td class="n">1,334</td><td class="n">273</td></tr>
+            <tr><td><code>cc_by_sa</code></td><td>CC BY-SA 4.0</td><td class="n">43</td><td class="n">9</td></tr>
+            <tr><td><code>cc_by_nc_sa</code></td><td>CC BY-NC-SA 4.0</td><td class="n">165</td><td class="n">28</td></tr>
+          </tbody>
+        </table>
+        <p class="fine" style="margin:0 0 12px">Each config has <code>train</code> and <code>test</code> splits. The 2,485 withheld records are listed by ID only in <code>excluded_records_manifest.csv</code>.</p>
+        <div class="code-wrap">
+<pre class="codeblock" id="snippet"><code><span class="c"># pip install datasets</span>
+<span class="k">from</span> datasets <span class="k">import</span> load_dataset, concatenate_datasets
+
+REPO = <span class="s">"XINLI1997/WirelessMATHBench-XL"</span>
+test = <span class="f">load_dataset</span>(REPO, <span class="s">"cc_by"</span>, split=<span class="s">"test"</span>)
+
+<span class="c"># 310-item public subset = the three test splits</span>
+public = <span class="f">concatenate_datasets</span>([
+    <span class="f">load_dataset</span>(REPO, cfg, split=<span class="s">"test"</span>)
+    <span class="k">for</span> cfg <span class="k">in</span> (<span class="s">"cc_by"</span>, <span class="s">"cc_by_sa"</span>, <span class="s">"cc_by_nc_sa"</span>)
+])
+
+item = public[<span class="s">0</span>]
+<span class="f">print</span>(item[<span class="s">"type"</span>], item[<span class="s">"paper_id"</span>])
+<span class="f">print</span>(item[<span class="s">"prompt"</span>])          <span class="c"># what the model sees</span>
+<span class="f">print</span>(item[<span class="s">"correct_answer"</span>])  <span class="c"># verifier-facing truth</span>
+<span class="f">print</span>(item[<span class="s">"contamination"</span>])   <span class="c"># per-problem audit metadata</span></code></pre>
+          <button type="button" class="copy" data-copy="snippet">Copy</button>
+        </div>
+        <h3 style="margin-top:22px">In the release</h3>
+        <ul class="files">
+          <li><code>problems_cc_by*.jsonl</code><span>distributed records by license (1,334 / 43 / 165), mirrored as the three Hub configs</span></li>
+          <li><code>excluded_records_manifest.csv</code><span>2,485 withheld records, identifiers only</span></li>
+          <li><code>public_test_ids.json</code><span>the 310-item public test subset</span></li>
+          <li><code>contamination_metadata.jsonl</code><span>hit counts and S<sub>0</sub>/S<sub>1</sub> flags for all 4,027</span></li>
+          <li><code>s0_membership_by_n.csv</code><span>S<sub>0</sub> membership for each tested <span class="no-math">n</span></span></li>
+          <li><code>paper_disjoint_test</code><span>34-item source-paper-disjoint sensitivity view (+ seed-0 grouped 3,222 / 805 split)</span></li>
+        </ul>
+        <p class="fine" style="margin-top:12px">Also: evaluation traces, paired-bootstrap scripts, GRPO training recipes, Croissant metadata, and a Datasheet for Datasets. File names follow the release data folder.</p>
+      </div>
+    </div>
+
+    <div class="release-links">
+      <a class="rlink h-teal" href="https://github.com/LiXin97/WirelessMathBench-XL">
+        <svg class="il" viewBox="0 0 52 52" aria-hidden="true"><circle cx="26" cy="26" r="25" class="f-as"/><rect x="10" y="13" width="32" height="26" rx="5" class="f-paper"/><rect x="10" y="13" width="32" height="26" rx="5" class="ln"/><path d="M10 20h32" class="ln"/><path d="M21 25l-4 4 4 4M31 25l4 4-4 4" class="ln-a"/></svg>
+        <div><b>Code</b><span>audit, evaluation &amp; training scripts (MIT)</span></div>
+      </a>
+      <a class="rlink h-green" href="https://huggingface.co/datasets/XINLI1997/WirelessMATHBench-XL">
+        <svg class="il" viewBox="0 0 52 52" aria-hidden="true"><circle cx="26" cy="26" r="25" class="f-as"/><rect x="12" y="11" width="28" height="8" rx="3" class="f-paper"/><rect x="12" y="22" width="28" height="8" rx="3" class="f-paper"/><rect x="12" y="33" width="28" height="8" rx="3" class="f-a"/><path d="M12 14a3 3 0 0 1 3-3h22a3 3 0 0 1 3 3v2a3 3 0 0 1-3 3H15a3 3 0 0 1-3-3zM12 25a3 3 0 0 1 3-3h22a3 3 0 0 1 3 3v2a3 3 0 0 1-3 3H15a3 3 0 0 1-3-3zM12 36a3 3 0 0 1 3-3h22a3 3 0 0 1 3 3v2a3 3 0 0 1-3 3H15a3 3 0 0 1-3-3z" class="ln"/></svg>
+        <div><b>Dataset</b><span>Hugging Face · XINLI1997/WirelessMATHBench-XL</span></div>
+      </a>
+      <a class="rlink h-violet" href="https://huggingface.co/XINLI1997">
+        <svg class="il" viewBox="0 0 52 52" aria-hidden="true"><circle cx="26" cy="26" r="25" class="f-as"/><path d="M15 15l11 11M15 37l11-11M26 26h12M15 15v22" class="ln"/><circle cx="15" cy="15" r="4.5" class="f-paper"/><circle cx="15" cy="15" r="4.5" class="ln"/><circle cx="15" cy="37" r="4.5" class="f-paper"/><circle cx="15" cy="37" r="4.5" class="ln"/><circle cx="26" cy="26" r="4.5" class="f-paper"/><circle cx="26" cy="26" r="4.5" class="ln"/><circle cx="38" cy="26" r="5" class="f-a"/></svg>
+        <div><b>Models</b><span>WirelessMathLM checkpoints (repo names TBD)</span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CHAPTER 7 ================= -->
+<section class="chapter c7" id="cite" aria-labelledby="ch7-title">
+  <div class="wrap narrow">
+    <div class="chap-head">
+      <div class="chap-art">
+        <svg class="il" viewBox="0 0 120 120" aria-hidden="true">
+          <circle cx="60" cy="62" r="50" class="f-as"/>
+          <rect x="24" y="22" width="68" height="80" rx="6" class="f-paper"/><rect x="24" y="22" width="68" height="80" rx="6" class="ln"/>
+          <path d="M34 22v80" class="ln-t"/>
+          <path d="M70 22v32l7-6 7 6V22" class="f-a"/><path d="M70 22v32l7-6 7 6V22" class="ln-t"/>
+          <text x="44" y="84" class="t-a t-math" font-size="54" font-weight="600">“</text>
+          <path d="M44 88h36M44 96h24" class="ln-m"/>
+        </svg>
+        <span class="chap-num" aria-hidden="true">7</span>
+      </div>
+      <div>
+        <p class="eyebrow">Chapter 7 · Citation</p>
+        <h2 id="ch7-title">Cite WirelessMathBench-XL</h2>
+        <p class="lede">If you use the benchmark, the audit metadata, or the reference checkpoints, please cite:</p>
+      </div>
+    </div>
+    <div class="code-wrap">
+<pre class="codeblock bib" id="bibtex"><code>@inproceedings{
+li2026wirelessmathbenchxl,
+title={WirelessMathBench-XL: An Auditable Benchmark for Wireless Mathematical Reasoning},
+author={Xin Li and Mengbing Liu and Yiyang Zhu and Wenhe Zhang and Li Wei and Jiancheng An and Chau Yuen},
+booktitle={The Fortieth Annual Conference on Neural Information Processing Systems Evaluations and Datasets Track},
+year={2026},
+url={https://openreview.net/forum?id=KbbNUVldqT}
+}</code></pre>
+      <button type="button" class="copy light" data-copy="bibtex">Copy BibTeX</button>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p style="margin:0"><strong>WirelessMathBench-XL</strong> · NeurIPS 2026 Evaluations and Datasets Track · Nanyang Technological University</p>
+    <p style="margin:0">Example problems on this page are CC BY 4.0 records derived from the linked arXiv papers; credit for the underlying mathematics belongs to their authors. Figure 1 is reproduced from the paper.</p>
+  </div>
+</footer>
+</body>
+</html>
