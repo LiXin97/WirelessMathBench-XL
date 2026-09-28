@@ -132,8 +132,7 @@ li2026wirelessmathbenchxl,
 title={WirelessMathBench-XL: An Auditable Benchmark for Wireless Mathematical Reasoning},
 author={Xin Li and Mengbing Liu and Yiyang Zhu and Wenhe Zhang and Li Wei and Jiancheng An and Chau Yuen},
 booktitle={The Fortieth Annual Conference on Neural Information Processing Systems Evaluations and Datasets Track},
-year={2026},
-url={https://openreview.net/forum?id=KbbNUVldqT}
+year={2026}
 }
 ```
 
