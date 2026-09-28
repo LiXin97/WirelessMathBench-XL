@@ -4,7 +4,7 @@
 
 Xin Li, Mengbing Liu, Yiyang Zhu, Wenhe Zhang, Li Wei, Jiancheng An, Chau Yuen · Nanyang Technological University
 
-[Project page](https://lixin.ai/WirelessMathBench-XL/) · [OpenReview](https://openreview.net/forum?id=KbbNUVldqT) · [Dataset (Hugging Face)](https://huggingface.co/datasets/XINLI1997/WirelessMATHBench-XL)
+[Project page](https://lixin.ai/WirelessMathBench-XL/) · [OpenReview](https://openreview.net/forum?id=KbbNUVldqT) · [Dataset (Hugging Face)](https://huggingface.co/datasets/XINLI1997/WirelessMATHBench-XL) · [Models](https://huggingface.co/collections/XINLI1997/wirelessmathbench-xl-6aba22d1122ef418c33dd34c)
 
 WirelessMathBench-XL contains 4,027 wireless-math problems in three formats
 (multiple choice, progressive fill-in at 25/50/75% masking, and full equation
@@ -121,8 +121,22 @@ derivation paragraphs are not redistributed.
 | `scripts/build_paper_disjoint_split.py`, `scripts/materialize_paper_disjoint_view.py`, `scripts/compute_paper_disjoint.py` | Source-paper-disjoint split and views |
 | `scripts/fetch_excluded_sources.py` | Summarize withheld records and fetch their arXiv sources for provenance |
 
-See `REPRODUCE.md` for integrity checks and commands. Training recipes and
-WirelessMathLM checkpoints will be linked here.
+See `REPRODUCE.md` for integrity checks and commands.
+
+## Models
+
+GRPO-trained WirelessMathLM reference checkpoints (240 steps on the train split):
+
+| Model | Base | Full-800 | Public-310 |
+|---|---|---:|---:|
+| [WirelessMathLM-7B](https://huggingface.co/XINLI1997/WirelessMathLM-7B) | Qwen2.5-7B | 47.88 | 46.45 |
+| [WirelessMathLM-3B](https://huggingface.co/XINLI1997/WirelessMathLM-3B) | Qwen2.5-3B | 25.50 | 25.16 |
+| [WirelessMathLM-0.5B](https://huggingface.co/XINLI1997/WirelessMathLM-0.5B) | Qwen2.5-0.5B | 2.12 | 2.26 |
+| [WirelessMathLM-Qwen3-4B](https://huggingface.co/XINLI1997/WirelessMathLM-Qwen3-4B) | Qwen3-4B | – | – |
+
+Accuracy (%) under the paper's locked 2k-token protocol; the Qwen3-4B run is
+reported only as a training-time check (paper Tab. 7). These are release-split
+learnability checks, not evidence of general reasoning.
 
 ## Citation
 
