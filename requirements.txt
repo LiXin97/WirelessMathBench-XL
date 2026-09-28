@@ -1,0 +1,9 @@
+bitarray
+datasets
+matplotlib
+numpy
+pandas
+scipy
+tqdm
+xxhash
+zstandard

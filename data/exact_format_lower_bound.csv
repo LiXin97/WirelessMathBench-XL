@@ -1,0 +1,9 @@
+view,model,n_full,n_s0,judge_full_pct,judge_s0_pct,judge_delta_pp,exact_full_pct,exact_s0_pct,exact_delta_pp
+frontier-16k,GPT-4.1-mini,800,770,89.62,89.35,+0.27,22.00,22.21,-0.21
+frontier-16k,GPT-5-mini,800,770,91.25,91.69,-0.44,25.62,25.32,+0.30
+frontier-16k,GPT-5.2-chat,800,770,90.75,90.91,-0.16,34.12,33.64,+0.49
+frontier-16k,Gemini-2.5-Flash,800,770,86.50,86.49,+0.01,31.38,31.04,+0.34
+frontier-16k,Gemini-2.5-Pro,800,770,86.88,87.01,-0.14,39.50,39.09,+0.41
+locked-2k,DeepSeekMath-7B-RL,800,770,41.00,40.91,+0.09,25.12,25.19,-0.07
+locked-2k,Qwen2.5-Math-7B-Instruct,800,770,40.00,40.13,-0.13,6.88,6.75,+0.12
+locked-2k,WirelessMathLM-7B,800,770,47.88,48.70,-0.83,13.50,13.51,-0.01

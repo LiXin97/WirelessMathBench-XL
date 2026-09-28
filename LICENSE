@@ -1,0 +1,70 @@
+Licensing (v1.1)
+================
+
+Data records are licensed per file according to the license of the arXiv
+source paper each record was derived from. Code is licensed under MIT.
+Only records whose source license clearly permits redistribution of derived
+text are distributed.
+
+1. Data
+-------
+
+  File                              Records  Source licenses        Record license
+  data/problems_cc_by.jsonl           1,334  CC BY 4.0/3.0, CC0     CC BY 4.0
+  data/problems_cc_by_sa.jsonl           43  CC BY-SA 4.0           CC BY-SA 4.0
+  data/problems_cc_by_nc_sa.jsonl       165  CC BY-NC-SA 4.0        CC BY-NC-SA 4.0
+
+The *_public.jsonl evaluation cuts (S0/S1/paper-disjoint) contain records
+from the three files above; each record keeps its record_license field and is
+governed by that license.
+
+  https://creativecommons.org/licenses/by/4.0/legalcode
+  https://creativecommons.org/licenses/by-sa/4.0/legalcode
+  https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode
+
+Attribution: cite WirelessMathBench-XL and the source paper identified by each
+record's paper_id (arXiv identifier).
+
+Withheld records. 2,485 records derived from papers under the arXiv default
+non-exclusive distribution license (2,160), CC BY-NC-ND (323), or with no
+recorded license (2) are NOT distributed. data/excluded_records_manifest.csv
+lists them by identifier only (problem_id, paper_id, arxiv_id, split, type,
+license_class); it contains no problem text.
+
+Identifier-level metadata (contamination_flags_v11.csv,
+contamination_metadata.jsonl, s0_membership_by_n.csv,
+paper_disjoint_split_seed0.csv, source_paper_licenses.csv, evaluation result
+CSVs) contains no source-derived prose and is licensed under CC BY 4.0.
+Matched n-gram strings are omitted for withheld records.
+
+Source-paper text is not redistributed and remains governed by the terms chosen
+by the respective source-paper authors.
+
+2. Code — MIT License
+---------------------
+
+The code in this release (scripts/) is licensed under the MIT License:
+
+    MIT License
+
+    Copyright (c) 2026 Xin Li, Mengbing Liu, Yiyang Zhu, Wenhe Zhang, Li Wei,
+    Jiancheng An, Chau Yuen
+
+    Permission is hereby granted, free of charge, to any person obtaining a
+    copy of this software and associated documentation files (the
+    "Software"), to deal in the Software without restriction, including
+    without limitation the rights to use, copy, modify, merge, publish,
+    distribute, sublicense, and/or sell copies of the Software, and to
+    permit persons to whom the Software is furnished to do so, subject to
+    the following conditions:
+
+    The above copyright notice and this permission notice shall be included
+    in all copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+    OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+    IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+    CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+    TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+    SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.

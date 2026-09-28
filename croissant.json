@@ -1,0 +1,768 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "prov": "http://www.w3.org/ns/prov#",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "repeated": "cr:repeated",
+    "sc": "https://schema.org/",
+    "source": "cr:source",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "WirelessMathBench-XL",
+  "description": "WirelessMathBench-XL is an auditable benchmark of 4,027 wireless mathematical-reasoning problems from 836 retained wireless-communications arXiv papers selected from a 970-paper source pool spanning July 2005 through August 2025. Each problem ships with a source arXiv identifier, a task-format label, natural-language context, equation prompt when applicable, verifiable ground-truth answer, and per-problem RedPajama-arXiv audit metadata. The fixed-channel audit reports prompt-surface lexical overlap against RedPajama-ArXiv at a 13-gram threshold, with S0 defined by docs_total == 0 and S1 by docs_total <= 2; it is not a general contamination certificate. The v1.0 release split is problem-level and is not source-paper-disjoint. v1.1 source-license-aware distribution: only records whose source-paper license clearly permits redistribution of derived text are distributed (1,542 of 4,027): problems_cc_by.jsonl (1,334; CC BY 4.0), problems_cc_by_sa.jsonl (43; CC BY-SA 4.0), and problems_cc_by_nc_sa.jsonl (165; CC BY-NC-SA 4.0). Their test records form a 310-item public test subset. The 2,485 records derived from arXiv-default-licensed (2,160), CC BY-NC-ND (323), or unlabeled (2) sources are withheld and listed by identifier only in excluded_records_manifest.csv; they cannot be regenerated because construction used stochastic LLM calls.",
+  "conformsTo": "http://mlcommons.org/croissant/1.0",
+  "license": [
+    "https://creativecommons.org/licenses/by/4.0/",
+    "https://creativecommons.org/licenses/by-sa/4.0/",
+    "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+  ],
+  "url": "https://lixin.ai/WirelessMathBench-XL",
+  "sameAs": [
+    "https://huggingface.co/datasets/XINLI1997/WirelessMATHBench-XL",
+    "https://github.com/LiXin97/WirelessMathBench-XL"
+  ],
+  "version": "1.1.0",
+  "datePublished": "2026-05-06",
+  "creator": [
+    {
+      "@type": "sc:Person",
+      "name": "Xin Li",
+      "affiliation": {
+        "@type": "sc:Organization",
+        "name": "Nanyang Technological University"
+      }
+    },
+    {
+      "@type": "sc:Person",
+      "name": "Mengbing Liu",
+      "affiliation": {
+        "@type": "sc:Organization",
+        "name": "Nanyang Technological University"
+      }
+    },
+    {
+      "@type": "sc:Person",
+      "name": "Yiyang Zhu",
+      "affiliation": {
+        "@type": "sc:Organization",
+        "name": "Nanyang Technological University"
+      }
+    },
+    {
+      "@type": "sc:Person",
+      "name": "Wenhe Zhang",
+      "affiliation": {
+        "@type": "sc:Organization",
+        "name": "Nanyang Technological University"
+      }
+    },
+    {
+      "@type": "sc:Person",
+      "name": "Li Wei",
+      "affiliation": {
+        "@type": "sc:Organization",
+        "name": "Nanyang Technological University"
+      }
+    },
+    {
+      "@type": "sc:Person",
+      "name": "Jiancheng An",
+      "affiliation": {
+        "@type": "sc:Organization",
+        "name": "Nanyang Technological University"
+      }
+    },
+    {
+      "@type": "sc:Person",
+      "name": "Chau Yuen",
+      "affiliation": {
+        "@type": "sc:Organization",
+        "name": "Nanyang Technological University"
+      }
+    }
+  ],
+  "publisher": {
+    "@type": "sc:Organization",
+    "name": "Nanyang Technological University"
+  },
+  "citeAs": "@inproceedings{li2026wirelessmathbenchxl, title={WirelessMathBench-XL: An Auditable Benchmark for Wireless Mathematical Reasoning}, author={Xin Li and Mengbing Liu and Yiyang Zhu and Wenhe Zhang and Li Wei and Jiancheng An and Chau Yuen}, booktitle={The Fortieth Annual Conference on Neural Information Processing Systems Evaluations and Datasets Track}, year={2026}, url={https://openreview.net/forum?id=KbbNUVldqT}}",
+  "keywords": [
+    "mathematical reasoning",
+    "wireless communications",
+    "benchmark",
+    "contamination audit",
+    "n-gram overlap",
+    "RedPajama-arXiv",
+    "implicit constraints",
+    "verifiable rewards"
+  ],
+  "isLiveDataset": false,
+  "inLanguage": "en",
+  "distribution": [
+    {
+      "@type": "cr:FileObject",
+      "@id": "problems-cc-by",
+      "name": "problems_cc_by.jsonl",
+      "description": "1,334 records derived from CC BY / CC0 sources; CC BY 4.0.",
+      "contentUrl": "https://huggingface.co/datasets/XINLI1997/WirelessMATHBench-XL/resolve/main/data/problems_cc_by.jsonl",
+      "encodingFormat": "application/jsonlines",
+      "sha256": "3fcbd5dea8b697371e7ff77dc5fcb127bb2783797eb71b52c4df03d23e851460",
+      "contentSize": "4899816 B"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "problems-cc-by-sa",
+      "name": "problems_cc_by_sa.jsonl",
+      "description": "43 records derived from CC BY-SA sources; CC BY-SA 4.0.",
+      "contentUrl": "https://huggingface.co/datasets/XINLI1997/WirelessMATHBench-XL/resolve/main/data/problems_cc_by_sa.jsonl",
+      "encodingFormat": "application/jsonlines",
+      "sha256": "10086b6ee60f2f5015798a657dd8022af99e7ce0fce2e4b907d56943c47f03cf",
+      "contentSize": "186894 B"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "problems-cc-by-nc-sa",
+      "name": "problems_cc_by_nc_sa.jsonl",
+      "description": "165 records derived from CC BY-NC-SA sources; CC BY-NC-SA 4.0.",
+      "contentUrl": "https://huggingface.co/datasets/XINLI1997/WirelessMATHBench-XL/resolve/main/data/problems_cc_by_nc_sa.jsonl",
+      "encodingFormat": "application/jsonlines",
+      "sha256": "a83629ec873d1410d135c76f5192b5a91840bcdb37863ed9813b9525f944509f",
+      "contentSize": "600651 B"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "S0-test-public",
+      "name": "S0_test_public.jsonl",
+      "description": "295 public test records in the strict zero-hit subset S0.",
+      "contentUrl": "https://huggingface.co/datasets/XINLI1997/WirelessMATHBench-XL/resolve/main/data/S0_test_public.jsonl",
+      "encodingFormat": "application/jsonlines",
+      "sha256": "6a3cbb904ad782f6f874b64ce86f2f0e7e3b8e1da81d7ddd4f0efb76b8643efa",
+      "contentSize": "1031771 B"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "S1-test-public",
+      "name": "S1_test_public.jsonl",
+      "description": "306 public test records in the lenient subset S1.",
+      "contentUrl": "https://huggingface.co/datasets/XINLI1997/WirelessMATHBench-XL/resolve/main/data/S1_test_public.jsonl",
+      "encodingFormat": "application/jsonlines",
+      "sha256": "e8da317c70e97969c4feacda1396ea6bec1de9bba172c3e525afcd19058bde18",
+      "contentSize": "1082722 B"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "paper-disjoint-test-public",
+      "name": "paper_disjoint_test_public.jsonl",
+      "description": "13 public test records with source papers absent from training.",
+      "contentUrl": "https://huggingface.co/datasets/XINLI1997/WirelessMATHBench-XL/resolve/main/data/paper_disjoint_test_public.jsonl",
+      "encodingFormat": "application/jsonlines",
+      "sha256": "9e968f42535bcf1a0852838cbc6e1fde629daf42ee86d0ee14a004f89406be7a",
+      "contentSize": "48039 B"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "public-test-ids",
+      "name": "public_test_ids.json",
+      "description": "IDs of the 310-item public test subset.",
+      "contentUrl": "https://huggingface.co/datasets/XINLI1997/WirelessMATHBench-XL/resolve/main/data/public_test_ids.json",
+      "encodingFormat": "application/json",
+      "sha256": "1ec75df584d9ce6bffdc543fd6ff1828bdb989c2c58e862ed750c8d9518b8ed1",
+      "contentSize": "2592 B"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "public-subset-results",
+      "name": "public_subset_results.csv",
+      "description": "Accuracy of 19 evaluated rows on the full 800-item test split and the 310-item public subset.",
+      "contentUrl": "https://huggingface.co/datasets/XINLI1997/WirelessMATHBench-XL/resolve/main/data/public_subset_results.csv",
+      "encodingFormat": "text/csv",
+      "sha256": "83083c8e0a036c6b4de40a9321899c96924c15829f64b395bc9ded217334e4f8",
+      "contentSize": "989 B"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "excluded-records-manifest",
+      "name": "excluded_records_manifest.csv",
+      "description": "2,485 withheld records by identifier only (no problem text).",
+      "contentUrl": "https://huggingface.co/datasets/XINLI1997/WirelessMATHBench-XL/resolve/main/data/excluded_records_manifest.csv",
+      "encodingFormat": "text/csv",
+      "sha256": "6220af13c6487da2d1894c30791e403696102c1cc636ac2cfb323dab4822913d",
+      "contentSize": "294256 B"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "source-paper-licenses",
+      "name": "source_paper_licenses.csv",
+      "description": "License of each of the 836 source papers.",
+      "contentUrl": "https://huggingface.co/datasets/XINLI1997/WirelessMATHBench-XL/resolve/main/data/source_paper_licenses.csv",
+      "encodingFormat": "text/csv",
+      "sha256": "5e8684926491a0b1d615d4a20b02f291c9e0dcc12cbf7a51d07f25cd2377b17f",
+      "contentSize": "75321 B"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "contamination-metadata",
+      "name": "contamination_metadata.jsonl",
+      "description": "Per-problem audit metadata for all 4,027 problems; matched n-grams omitted for withheld records.",
+      "contentUrl": "https://huggingface.co/datasets/XINLI1997/WirelessMATHBench-XL/resolve/main/data/contamination_metadata.jsonl",
+      "encodingFormat": "application/jsonlines",
+      "sha256": "eb2744e79ffeba163e2fc059e08c9aadfe824fe06c89b69ceedd85f8cffd429e",
+      "contentSize": "482330 B"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "contamination-flags",
+      "name": "contamination_flags_v11.csv",
+      "description": "Per-problem audit flags for all 4,027 problems.",
+      "contentUrl": "https://huggingface.co/datasets/XINLI1997/WirelessMATHBench-XL/resolve/main/data/contamination_flags_v11.csv",
+      "encodingFormat": "text/csv",
+      "sha256": "e9cf73d029faca7dce2fd7e0c6e83da9e8cebfc2660b61f5e10cca2e2b2ac1f1",
+      "contentSize": "118374 B"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "s0-membership-by-n",
+      "name": "s0_membership_by_n.csv",
+      "description": "S0 membership of the 800 test problems for n in {8,10,12,13,15}.",
+      "contentUrl": "https://huggingface.co/datasets/XINLI1997/WirelessMATHBench-XL/resolve/main/data/s0_membership_by_n.csv",
+      "encodingFormat": "text/csv",
+      "sha256": "eb147d6bc1a4ad0a35520e1b0fcad045f946cb16b9164ee7ff63d097a096009c",
+      "contentSize": "25976 B"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "paper-disjoint-split-seed0",
+      "name": "paper_disjoint_split_seed0.csv",
+      "description": "Source-paper-disjoint split assignment (seed 0).",
+      "contentUrl": "https://huggingface.co/datasets/XINLI1997/WirelessMATHBench-XL/resolve/main/data/paper_disjoint_split_seed0.csv",
+      "encodingFormat": "text/csv",
+      "sha256": "7b88f702a79d3511a5ec6f11400dd1d44c92ae06ef82b2cc44ea22886b3ad05a",
+      "contentSize": "175157 B"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "paper-disjoint-test",
+      "name": "paper_disjoint_test.csv",
+      "description": "Identifiers of the paper-disjoint test view.",
+      "contentUrl": "https://huggingface.co/datasets/XINLI1997/WirelessMATHBench-XL/resolve/main/data/paper_disjoint_test.csv",
+      "encodingFormat": "text/csv",
+      "sha256": "b7b650c975af259c6b6a35cf35522bc497c82e352ef52854b61392240a1aa72e",
+      "contentSize": "1028 B"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "frontier-multin-delta",
+      "name": "frontier_multin_delta.csv",
+      "description": "Full-vs-S0 deltas across n-gram thresholds.",
+      "contentUrl": "https://huggingface.co/datasets/XINLI1997/WirelessMATHBench-XL/resolve/main/data/frontier_multin_delta.csv",
+      "encodingFormat": "text/csv",
+      "sha256": "0f70d295498d75fd9ff4fbae13cc78b62fb75588b5685f0feda2b5ff5ad6c6d9",
+      "contentSize": "3925 B"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "answer-surface-n13-delta",
+      "name": "answer_surface_n13_delta.csv",
+      "description": "Answer-surface 13-gram check.",
+      "contentUrl": "https://huggingface.co/datasets/XINLI1997/WirelessMATHBench-XL/resolve/main/data/answer_surface_n13_delta.csv",
+      "encodingFormat": "text/csv",
+      "sha256": "22d8f2c7ed4b2e0d4730e0ad265d896a2a74a1a56c40ea0398f2810f84e74fdf",
+      "contentSize": "815 B"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "exact-format-lower-bound",
+      "name": "exact_format_lower_bound.csv",
+      "description": "Exact-format lower-bound scorer deltas.",
+      "contentUrl": "https://huggingface.co/datasets/XINLI1997/WirelessMATHBench-XL/resolve/main/data/exact_format_lower_bound.csv",
+      "encodingFormat": "text/csv",
+      "sha256": "c136a0bc463a36a7756d9696680c0c0a4ec673859ffe44b905c2215d2c0c13c9",
+      "contentSize": "694 B"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "external-audit-wmb-v1",
+      "name": "wmb_v1_587_redpajama_arxiv.jsonl",
+      "description": "Audit output on the 587-item WirelessMathBench predecessor.",
+      "contentUrl": "https://huggingface.co/datasets/XINLI1997/WirelessMATHBench-XL/resolve/main/data/external-audits/wmb_v1_587_redpajama_arxiv.jsonl",
+      "encodingFormat": "application/jsonlines",
+      "sha256": "c6bee931b7e2ec978e049580740b6d27b82e95ddd59f70b64f6262c61b3cce5e",
+      "contentSize": "220972 B"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "external-audit-math500",
+      "name": "math500_redpajama_arxiv.jsonl",
+      "description": "Audit output on MATH-500.",
+      "contentUrl": "https://huggingface.co/datasets/XINLI1997/WirelessMATHBench-XL/resolve/main/data/external-audits/math500_redpajama_arxiv.jsonl",
+      "encodingFormat": "application/jsonlines",
+      "sha256": "b4ce80de6aff3d4f60726964518265c3aaf3efea46cb8f49bf5cb2c001be7d35",
+      "contentSize": "192212 B"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "license-file",
+      "name": "LICENSE",
+      "description": "Per-file data licenses and MIT code license.",
+      "contentUrl": "https://huggingface.co/datasets/XINLI1997/WirelessMATHBench-XL/resolve/main/LICENSE",
+      "encodingFormat": "text/plain",
+      "sha256": "f9361c054851fba2e70bdf59c69cf07bd22e5a0e7468644e6319f26b22894dab",
+      "contentSize": "3214 B"
+    },
+    {
+      "@type": "cr:FileSet",
+      "@id": "problems-files",
+      "name": "problems-files",
+      "description": "All distributed problem records.",
+      "containedIn": [
+        {
+          "@id": "problems-cc-by"
+        },
+        {
+          "@id": "problems-cc-by-sa"
+        },
+        {
+          "@id": "problems-cc-by-nc-sa"
+        }
+      ],
+      "encodingFormat": "application/jsonlines",
+      "includes": "data/problems_*.jsonl"
+    }
+  ],
+  "recordSet": [
+    {
+      "@type": "cr:RecordSet",
+      "@id": "problems",
+      "name": "problems",
+      "description": "One record per benchmark problem in the full corpus.",
+      "key": {
+        "@id": "problems/problem_id"
+      },
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "problems/problem_id",
+          "name": "problem_id",
+          "description": "Unique problem identifier.",
+          "dataType": "sc:Text",
+          "source": {
+            "extract": {
+              "column": "problem_id"
+            },
+            "fileSet": {
+              "@id": "problems-files"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "problems/paper_id",
+          "name": "paper_id",
+          "description": "Source arXiv identifier and clustering key. The v1.0 release split is not source-paper-disjoint, so problems from one paper can appear in both train and test.",
+          "dataType": "sc:Text",
+          "source": {
+            "extract": {
+              "column": "paper_id"
+            },
+            "fileSet": {
+              "@id": "problems-files"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "problems/paper_title",
+          "name": "paper_title",
+          "description": "Placeholder string ('Paper <paper_id>'); source-paper titles are not included. Join by paper_id.",
+          "dataType": "sc:Text",
+          "source": {
+            "extract": {
+              "column": "paper_title"
+            },
+            "fileSet": {
+              "@id": "problems-files"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "problems/type",
+          "name": "type",
+          "description": "Task format. Values include multiple-choice, fill-in-the-blank at 25/50/75/100 percent masking, and full-equation completion variants as emitted by the construction pipeline.",
+          "dataType": "sc:Text",
+          "source": {
+            "extract": {
+              "column": "type"
+            },
+            "fileSet": {
+              "@id": "problems-files"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "problems/split",
+          "name": "split",
+          "description": "Problem-level release partition: train or test.",
+          "dataType": "sc:Text",
+          "source": {
+            "extract": {
+              "column": "split"
+            },
+            "fileSet": {
+              "@id": "problems-files"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "problems/background",
+          "name": "background",
+          "description": "Wireless-system context, variable definitions, units, dimensions, and assumptions supplied to the solver.",
+          "dataType": "sc:Text",
+          "source": {
+            "extract": {
+              "column": "background"
+            },
+            "fileSet": {
+              "@id": "problems-files"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "problems/question_text",
+          "name": "question_text",
+          "description": "Natural-language query for the problem.",
+          "dataType": "sc:Text",
+          "source": {
+            "extract": {
+              "column": "question_text"
+            },
+            "fileSet": {
+              "@id": "problems-files"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "problems/equation",
+          "name": "equation",
+          "description": "Equation scaffold or target expression shown to the model when applicable. Some natural-language MCQ/FEC items leave this field empty and place all necessary content in background/question_text.",
+          "dataType": "sc:Text",
+          "source": {
+            "extract": {
+              "column": "equation"
+            },
+            "fileSet": {
+              "@id": "problems-files"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "problems/option_A",
+          "name": "option_A",
+          "description": "Multiple-choice option A when present; null for non-MCQ records.",
+          "dataType": "sc:Text",
+          "source": {
+            "extract": {
+              "column": "options"
+            },
+            "transform": {
+              "jsonPath": "$.A"
+            },
+            "fileSet": {
+              "@id": "problems-files"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "problems/option_B",
+          "name": "option_B",
+          "description": "Multiple-choice option B when present; null for non-MCQ records.",
+          "dataType": "sc:Text",
+          "source": {
+            "extract": {
+              "column": "options"
+            },
+            "transform": {
+              "jsonPath": "$.B"
+            },
+            "fileSet": {
+              "@id": "problems-files"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "problems/option_C",
+          "name": "option_C",
+          "description": "Multiple-choice option C when present; null for non-MCQ records.",
+          "dataType": "sc:Text",
+          "source": {
+            "extract": {
+              "column": "options"
+            },
+            "transform": {
+              "jsonPath": "$.C"
+            },
+            "fileSet": {
+              "@id": "problems-files"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "problems/option_D",
+          "name": "option_D",
+          "description": "Multiple-choice option D when present; null for non-MCQ records.",
+          "dataType": "sc:Text",
+          "source": {
+            "extract": {
+              "column": "options"
+            },
+            "transform": {
+              "jsonPath": "$.D"
+            },
+            "fileSet": {
+              "@id": "problems-files"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "problems/correct_answer",
+          "name": "correct_answer",
+          "description": "Verifiable ground-truth answer. MCQ records use the correct option letter; open-form records use the target expression or boxed LaTeX expression(s).",
+          "dataType": "sc:Text",
+          "source": {
+            "extract": {
+              "column": "correct_answer"
+            },
+            "fileSet": {
+              "@id": "problems-files"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "problems/prompt",
+          "name": "prompt",
+          "description": "Complete evaluation prompt assembled from background, question, equation, and answer-format instruction.",
+          "dataType": "sc:Text",
+          "source": {
+            "extract": {
+              "column": "prompt"
+            },
+            "fileSet": {
+              "@id": "problems-files"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "problems/text",
+          "name": "text",
+          "description": "Compact benchmark text containing the background, question, and equation without the answer-format instruction.",
+          "dataType": "sc:Text",
+          "source": {
+            "extract": {
+              "column": "text"
+            },
+            "fileSet": {
+              "@id": "problems-files"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "problems/source_license",
+          "name": "source_license",
+          "description": "License URI of the source paper.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "problems-files"
+            },
+            "extract": {
+              "column": "source_license"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "problems/source_license_class",
+          "name": "source_license_class",
+          "description": "License class of the source paper.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "problems-files"
+            },
+            "extract": {
+              "column": "source_license_class"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "problems/record_license",
+          "name": "record_license",
+          "description": "License governing this record.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileSet": {
+              "@id": "problems-files"
+            },
+            "extract": {
+              "column": "record_license"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "cr:RecordSet",
+      "@id": "contamination_metadata",
+      "name": "contamination_metadata",
+      "description": "One contamination-audit metadata record per benchmark problem. Join to problems by problem_id.",
+      "key": {
+        "@id": "contamination_metadata/problem_id"
+      },
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "contamination_metadata/problem_id",
+          "name": "problem_id",
+          "description": "Problem identifier matching problems.problem_id.",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "contamination-metadata"
+            },
+            "extract": {
+              "column": "problem_id"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "contamination_metadata/hits_total",
+          "name": "hits_total",
+          "description": "Occurrence count of normalized 13-gram matches between the problem and RedPajama-arXiv.",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "contamination-metadata"
+            },
+            "extract": {
+              "column": "hits_total"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "contamination_metadata/docs_total",
+          "name": "docs_total",
+          "description": "Number of distinct RedPajama-arXiv source documents containing at least one normalized 13-gram match. S0 is docs_total == 0; S1 is docs_total <= 2.",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "contamination-metadata"
+            },
+            "extract": {
+              "column": "docs_total"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "contamination_metadata/matched_ngrams_capped",
+          "name": "matched_ngrams_capped",
+          "description": "Up to five example matched 13-grams retained for spot inspection.",
+          "dataType": "sc:Text",
+          "repeated": true,
+          "source": {
+            "fileObject": {
+              "@id": "contamination-metadata"
+            },
+            "extract": {
+              "column": "matched_ngrams_capped"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "contamination_metadata/in_S0",
+          "name": "in_S0",
+          "description": "True iff docs_total == 0. The full corpus contains 3,853 S0 problems; the test split contains 770 S0 problems.",
+          "dataType": "sc:Boolean",
+          "source": {
+            "fileObject": {
+              "@id": "contamination-metadata"
+            },
+            "extract": {
+              "column": "in_S0"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "contamination_metadata/in_S1",
+          "name": "in_S1",
+          "description": "True iff docs_total <= 2. The full corpus contains 3,985 S1 problems; the test split contains 792 S1 problems.",
+          "dataType": "sc:Boolean",
+          "source": {
+            "fileObject": {
+              "@id": "contamination-metadata"
+            },
+            "extract": {
+              "column": "in_S1"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "rai:dataCollection": "Source papers were collected from arXiv categories covering wireless communications, signal processing, information theory, machine learning, and adjacent areas. A deterministic relevance filter over about 47,000 candidate papers was followed by GPT-4o verification for substantial mathematical content. A 970-paper source pool spanning July 2005 through August 2025 was selected for extraction, and 836 retained papers contribute accepted problems after extraction and QA. Source-paper text is not redistributed. Derived problem records are distributed only when the source-paper license clearly permits it (CC BY/CC0, CC BY-SA, CC BY-NC-SA; each file carries the matching license); records from arXiv-default, CC BY-NC-ND, or unlabeled sources are withheld. Identifier-level audit metadata covers all 4,027 problems under CC BY 4.0; code is under MIT.",
+  "rai:dataAnnotationProtocol": "Problem construction uses DeepSeek-R1 extraction from paper LaTeX followed by a two-tier QA process. Tier 1 applies a GPT-4o rubric over six dimensions: question clarity, background relevance, answer accuracy, technical appropriateness, mathematical rigor, and wireless relevance. Tier 2 uses expert screening and revision by five PhD-student or postdoctoral wireless-domain specialists. The recovered screening archive covers all 4,027 released problem ids and gives a historical acceptance rate of 77.4 percent, rounded to 78 percent; retrospective agreement is reported as a diagnostic rather than a high-reliability label claim.",
+  "rai:hasSyntheticData": true,
+  "rai:dataPreprocessingProtocol": "The contamination audit lower-cases text, strips LaTeX command tokens and braces, collapses whitespace, extracts normalized 13-grams from the released prompt surface (background, question text, and masked equation when present), hashes them with xxhash64, and reverse-probes RedPajama-arXiv with an O(number of problem n-grams) in-memory index. S0 and S1 are defined by doc-unique RedPajama-arXiv overlap: S0 if docs_total == 0 and S1 if docs_total <= 2. The released S0_test_public and S1_test_public files materialize these evaluation subsets for the 310-item public test subset. The paper_disjoint_test files materialize the small v1.0 source-paper-disjoint diagnostic view; paper_disjoint_split_seed0.csv provides a full grouped split assignment for future paper-disjoint retraining/evaluation; exact_format_lower_bound.csv reports a no-LLM exact-format smoke check. OpenWebMath and algebraic-stack are reported as aggregate corroboration/negative-control runs in the paper, not as release-defining S0/S1 metadata.",
+  "rai:dataReleaseMaintenancePlan": "The dataset, dataset card, and Croissant metadata are hosted on the Hugging Face Hub (XINLI1997/WirelessMATHBench-XL); code is hosted on GitHub (LiXin97/WirelessMathBench-XL); the project page is https://lixin.ai/WirelessMathBench-XL. The superseded v1.0 release remains accessible as a tagged revision for provenance. Versioning follows semantic versioning: annotation additions use MINOR releases, corrections use PATCH releases, and any MAJOR release re-runs the contamination audit against newly accessible public pretraining slices. Withheld records may be added in a later release only if permission or legal review clears redistribution.",
+  "rai:personalSensitiveInformation": "None. The dataset is derived from public arXiv papers and contains mathematical problem statements, source-paper identifiers, and audit metadata, not personal, confidential, or human-subject records.",
+  "rai:dataUseCases": "Supported uses include fixed-channel lexical-overlap sensitivity evaluation of mathematical reasoning in wireless communications, training and ablation studies for domain-specific reasoning models, verifier and reward-design research, and methodological reuse of the reverse-probe audit pipeline in adjacent technical domains.",
+  "rai:dataLimitation": "The benchmark measures equation-level implicit-constraint reasoning, not wireless-system deployment readiness. Source coverage is relevance-filtered rather than exhaustive and is skewed toward recent 5G-Advanced/6G arXiv literature. The v1.0 release split is problem-level rather than source-paper-disjoint; users requiring paper-disjoint generalization estimates should rebuild splits by grouping on paper_id. The v1.0 corpus is wireless-centered rather than strictly physical-layer-only: a small number of adjacent networked-systems, signal-processing, and edge-computing records passed the relevance and QA filters. RedPajama-arXiv is the headline audited pretraining slice; OpenWebMath is used as off-domain corroboration, and algebraic-stack as a negative control, but closed or proprietary model pretraining mixtures cannot be audited directly.",
+  "rai:dataLimitations": "The benchmark measures equation-level implicit-constraint reasoning, not wireless-system deployment readiness. Source coverage is relevance-filtered rather than exhaustive and is skewed toward recent 5G-Advanced/6G arXiv literature. The v1.0 release split is problem-level rather than source-paper-disjoint; users requiring paper-disjoint generalization estimates should rebuild splits by grouping on paper_id. The v1.0 corpus is wireless-centered rather than strictly physical-layer-only. RedPajama-arXiv is the headline audited pretraining slice, but closed or proprietary model pretraining mixtures cannot be audited directly.",
+  "rai:dataBiases": "Domain coverage follows arXiv activity and therefore over-represents active recent subfields such as deep-learning-based wireless optimization, RIS/IRS, MIMO, and 6G-era physical-layer work relative to older or non-arXiv engineering literatures. The language of source papers and released prompts is English.",
+  "rai:dataRiskTypes": "Misuse risks include over-interpreting benchmark accuracy as deployment readiness, using the dataset as a proxy for broader scientific reasoning, or treating n-gram overlap as direct proof of memorization. The released documentation separates fixed-channel filtered-view accuracy from raw accuracy and states that overlap is a proxy requiring interpretive caution.",
+  "rai:dataSocialImpact": "The dataset can improve transparency in domain-specific mathematical-reasoning evaluation by releasing both benchmark instances and fixed-channel overlap metadata. It also provides a reusable template for auditable benchmark construction in technical domains where public pretraining overlap can otherwise affect reported model capability.",
+  "prov:wasDerivedFrom": "Public arXiv source papers identified by the per-record paper_id field, plus public pretraining-slice references used only for overlap auditing (RedPajama-arXiv as the release-defining slice, OpenWebMath as off-domain corroboration, algebraic-stack as a negative control). Source-paper text and pretraining-corpus text are not redistributed.",
+  "prov:wasGeneratedBy": "Deterministic relevance filtering, GPT-4o source-paper verification and Tier-1 rubric scoring, DeepSeek-R1 problem extraction from arXiv LaTeX, Tier-2 expert validation, and reverse-probe 13-gram contamination auditing."
+}
