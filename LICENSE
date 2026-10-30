@@ -34,7 +34,7 @@ license_class); it contains no problem text.
 Identifier-level metadata (contamination_flags_v11.csv,
 contamination_metadata.jsonl, s0_membership_by_n.csv, s0_membership_all_n.csv,
 paper_disjoint_split_seed0.csv, source_paper_licenses.csv, evaluation result
-CSVs) contains no source-derived prose and is licensed under CC BY 4.0.
+CSVs, per-item verdict files) contains no source-derived prose and is licensed under CC BY 4.0.
 Matched n-gram strings are omitted for withheld records.
 
 Source-paper text is not redistributed and remains governed by the terms chosen

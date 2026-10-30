@@ -1,0 +1,6 @@
+model,n_total,n_truncated,trunc_rate
+openai/gpt-5-mini,800,0,0.0000
+openai/gpt-5.2-chat,800,0,0.0000
+openai/gpt-4.1-mini,800,0,0.0000
+google/gemini-2.5-pro,800,27,0.0338
+google/gemini-2.5-flash,800,22,0.0275

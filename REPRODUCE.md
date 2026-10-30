@@ -28,6 +28,11 @@ wc -l data/problems_cc_by.jsonl \
       data/s0_membership_by_n.csv \
       data/s0_membership_all_n.csv \
       data/public_subset_results.csv \
+      data/per_model_results.csv \
+      data/paired_bootstrap_matrix.csv \
+      data/truncation_16k.csv \
+      data/verdicts/locked_2k.jsonl \
+      data/verdicts/frontier_16k.jsonl \
       data/frontier_multin_delta.csv \
       data/answer_surface_n13_delta.csv \
       data/paper_disjoint_test.csv \
@@ -52,6 +57,11 @@ Expected line counts:
   801 data/s0_membership_by_n.csv
 20136 data/s0_membership_all_n.csv
    20 data/public_subset_results.csv
+   24 data/per_model_results.csv
+  154 data/paired_bootstrap_matrix.csv
+    6 data/truncation_16k.csv
+14400 data/verdicts/locked_2k.jsonl
+ 4000 data/verdicts/frontier_16k.jsonl
    26 data/frontier_multin_delta.csv
     6 data/answer_surface_n13_delta.csv
    35 data/paper_disjoint_test.csv
@@ -83,14 +93,37 @@ python scripts/contamination_audit.py \
 The release-defining full run reported in the paper scanned RedPajama-arXiv and
 materialized per-problem metadata in
 `data/contamination_metadata.jsonl`.
-The threshold-sensitivity CSVs can be regenerated from archived verdicts and
+The threshold-sensitivity CSV can be regenerated from the released verdicts and
 test-split audit labels with `scripts/frontier_multin_delta.py`.
 The source-paper-disjoint diagnostic view can be regenerated with
 `scripts/materialize_paper_disjoint_view.py`. The full seed-0 clustered split
 assignment can be regenerated with `scripts/build_paper_disjoint_split.py`; the
 no-LLM exact-format
-lower-bound smoke check can be regenerated with
-`scripts/exact_format_lower_bound.py` from archived model responses.
+lower-bound check needs archived model responses, which are not released
+because they quote problem text, so `scripts/exact_format_lower_bound.py` cannot
+be rerun from the public files.
+
+## Rebuilding the Result Tables
+
+These commands use public files only and make no model calls:
+
+```bash
+python scripts/count_release_stats.py          # split, paper, S0/S1, sweep, license counts
+python scripts/build_result_tables.py          # per-model results and the 153-pair matrix
+python scripts/public_subset_results.py        # 310-item public subset results
+python scripts/frontier_multin_delta.py \
+  --verdict-jsonl data/verdicts/frontier_16k.jsonl \
+  --membership-csv data/s0_membership_by_n.csv --out-dir derived/frontier-multin-delta
+python scripts/paper_disjoint_bootstrap.py --combined data/verdicts/locked_2k.jsonl \
+  --disjoint data/paper_disjoint_test.csv --out derived/paper_disjoint.csv
+```
+
+Each script uses seed 0 and 10,000 resamples by default.
+`build_result_tables.py` and `public_subset_results.py` regenerate the released
+files byte for byte. The verdicts record the production
+verifier's decisions; rerunning the verifier itself needs model responses and
+judge calls. `data/truncation_16k.csv` is archived run metadata and is not
+derived from the verdicts.
 
 ## Public Test Subset and the Full Test Split
 

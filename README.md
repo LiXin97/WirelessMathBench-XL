@@ -90,6 +90,8 @@ learnability checks, not evidence of general reasoning.
 | `scripts/contamination_audit.py` | Reverse-probe n-gram audit: index benchmark prompts, stream a corpus, record per-problem hits |
 | `scripts/frontier_multin_delta.py` | Full-vs-S0 deltas across n-gram thresholds |
 | `scripts/paired_bootstrap.py`, `scripts/per_model_delta_bootstrap.py`, `scripts/paper_disjoint_bootstrap.py` | Paired problem-level bootstrap intervals |
+| `scripts/build_result_tables.py`, `scripts/public_subset_results.py` | Rebuild the per-model, pairwise, and public-subset tables from released verdicts |
+| `scripts/count_release_stats.py` | Recount the release statistics from public files |
 | `scripts/exact_format_lower_bound.py` | No-LLM exact-format lower-bound scorer |
 | `scripts/build_paper_disjoint_split.py`, `scripts/materialize_paper_disjoint_view.py`, `scripts/compute_paper_disjoint.py` | Source-paper-disjoint split and views |
 | `scripts/fetch_excluded_sources.py` | Summarize withheld records and fetch their arXiv sources for provenance |

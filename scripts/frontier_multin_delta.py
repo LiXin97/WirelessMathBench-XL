@@ -95,6 +95,8 @@ def main() -> None:
     ap.add_argument("--verdict-jsonl", action="append", type=Path, default=[],
                     help="saved model-response JSONL file; repeat for multiple files")
     ap.add_argument("--out-dir", type=Path, default=DEFAULT_OUT_DIR)
+    ap.add_argument("--membership-csv", type=Path, default=None,
+                    help="read S0 labels from data/s0_membership_by_n.csv instead of per-n audit directories")
     ap.add_argument("--audit-dir", type=Path, default=DEFAULT_OUT_DIR,
                     help="directory containing audit-n*/contamination-audit.jsonl files for the test split")
     ap.add_argument("--B", type=int, default=10_000)
@@ -109,7 +111,11 @@ def main() -> None:
     rows: list[dict[str, object]] = []
 
     for n in args.n:
-        flags = load_s0(n, args.audit_dir)
+        if args.membership_csv:
+            with args.membership_csv.open() as fh:
+                flags = {r["problem_id"]: int(r[f"in_S0_n{n}"] == "True") for r in csv.DictReader(fh)}
+        else:
+            flags = load_s0(n, args.audit_dir)
         pids = sorted(flags)
         in_s0 = np.array([flags[p] for p in pids], dtype=np.int8)
         n_s0 = int(in_s0.sum())

@@ -62,11 +62,20 @@ Results:
 - `data/public_subset_results.csv`: accuracy of all 19 evaluated rows on the
   800-item test split and on the 310-item public subset (95% bootstrap CI).
   This is the externally reproducible view.
+- `data/verdicts/locked_2k.jsonl` (18 rows) and `data/verdicts/frontier_16k.jsonl`
+  (5 rows): one line per model and problem with `is_correct` and the public audit
+  flags, for all 800 test items. There is no problem or response text.
+- `data/per_model_results.csv`: full, S0, and S1 accuracy with deltas and 95%
+  bootstrap CIs, per-format accuracy, public-subset accuracy, and the 2k-to-16k
+  gain for each row.
+- `data/paired_bootstrap_matrix.csv`: all 153 pairs of the 18 locked-2k rows.
+- `data/truncation_16k.csv`: truncation rates for the five 16k rows; the 2k runs
+  did not record `finish_reason`.
 - `data/frontier_multin_delta.csv`, `data/answer_surface_n13_delta.csv`,
   `data/exact_format_lower_bound.csv`: audit sensitivity analyses reported in
   the paper (computed by the authors on the full test split). The bootstrap CIs in
   `frontier_multin_delta.csv` come from a separate resampling run from the
-  paper's Table 2, so interval endpoints can differ in the last digit
+  paper's main results table, so interval endpoints can differ in the last digit
   (about 0.01 pp); point estimates are identical.
 - `data/external-audits/`: per-item outputs of the same 13-gram audit applied
   to the 587-item WirelessMathBench predecessor and MATH-500 (portability

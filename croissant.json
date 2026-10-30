@@ -46,7 +46,7 @@
     "https://huggingface.co/datasets/XINLI1997/WirelessMATHBench-XL",
     "https://github.com/LiXin97/WirelessMathBench-XL"
   ],
-  "version": "1.1.0",
+  "version": "1.1.1",
   "datePublished": "2026-05-06",
   "creator": [
     {
@@ -210,8 +210,68 @@
       "description": "Accuracy of 19 evaluated rows on the full 800-item test split and the 310-item public subset.",
       "contentUrl": "https://huggingface.co/datasets/XINLI1997/WirelessMATHBench-XL/resolve/main/data/public_subset_results.csv",
       "encodingFormat": "text/csv",
-      "sha256": "83083c8e0a036c6b4de40a9321899c96924c15829f64b395bc9ded217334e4f8",
-      "contentSize": "989 B"
+      "sha256": "49691cf0504880d84fdc19cd4de8a25fce14fed6fc1802b968a28f23d0d1a33b",
+      "contentSize": "988 B"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "s0-membership-all-n",
+      "name": "s0_membership_all_n.csv",
+      "description": "S0 membership of all 4,027 problems at every tested n-gram length.",
+      "contentUrl": "https://huggingface.co/datasets/XINLI1997/WirelessMATHBench-XL/resolve/main/data/s0_membership_all_n.csv",
+      "encodingFormat": "text/csv",
+      "sha256": "651de69c7575b8da49b544ffa5ca098ee3020c1a73dae45f775c92592d8ad1df",
+      "contentSize": "289322 B"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "per-model-results",
+      "name": "per_model_results.csv",
+      "description": "Per-model full, S0, S1, per-format, and public-subset accuracy with 95% bootstrap CIs.",
+      "contentUrl": "https://huggingface.co/datasets/XINLI1997/WirelessMATHBench-XL/resolve/main/data/per_model_results.csv",
+      "encodingFormat": "text/csv",
+      "sha256": "f1ae105b26497e8150043482942b7e7a4aaf8f4d9a9973546ed33cf4ab2c969a",
+      "contentSize": "3353 B"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "paired-bootstrap-matrix",
+      "name": "paired_bootstrap_matrix.csv",
+      "description": "Paired-bootstrap comparisons for all 153 pairs of the 18 locked-2k rows.",
+      "contentUrl": "https://huggingface.co/datasets/XINLI1997/WirelessMATHBench-XL/resolve/main/data/paired_bootstrap_matrix.csv",
+      "encodingFormat": "text/csv",
+      "sha256": "49f88435c35a6752820257f4683f33c66fec6fba39e5f1d535994c4d3eab3c9e",
+      "contentSize": "18815 B"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "truncation-16k",
+      "name": "truncation_16k.csv",
+      "description": "Truncation rates of the five 16k frontier rows.",
+      "contentUrl": "https://huggingface.co/datasets/XINLI1997/WirelessMATHBench-XL/resolve/main/data/truncation_16k.csv",
+      "encodingFormat": "text/csv",
+      "sha256": "4dd540c0068dcf1c4a9a312617cd8035b320f67166036aee69f61b3afc3e2c26",
+      "contentSize": "214 B"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "verdicts-locked-2k",
+      "name": "locked_2k.jsonl",
+      "description": "Per-item verdicts of the 18 locked-2k rows on the 800-item test split; no problem or response text.",
+      "contentUrl": "https://huggingface.co/datasets/XINLI1997/WirelessMATHBench-XL/resolve/main/data/verdicts/locked_2k.jsonl",
+      "encodingFormat": "application/jsonl",
+      "sha256": "6514e5dc5e4186bedc44477000157516163366997eb5d630827222bfd496b213",
+      "contentSize": "1984412 B"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "verdicts-frontier-16k",
+      "name": "frontier_16k.jsonl",
+      "description": "Per-item verdicts of the five 16k rows on the 800-item test split; no problem or response text.",
+      "contentUrl": "https://huggingface.co/datasets/XINLI1997/WirelessMATHBench-XL/resolve/main/data/verdicts/frontier_16k.jsonl",
+      "encodingFormat": "application/jsonl",
+      "sha256": "43e847bca9ac80a704d496f89dfbb662fd836be2083503e6a0c78be54256c9e5",
+      "contentSize": "548870 B"
     },
     {
       "@type": "cr:FileObject",
