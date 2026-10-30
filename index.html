@@ -451,15 +451,15 @@
         <h3>Where the 4,027 problems come from</h3>
         <p>Papers are filtered for wireless relevance and mathematical content, structured records are extracted from each paper's LaTeX, three verifier-facing formats are generated, and every problem passes a two-tier QA (GPT-4o rubric, then expert validation) before audit metadata is attached.</p>
         <ul class="funnel">
-          <li><b>~47,000</b><span>candidate papers from 24 arXiv categories, July 2005 – August 2025 (deterministic relevance score)</span></li>
-          <li><b>3,186</b><span>with substantial mathematical content (GPT-4o verifier)</span></li>
+          <li><b>Candidates</b><span>from 24 arXiv categories, July 2005 – August 2025 (deterministic relevance score)</span></li>
+          <li><b>GPT-4o</b><span>verifier selects papers with substantial mathematical content</span></li>
           <li><b>970</b><span>paper source pool after ranking on rigour, citation signal and topical diversity</span></li>
           <li><b>836</b><span>retained papers contribute accepted problems</span></li>
           <li><b>4,027</b><span>accepted problems: 4,027 / 5,205 expert-screened candidates (77.4%); problem-level 3,227 / 800 train/test split</span></li>
         </ul>
       </div>
       <figure class="overview-fig">
-        <div class="imgbox"><img src="assets/img/wmbxl-overview.jpg" width="1600" height="678" loading="lazy" alt="Three-panel construction pipeline. Panel 1, Paper Collection: arXiv multi-category crawling, an initial crawl of about 47,000 papers, an LLM relevance filter to 3,186 papers, and manual refinement to a final selection of 970. Panel 2, Formula Extraction with DeepSeek-R1: 10 to 25 formulas per paper turned into MCQ, Fill-in and FEC candidates. Panel 3, Quality Assurance: an automated rubric and five expert reviewers with a quality threshold of 3 out of 5; 78 percent pass and 22 percent fail."></div>
+        <div class="imgbox"><img src="assets/img/wmbxl-overview.jpg" width="1600" height="678" loading="lazy" alt="Three-panel construction pipeline. Panel 1, Paper Collection: arXiv multi-category crawling, an initial crawl, an LLM relevance filter, and manual refinement to a final selection of 970. Panel 2, Formula Extraction with DeepSeek-R1: 10 to 25 formulas per paper turned into MCQ, Fill-in and FEC candidates. Panel 3, Quality Assurance: an automated rubric and five expert reviewers with a quality threshold of 3 out of 5; 78 percent pass and 22 percent fail."></div>
         <figcaption><strong>Figure 1 (paper).</strong> WirelessMathBench-XL construction pipeline. Counts inside the MCQ, Fill-in, and FEC boxes denote pre-QA generated candidates; the final release contains 4,027 accepted problems.</figcaption>
       </figure>
     </div>
@@ -722,7 +722,7 @@
               <g class="hl s3 s6">
                 <g class="f-shade2"><rect x="140" y="322" width="8" height="14" rx="2"/><rect x="150" y="322" width="8" height="14" rx="2"/><rect x="160" y="322" width="8" height="14" rx="2"/><rect x="170" y="322" width="8" height="14" rx="2"/><rect x="180" y="322" width="8" height="14" rx="2"/><rect x="190" y="322" width="8" height="14" rx="2"/><rect x="200" y="322" width="8" height="14" rx="2"/><rect x="210" y="322" width="8" height="14" rx="2"/><rect x="220" y="322" width="8" height="14" rx="2"/><rect x="230" y="322" width="8" height="14" rx="2"/><rect x="240" y="322" width="8" height="14" rx="2"/><rect x="250" y="322" width="8" height="14" rx="2"/><rect x="260" y="322" width="8" height="14" rx="2"/><rect x="270" y="322" width="8" height="14" rx="2"/><rect x="280" y="322" width="8" height="14" rx="2"/><rect x="290" y="322" width="8" height="14" rx="2"/><rect x="300" y="322" width="8" height="14" rx="2"/><rect x="310" y="322" width="8" height="14" rx="2"/><rect x="320" y="322" width="8" height="14" rx="2"/><rect x="330" y="322" width="8" height="14" rx="2"/><rect x="340" y="322" width="8" height="14" rx="2"/><rect x="350" y="322" width="8" height="14" rx="2"/><rect x="360" y="322" width="8" height="14" rx="2"/><rect x="370" y="322" width="8" height="14" rx="2"/><rect x="380" y="322" width="8" height="14" rx="2"/><rect x="390" y="322" width="8" height="14" rx="2"/><rect x="400" y="322" width="8" height="14" rx="2"/><rect x="410" y="322" width="8" height="14" rx="2"/><rect x="420" y="322" width="8" height="14" rx="2"/><rect x="430" y="322" width="8" height="14" rx="2"/><rect x="440" y="322" width="8" height="14" rx="2"/><rect x="450" y="322" width="8" height="14" rx="2"/><rect x="460" y="322" width="8" height="14" rx="2"/><rect x="470" y="322" width="8" height="14" rx="2"/><rect x="480" y="322" width="8" height="14" rx="2"/><rect x="490" y="322" width="8" height="14" rx="2"/><rect x="500" y="322" width="8" height="14" rx="2"/><rect x="510" y="322" width="8" height="14" rx="2"/><rect x="520" y="322" width="8" height="14" rx="2"/></g>
                 <g class="slide h-coral"><rect x="147" y="317" width="132" height="24" rx="6" class="ln-a" stroke-width="2.8"/></g>
-                <text x="140" y="358" font-size="10.5" font-weight="650" class="t-mut">12.9 B 13-grams streamed · ~7 min · &lt;6 GB peak</text>
+                <text x="140" y="358" font-size="10.5" font-weight="650" class="t-mut">12.9 B 13-grams streamed · ~7 min · about 6 GB resident</text>
               </g>
               <g class="hl s4"><circle cx="22" cy="380" r="11" class="f-ai"/><text x="22" y="384" text-anchor="middle" font-size="12" font-weight="800" class="f-bg">3</text><text x="40" y="384" class="t-a t-cap" font-size="12">COUNT PER-PROBLEM HITS</text></g>
               <g class="hl s4">
@@ -791,7 +791,7 @@
             <span class="n"><i>3</i>Stage 2 · stream</span>
             <h3>Stream the big side</h3>
             <p>The reference corpus is streamed file by file in parallel instead of being indexed. The release-defining target is <strong>RedPajama-arXiv</strong>: a 100-shard local snapshot of 1,558,306 records whose latest recorded timestamp is 7 March 2023.</p>
-            <div class="mini-kv"><span>12.9 B 13-grams streamed</span><span>memory O(problems), not O(corpus)</span><span>&lt;6 GB peak · 16 workers · ~7 min</span></div>
+            <div class="mini-kv"><span>12.9 B 13-grams streamed</span><span>memory O(problems), not O(corpus)</span><span>about 6 GB resident · 16 workers · ~7 min</span></div>
           </div>
         </li>
         <li class="step" data-step="4" data-vb="124 374 410 144">
@@ -918,7 +918,7 @@
       </div>
       <div class="caveat">
         <h4><svg class="il h-amber" viewBox="0 0 34 34" aria-hidden="true"><circle cx="17" cy="17" r="16" class="f-as"/><text x="17" y="24" text-anchor="middle" font-size="19" font-weight="800" class="h-coral t-a">†</text></svg>Judges and builders are disclosed</h4>
-        <p style="margin:0">Cross-judge variation of the LLM-judge fallback is 4.6–7.3% absolute (per-model worst case), so smaller gaps are descriptive. DeepSeek-R1 (extraction) and GPT-4o (filtering, rubric scoring) helped build the benchmark; their rows are marked <span class="dagger">†</span> and are descriptive only.</p>
+        <p style="margin:0">All scores come from one GPT-4.1-mini judge. An early cross-judge probe on a two-stage grader measured 3.4–9.3% absolute (per-model worst case); it does not bound these tables. DeepSeek-R1 (extraction) and GPT-4o (filtering, rubric scoring) helped build the benchmark; their rows are marked <span class="dagger">†</span> and are descriptive only.</p>
       </div>
     </div>
   </div>

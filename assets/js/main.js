@@ -137,7 +137,7 @@
         ans = parts.length === 1 ? "<p>Ground truth: $" + esc(parts[0]) + "$</p>" :
           "<p>Ground truth: " + parts.map(function (x, i) { return "$?_{" + (i + 1) + "} = " + esc(x) + "$"; }).join(", ") + "</p>";
         ans += '<div class="eq">' + esc(maskEq(p.equation, parts)) + "</div>" +
-          "<p>Open-form answers are graded by deterministic match, then LaTeX canonicalisation, then a bounded LLM-judge fallback (GPT-4.1-mini) for residual semantic equivalence.</p>";
+          "<p>Every response is graded against its reference answer by a GPT-4.1-mini semantic judge; a rule-based exact-format scorer is a separate lower-bound check.</p>";
       }
       q += '<details class="reveal"><summary>Reveal answer</summary><div class="answer">' + ans + "</div></details>";
       return '<article class="problem ' + f.cls + '" aria-labelledby="' + hid + '" data-id="' + esc(p.id) + '">' +
