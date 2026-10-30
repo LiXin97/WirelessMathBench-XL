@@ -1047,7 +1047,7 @@
 
       <div class="card">
         <h3>Load it</h3>
-        <span class="planned">Planned Hugging Face layout · three license configs</span>
+        <span class="planned">Hugging Face layout · three license configs</span>
         <table class="configs">
           <thead><tr><th scope="col">Config</th><th scope="col">License</th><th scope="col" class="n">Records</th><th scope="col" class="n">In <code>test</code></th></tr></thead>
           <tbody>
@@ -1074,7 +1074,7 @@ item = public[<span class="s">0</span>]
 <span class="f">print</span>(item[<span class="s">"type"</span>], item[<span class="s">"paper_id"</span>])
 <span class="f">print</span>(item[<span class="s">"prompt"</span>])          <span class="c"># what the model sees</span>
 <span class="f">print</span>(item[<span class="s">"correct_answer"</span>])  <span class="c"># verifier-facing truth</span>
-<span class="f">print</span>(item[<span class="s">"contamination"</span>])   <span class="c"># per-problem audit metadata</span></code></pre>
+<span class="f">print</span>(item[<span class="s">"in_S0"</span>], item[<span class="s">"hits_total"</span>])  <span class="c"># per-problem audit metadata</span></code></pre>
           <button type="button" class="copy" data-copy="snippet">Copy</button>
         </div>
         <h3 style="margin-top:22px">In the release</h3>
@@ -1083,10 +1083,10 @@ item = public[<span class="s">0</span>]
           <li><code>excluded_records_manifest.csv</code><span>2,485 withheld records, identifiers only</span></li>
           <li><code>public_test_ids.json</code><span>the 310-item public test subset</span></li>
           <li><code>contamination_metadata.jsonl</code><span>hit counts and S<sub>0</sub>/S<sub>1</sub> flags for all 4,027</span></li>
-          <li><code>s0_membership_by_n.csv</code><span>S<sub>0</sub> membership for each tested <span class="no-math">n</span></span></li>
+          <li><code>s0_membership_by_n.csv</code><span>S<sub>0</sub> membership for each tested <span class="no-math">n</span> (800 test problems)</span></li>
           <li><code>paper_disjoint_test</code><span>34-item source-paper-disjoint sensitivity view (+ seed-0 grouped 3,222 / 805 split)</span></li>
         </ul>
-        <p class="fine" style="margin-top:12px">Also: evaluation traces, paired-bootstrap scripts, GRPO training recipes, Croissant metadata, and a Datasheet for Datasets. File names follow the release data folder.</p>
+        <p class="fine" style="margin-top:12px">Also: the audit and paired-bootstrap scripts, Croissant metadata, and a Datasheet for Datasets (Appendix G of the paper). File names follow the release data folder.</p>
       </div>
     </div>
 
