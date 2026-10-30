@@ -62,7 +62,9 @@ Expected:
 
 **Data:** [🤗 XINLI1997/WirelessMATHBench-XL](https://huggingface.co/datasets/XINLI1997/WirelessMATHBench-XL). The data
 files, evaluation cuts, withheld-record metadata, reproducibility boundary, split and contamination notes, task formats
-and provenance are described in [docs/DATA.md](docs/DATA.md).
+and provenance are described in [docs/DATA.md](docs/DATA.md). The Datasheet for Datasets is Appendix G of the
+paper ([arXiv:2509.23219](https://arxiv.org/abs/2509.23219)); `croissant.json` carries the Croissant metadata with
+its Responsible-AI fields.
 
 **Models**, all in the
 [model collection](https://huggingface.co/collections/XINLI1997/wirelessmathbench-xl-6aba22d1122ef418c33dd34c).
@@ -92,7 +94,8 @@ learnability checks, not evidence of general reasoning.
 | `scripts/build_paper_disjoint_split.py`, `scripts/materialize_paper_disjoint_view.py`, `scripts/compute_paper_disjoint.py` | Source-paper-disjoint split and views |
 | `scripts/fetch_excluded_sources.py` | Summarize withheld records and fetch their arXiv sources for provenance |
 
-See `REPRODUCE.md` for integrity checks and commands.
+See `REPRODUCE.md` for integrity checks and commands. Release history is in `CHANGELOG.md`, how to report
+an error is in `CONTRIBUTING.md`, and models and papers that use the benchmark are listed in `PAPERS_USING.md`.
 
 ## Citation
 

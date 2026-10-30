@@ -37,7 +37,17 @@ text):
   papers (harvested from arXiv OAI-PMH).
 - `data/contamination_metadata.jsonl`, `data/contamination_flags_v11.csv`:
   per-problem audit metadata. Matched n-gram strings are omitted for withheld
-  records.
+  records. Besides `in_S0`, `contamination_flags_v11.csv` carries three
+  exploratory flags from the review discussion; no result in the paper uses
+  them. All three are set only on the 174 flagged (non-S0) problems:
+  `pre_snapshot_flag` (58) marks a source paper dated before the
+  RedPajama-arXiv snapshot (March 2023), the only flags that can reflect the
+  problem's own source text; `cloze_reproducible` (33) marks a problem for
+  which at least one of the five frontier models, asked at T=0 to continue
+  the problem text from its midpoint, reproduced an exact 13-gram of the true
+  continuation; `memorization_signature` (18) is the intersection of the two.
+  The last flag names a post-hoc stratum; it is not evidence that a model
+  memorised the problem.
 - `data/s0_membership_by_n.csv`: S0 membership of the 800 test problems under
   n in {8, 10, 12, 13, 15}.
 - `data/paper_disjoint_split_seed0.csv`, `data/paper_disjoint_test.csv`:
