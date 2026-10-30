@@ -126,6 +126,15 @@
   "distribution": [
     {
       "@type": "cr:FileObject",
+      "@id": "repo",
+      "name": "repo",
+      "description": "The Hugging Face git repository.",
+      "contentUrl": "https://huggingface.co/datasets/XINLI1997/WirelessMATHBench-XL",
+      "encodingFormat": "git+https",
+      "sha256": "main"
+    },
+    {
+      "@type": "cr:FileObject",
       "@id": "problems-cc-by",
       "name": "problems_cc_by.jsonl",
       "description": "1,334 records derived from CC BY / CC0 sources; CC BY 4.0.",
@@ -339,17 +348,9 @@
       "@id": "problems-files",
       "name": "problems-files",
       "description": "All distributed problem records.",
-      "containedIn": [
-        {
-          "@id": "problems-cc-by"
-        },
-        {
-          "@id": "problems-cc-by-sa"
-        },
-        {
-          "@id": "problems-cc-by-nc-sa"
-        }
-      ],
+      "containedIn": {
+        "@id": "repo"
+      },
       "encodingFormat": "application/jsonlines",
       "includes": "data/problems_*.jsonl"
     }
@@ -755,7 +756,7 @@
   "rai:dataAnnotationProtocol": "Problem construction uses DeepSeek-R1 extraction from paper LaTeX followed by a two-tier QA process. Tier 1 applies a GPT-4o rubric over six dimensions: question clarity, background relevance, answer accuracy, technical appropriateness, mathematical rigor, and wireless relevance. Tier 2 uses expert screening and revision by five PhD-student or postdoctoral wireless-domain specialists. The recovered screening archive covers all 4,027 released problem ids and gives a historical acceptance rate of 77.4 percent, rounded to 78 percent; retrospective agreement is reported as a diagnostic rather than a high-reliability label claim.",
   "rai:hasSyntheticData": true,
   "rai:dataPreprocessingProtocol": "The contamination audit lower-cases text, strips LaTeX command tokens and braces, collapses whitespace, extracts normalized 13-grams from the released prompt surface (background, question text, and masked equation when present), hashes them with xxhash64, and reverse-probes RedPajama-arXiv with an O(number of problem n-grams) in-memory index. S0 and S1 are defined by doc-unique RedPajama-arXiv overlap: S0 if docs_total == 0 and S1 if docs_total <= 2. The released S0_test_public and S1_test_public files materialize these evaluation subsets for the 310-item public test subset. The paper_disjoint_test files materialize the small v1.0 source-paper-disjoint diagnostic view; paper_disjoint_split_seed0.csv provides a full grouped split assignment for future paper-disjoint retraining/evaluation; exact_format_lower_bound.csv reports a no-LLM exact-format smoke check. OpenWebMath and algebraic-stack are reported as aggregate corroboration/negative-control runs in the paper, not as release-defining S0/S1 metadata.",
-  "rai:dataReleaseMaintenancePlan": "The dataset, dataset card, and Croissant metadata are hosted on the Hugging Face Hub (XINLI1997/WirelessMATHBench-XL); code is hosted on GitHub (LiXin97/WirelessMathBench-XL); the project page is https://lixin.ai/WirelessMathBench-XL. The superseded v1.0 release remains accessible as a tagged revision for provenance. Versioning follows semantic versioning: annotation additions use MINOR releases, corrections use PATCH releases, and any MAJOR release re-runs the contamination audit against newly accessible public pretraining slices. Withheld records may be added in a later release only if permission or legal review clears redistribution.",
+  "rai:dataReleaseMaintenancePlan": "The dataset, dataset card, and Croissant metadata are hosted on the Hugging Face Hub (XINLI1997/WirelessMATHBench-XL); code is hosted on GitHub (LiXin97/WirelessMathBench-XL); the project page is https://lixin.ai/WirelessMathBench-XL. Releases from v1.1 onward are tagged on the Hub; v1.0 has been withdrawn because it included records whose source licenses do not permit redistribution. Versioning follows semantic versioning: annotation additions use MINOR releases, corrections use PATCH releases, and any MAJOR release re-runs the contamination audit against newly accessible public pretraining slices. Withheld records may be added in a later release only if permission or legal review clears redistribution.",
   "rai:personalSensitiveInformation": "None. The dataset is derived from public arXiv papers and contains mathematical problem statements, source-paper identifiers, and audit metadata, not personal, confidential, or human-subject records.",
   "rai:dataUseCases": "Supported uses include fixed-channel lexical-overlap sensitivity evaluation of mathematical reasoning in wireless communications, training and ablation studies for domain-specific reasoning models, verifier and reward-design research, and methodological reuse of the reverse-probe audit pipeline in adjacent technical domains.",
   "rai:dataLimitation": "The benchmark measures equation-level implicit-constraint reasoning, not wireless-system deployment readiness. Source coverage is relevance-filtered rather than exhaustive and is skewed toward recent 5G-Advanced/6G arXiv literature. The v1.0 release split is problem-level rather than source-paper-disjoint; users requiring paper-disjoint generalization estimates should rebuild splits by grouping on paper_id. The v1.0 corpus is wireless-centered rather than strictly physical-layer-only: a small number of adjacent networked-systems, signal-processing, and edge-computing records passed the relevance and QA filters. RedPajama-arXiv is the headline audited pretraining slice; OpenWebMath is used as off-domain corroboration, and algebraic-stack as a negative control, but closed or proprietary model pretraining mixtures cannot be audited directly.",

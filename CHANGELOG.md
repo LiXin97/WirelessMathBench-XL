@@ -17,8 +17,10 @@ Versions follow MAJOR.MINOR.PATCH (see the Datasheet, Appendix G of the paper).
   exact-format lower bound, and external reruns (WirelessMathBench, MATH-500).
 - Croissant 1.0 metadata with Responsible-AI fields.
 
-## v1.0 — V10_DATE
+## v1.0 — 2025-10-09 (withdrawn)
 
 - First release: 4,027 problems from 836 arXiv papers in three formats
   (MCQ, progressive fill-in at 25/50/75% masking, full equation completion),
   with a problem-level 3,227 / 800 train/test split.
+- Withdrawn with v1.1: 2,485 of its records come from papers whose licenses do
+  not permit redistribution of derived text, so v1.0 is no longer distributed.
