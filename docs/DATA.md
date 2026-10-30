@@ -50,6 +50,10 @@ text):
   memorised the problem.
 - `data/s0_membership_by_n.csv`: S0 membership of the 800 test problems under
   n in {8, 10, 12, 13, 15}.
+- `data/s0_membership_all_n.csv`: S0 membership of all 4,027 problems under
+  each n in {8, 10, 12, 13, 15}, one row per (problem_id, n) with a true/false
+  `in_S0` (20,135 rows). At n = 13 it matches `contamination_metadata.jsonl`;
+  on the test split it matches `s0_membership_by_n.csv`.
 - `data/paper_disjoint_split_seed0.csv`, `data/paper_disjoint_test.csv`:
   source-paper-disjoint split assignments.
 

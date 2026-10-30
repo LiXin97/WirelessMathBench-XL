@@ -28,6 +28,7 @@
 | `data/excluded_records_manifest.csv` | 2486 | `6220af13c6487da2d1894c30791e403696102c1cc636ac2cfb323dab4822913d`, 294,256 bytes |
 | `data/contamination_metadata.jsonl` | 4027 | `eb2744e79ffeba163e2fc059e08c9aadfe824fe06c89b69ceedd85f8cffd429e`, 482,330 bytes |
 | `data/s0_membership_by_n.csv` | 801 | `eb147d6bc1a4ad0a35520e1b0fcad045f946cb16b9164ee7ff63d097a096009c`, 25,976 bytes |
+| `data/s0_membership_all_n.csv` | 20136 | `651de69c7575b8da49b544ffa5ca098ee3020c1a73dae45f775c92592d8ad1df`, 289,322 bytes |
 | `data/public_subset_results.csv` | 20 | `83083c8e0a036c6b4de40a9321899c96924c15829f64b395bc9ded217334e4f8`, 989 bytes |
 | `data/frontier_multin_delta.csv` | 26 | `0f70d295498d75fd9ff4fbae13cc78b62fb75588b5685f0feda2b5ff5ad6c6d9`, 3,925 bytes |
 | `data/answer_surface_n13_delta.csv` | 6 | `22d8f2c7ed4b2e0d4730e0ad265d896a2a74a1a56c40ea0398f2810f84e74fdf`, 815 bytes |

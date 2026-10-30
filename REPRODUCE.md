@@ -26,6 +26,7 @@ wc -l data/problems_cc_by.jsonl \
       data/excluded_records_manifest.csv \
       data/contamination_metadata.jsonl \
       data/s0_membership_by_n.csv \
+      data/s0_membership_all_n.csv \
       data/public_subset_results.csv \
       data/frontier_multin_delta.csv \
       data/answer_surface_n13_delta.csv \
@@ -49,6 +50,7 @@ Expected line counts:
  2486 data/excluded_records_manifest.csv
  4027 data/contamination_metadata.jsonl
   801 data/s0_membership_by_n.csv
+20136 data/s0_membership_all_n.csv
    20 data/public_subset_results.csv
    26 data/frontier_multin_delta.csv
     6 data/answer_surface_n13_delta.csv

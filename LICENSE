@@ -32,7 +32,7 @@ lists them by identifier only (problem_id, paper_id, arxiv_id, split, type,
 license_class); it contains no problem text.
 
 Identifier-level metadata (contamination_flags_v11.csv,
-contamination_metadata.jsonl, s0_membership_by_n.csv,
+contamination_metadata.jsonl, s0_membership_by_n.csv, s0_membership_all_n.csv,
 paper_disjoint_split_seed0.csv, source_paper_licenses.csv, evaluation result
 CSVs) contains no source-derived prose and is licensed under CC BY 4.0.
 Matched n-gram strings are omitted for withheld records.

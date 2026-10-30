@@ -16,6 +16,8 @@ Versions follow MAJOR.MINOR.PATCH (see the Datasheet, Appendix G of the paper).
   S0 membership by n-gram length for the 800-item test split, the answer-surface check at n = 13, the
   exact-format lower bound, and external reruns (WirelessMathBench, MATH-500).
 - Croissant 1.0 metadata with Responsible-AI fields.
+- 2026-10-30: added `data/s0_membership_all_n.csv`, S0 membership of all 4,027
+  problems at every tested n (identifier-level; no record changes).
 
 ## v1.0 — 2025-10-09 (withdrawn)
 
